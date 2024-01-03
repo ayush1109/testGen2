@@ -1,0 +1,37 @@
+click_A on_IN google_AIN button_AIK
+click_A on_IN login_AIN button_AIK
+click_A on_IN signup_AIN button_AIK
+click_A on_IN apply_AIN button_AIK
+click_A on_IN register_AIN button_AIK
+click_A on_IN report_AIN button_AIK
+click_A on_IN transactions_AIN button_AIK
+click_A on_IN at_AIN login_AIK button_AIK
+ click_A on_IN at_AIN signup_AIK button_AIK
+click_A on_IN at_AIN register_AIK button_AIK
+click_A on_IN at_AIN report_AIK button_AIK
+click_A on_IN at_AIN transactions_AIK button_AIK
+click_A on_DT the_AIN login_AIK button_AIK
+click_A on_DT the_AIN signup_AIK button_AIK
+click_A on_DT the_AIN register_AIK button_AIK
+click_A on_DT the_AIN report_AIK button_AIK
+click_A on_DT the_AIN transactions_AIK button_AIK
+click_A on_IN at_AIN login_AIK link_AIK
+click_A on_IN at_AIN signup_AIK link_AIK
+click_A on_IN at_AIN register_AIK link_AIK
+click_A on_IN at_AIN report_AIK link_AIK
+click_A on_IN at_AIN transactions_AIK link_AIK
+click_A on_DT the_AIN login_AIK link_AIK
+click_A on_DT the_AIN signup_AIK link_AIK
+click_A on_DT the_AIN register_AIK link_AIK
+click_A on_DT the_AIN report_AIK link_AIK
+click_A on_DT the_AIN transactions_AIK link_AIK
+click_A on_IN at_AIN login_AIK link_AIK
+click_A on_IN at_AIN signup_AIK link_AIK
+click_A on_IN at_AIN register_AIK link_AIK
+click_A on_IN at_AIN report_AIK link_AIK
+click_A on_IN at_AIN transactions_AIK link_AIK
+click_A on_DT the_AIN login_AIK link_AIK
+click_A on_DT the_AIN signup_AIK link_AIK
+click_A on_DT the_AIN register_AIK link_AIK
+click_A on_DT the_AIN report_AIK link_AIK
+click_A on_DT the_AIN transactions_AIK link_AIK
