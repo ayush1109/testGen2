@@ -1,11 +1,9 @@
-package org.example;//package org.example;//package org.example;
+package com.gemini;//package org.example;//package org.example;
 
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import opennlp.tools.postag.*;
 import opennlp.tools.tokenize.Tokenizer;
@@ -18,46 +16,37 @@ public class CustomPOSTagger {
 
     public static void main(String[] args) {
         try {
+//            Train a custom part-of-speech tagging model
+//            trainModel("src/main/java/org/example/training_data.txt", "custom-pos-model-all.bin");
 
-////            DO NOT DELETE THIS CODE
-//            List<String> sentences = readSentencesFromFile("src/main/java/org/example/training_data_browser.txt");
-//            //  Create a training file
-//            createTrainingFile(sentences, "src/main/java/org/example/training_data-browser.txt");
-//
-////            Train a custom part-of-speech tagging model
-//            trainModel("src/main/java/org/example/training_data_url.txt", "custom-pos-model-url.bin");
-//
 
-            String sampleString = "open into mis";
-            if (sampleString.startsWith("open")) {
-                modelFile = "custom-pos-model-browser.bin";
-            } else if (sampleString.startsWith("click")){
-                modelFile = "custom-pos-model.bin";
-            }
-            else if (sampleString.startsWith("load"))
-            {
-                modelFile="custom-pos-model-url.bin";
-            }
+            String sampleString = "navagite to apply button";
+                modelFile="custom-pos-model-all.bin";
 
             //  Test the model
             testModel(sampleString, modelFile);
 
             List<TokenWithTag> result = testModel(sampleString, modelFile);
-            HashMap<String, String> maps = new HashMap<>();
+            HashMap<String, String> tokenToKeys = new HashMap<>();
             // Display the result
             System.out.println("Token\t:\tTag\t:\tProbability\n---------------------------------------------");
             for (TokenWithTag tokenWithTag : result) {
                 System.out.println(tokenWithTag.token + "\t:\t" + tokenWithTag.tag + "\t:\t" + tokenWithTag.probability);
-                maps.put(tokenWithTag.tag, tokenWithTag.token);
             }
-            String action = maps.get("A");
+
+            tokenToKeys = MapTokenToKeys.map(result);
+
+            System.out.println(GenerateStep.generate(tokenToKeys));
+
+
+            String action = tokenToKeys.get("A");
             switch (action) {
                 case "open":
-                    Actions.initialiseBrowser(maps.get("AIN"));
+                    Actions.initialiseBrowser(tokenToKeys.get("AIN"));
                     break;
 
                 case "load":
-                    Actions.openWebsite(maps.get("AD"));
+                    Actions.openWebsite(tokenToKeys.get("AD"));
                     break;
             }
 
@@ -107,8 +96,8 @@ public class CustomPOSTagger {
 
     private static List<TokenWithTag> testModel(String testSentence, String modelFile) throws IOException {
         List<TokenWithTag> result = new ArrayList<>();
-        try (InputStream tokenModelIn = new FileInputStream("src/main/resources/en-token.bin");
-             InputStream posModelIn = new FileInputStream(modelFile)) {
+        try (InputStream tokenModelIn = new FileInputStream("src/main/resources/trainingmodels/en-token.bin");
+             InputStream posModelIn = new FileInputStream("src/main/resources/models/" + modelFile)) {
 
             TokenizerModel tokenModel = new TokenizerModel(tokenModelIn);
             Tokenizer tokenizer = new TokenizerME(tokenModel);

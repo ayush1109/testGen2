@@ -1,4 +1,4 @@
-package org.example;
+package com.gemini;
 
 public class TokenWithTag {
     String token;
