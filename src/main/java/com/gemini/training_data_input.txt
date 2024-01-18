@@ -1,0 +1,37 @@
+user_MISC enters_A username_AIN ayushgarg_DATA
+user_MISC enters_A reason_AIN leave_DATA
+user_MISC enters_A password_AIN 123@@_DATA
+user_MISC enters_A username_AIN raghav_DATA
+user_MISC enters_A date_AIN 16Jan2024_DATA
+user_MISC enters_A phone_AIN 99999999_DATA
+user_MISC enters_A firstName_AIN ayush_DATA
+user_MISC enters_A lastName_AIN garg_DATA
+
+user_MISC enters_A username_AIN as_IN ayush123_DATA
+user_MISC enters_A reason_AIN as_IN ayush_DATA
+user_MISC enters_A password_AIN as_IN ayush_DATA
+user_MISC enters_A username_AIN as_IN raghav_DATA
+user_MISC enters_A date_AIN as_IN GemGen_DATA
+user_MISC enters_A phone_AIN as_IN 99999999_DATA
+user_MISC enters_A firstName_AIN as_IN ayush_DATA
+user_MISC enters_A lastName_AIN as_IN ayush_DATA
+
+input_A the_DT username_AIN ayush_DATA
+input_A the_DT reason_AIN ayush_DATA
+input_A the_DT password_AIN ayush_DATA
+input_A the_DT phone_AIN ayush_DATA
+input_A the_DT firstName_AIN ayush_DATA
+input_A the_DT lastName_AIN ayush_DATA
+input_A the_DT pincode_AIN ayush_DATA
+input_A the_DT address_AIN ayush_DATA
+input_A the_DT state_AIN ayush_DATA
+
+user_MISC inputs_A the_DT username_AIN ayush_DATA
+user_MISC inputs_A the_DT reason_AIN ayush_DATA
+user_MISC inputs_A the_DT password_AIN ayush_DATA
+user_MISC inputs_A the_DT phone_AIN 99999999_DATA
+user_MISC inputs_A the_DT firstName_AIN ayush_DATA
+user_MISC inputs_A the_DT lastName_AIN ayush_DATA
+user_MISC inputs_A the_DT pincode_AIN ayush_DATA
+user_MISC inputs_A the_DT address_AIN ayush_DATA
+user_MISC inputs_A the_DT state_AIN ayush_DATA

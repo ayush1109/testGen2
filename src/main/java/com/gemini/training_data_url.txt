@@ -1,74 +1,266 @@
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.google.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.yahoo.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-load_A  www.gmail.com_AD url_AIK
-open_A  www.google.com_AD url_AIK
-open_A  www.google.com_AD url_AIK
-open_A  www.google.com_AD url_AIK
-open_A  www.google.com_AD url_AIK
-open_A  www.google.com_AD url_AIK
-open_A  www.google.com_AD url_AIK
-open_A  www.google.com_AD url_AIK
-open_A  www.google.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.yahoo.com_AD url_AIK
-open_A  www.gmail.com_AD url_AIK
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
 
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  gmail_AD
+
+access_A tickertape_AD
+access_A google_AD
+access_A yahhoo_AD
+access_A gmail_AD
+access_A gmail_AD
+access_A tahhoo_AD
+access_A Yahhoo_AD
+access_A teams_AD
+access_A googlechrome_AD
+access_A playstore_AD
+access_A playstore_AD
+access_A tickerTaps_AD
+
+log_A to_DT tickertape_AD
+log_A to_DT google_AD
+log_A to_DT yahhoo_AD
+log_A to_DT gmail_AD
+log_A to_DT gmail_AD
+log_A to_DT tahhoo_AD
+log_A to_DT Yahhoo_AD
+log_A to_DT teams_AD
+log_A to_DT googlechrome_AD
+log_A to_DT playstore_AD
+log_A to_DT playstore_AD
+log_A to_DT tickerTaps_AD
+
+logged_A to_DT tickertape_AD
+logged_A to_DT google_AD
+logged_A to_DT yahhoo_AD
+logged_A to_DT gmail_AD
+logged_A to_DT gmail_AD
+logged_A to_DT tahhoo_AD
+logged_A to_DT Yahhoo_AD
+logged_A to_DT teams_AD
+logged_A to_DT googlechrome_AD
+logged_A to_DT playstore_AD
+logged_A to_DT playstore_AD
+logged_A to_DT tickerTaps_AD
+
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  google_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  yahoo_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+load_A  gmail_AD
+
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  google_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  yahoo_AD
+open_A  gmail_AD
+
+access_A tickertape_AD
+access_A google_AD
+access_A yahhoo_AD
+access_A gmail_AD
+access_A gmail_AD
+access_A tahhoo_AD
+access_A Yahhoo_AD
+access_A teams_AD
+access_A googlechrome_AD
+access_A playstore_AD
+access_A playstore_AD
+access_A tickerTaps_AD
+
+log_A to_DT tickertape_AD
+log_A to_DT google_AD
+log_A to_DT yahhoo_AD
+log_A to_DT gmail_AD
+log_A to_DT gmail_AD
+log_A to_DT tahhoo_AD
+log_A to_DT Yahhoo_AD
+log_A to_DT teams_AD
+log_A to_DT googlechrome_AD
+log_A to_DT playstore_AD
+log_A to_DT playstore_AD
+log_A to_DT tickerTaps_AD
+
+logged_A to_DT tickertape_AD
+logged_A to_DT google_AD
+logged_A to_DT yahhoo_AD
+logged_A to_DT gmail_AD
+logged_A to_DT gmail_AD
+logged_A to_DT tahhoo_AD
+logged_A to_DT Yahhoo_AD
+logged_A to_DT teams_AD
+logged_A to_DT googlechrome_AD
+logged_A to_DT playstore_AD
+logged_A to_DT playstore_AD
+logged_A to_DT tickerTaps_AD
+
+login_A to_DT tickertape_AD
+login_A to_DT google_AD
+login_A to_DT yahhoo_AD
+login_A to_DT gmail_AD
+login_A to_DT gmail_AD
+login_A to_DT tahhoo_AD
+login_A to_DT Yahhoo_AD
+login_A to_DT teams_AD
+login_A to_DT googlechrome_AD
+login_A to_DT playstore_AD
+login_A to_DT playstore_AD
+login_A to_DT tickerTaps_AD
+
+navigate_A to_DT tickertape_AD
+navigate_A to_DT google_AD
+navigate_A to_DT yahhoo_AD
+navigate_A to_DT gmail_AD
+navigate_A to_DT gmail_AD
+navigate_A to_DT tahhoo_AD
+navigate_A to_DT Yahhoo_AD
+navigate_A to_DT teams_AD
+navigate_A to_DT googlechrome_AD
+navigate_A to_DT playstore_AD
+navigate_A to_DT playstore_AD
+navigate_A to_DT tickerTaps_AD
+
+login_A into_IN tickertape_AD
+login_A into_IN google_AD
+login_A into_IN yahhoo_AD
+login_A into_IN gmail_AD
+login_A into_IN gmail_AD
+login_A into_IN tahhoo_AD
+login_A into_IN Yahhoo_AD
+login_A into_IN teams_AD
+login_A into_IN googlechrome_AD
+login_A into_IN playstore_AD
+login_A into_IN playstore_AD
+login_A into_IN tickerTaps_AD

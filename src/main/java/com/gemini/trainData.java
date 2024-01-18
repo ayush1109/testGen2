@@ -9,27 +9,27 @@ public class trainData {
 
         List<String> datass = new ArrayList<>();
 
-        String sentence = arr[0] + "_A ";
-        sentence += arr[1] + "_IN ";
+        String sentence = arr[0] + "_MISC ";
+        sentence += arr[1] + "_A ";
         sentence += arr[2] + "_DT ";
-        sentence += arr[3] + " " + arr[4] + "_AIN ";
-        sentence += arr[5] + "_AIK ";
+        sentence += arr[3] + "_AIN ";
+        sentence += arr[4] + "_DATA ";
 
-        datass.add(sentence.replace("gmail", "gmail"));
-        datass.add(sentence.replace("gmail", "yahoo"));
-        datass.add(sentence.replace("gmail", "apply"));
-        datass.add(sentence.replace("gmail", "login"));
-        datass.add(sentence.replace("gmail", "signup"));
-        datass.add(sentence.replace("gmail", "policy"));
-        datass.add(sentence.replace("gmail", "edit"));
-        datass.add(sentence.replace("gmail", "close"));
-        datass.add(sentence.replace("gmail", "action"));
+        datass.add(sentence.replace("username", "username"));
+        datass.add(sentence.replace("username", "reason"));
+        datass.add(sentence.replace("username", "password"));
+        datass.add(sentence.replace("username", "phone"));
+        datass.add(sentence.replace("username", "firstName"));
+        datass.add(sentence.replace("username", "lastName"));
+        datass.add(sentence.replace("username", "pincode"));
+        datass.add(sentence.replace("username", "address"));
+        datass.add(sentence.replace("username", "state"));
 
         datass.forEach(System.out::println);
 
     }
     public static void main(String[] args) {
-        sss("click on the leave management option");
+        sss("user inputs the username ayush");
 
     }
 }

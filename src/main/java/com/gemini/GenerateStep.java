@@ -6,24 +6,58 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GenerateStep {
-    public static String generate(HashMap<String, String> tokenMap) {
+    public static String generate(HashMap<String, String> tokenMap, String keyword) {
+        try {
+            String step = keyword + " for the <page> page, user <action> on <element> <information>";
 
-        String step = "for the <page> page, user <action> on <element> <information>";
+            for (Map.Entry<String, String> entry : tokenMap.entrySet()) {
 
-        for (Map.Entry<String, String> entry : tokenMap.entrySet()) {
-
-            switch (entry.getKey()) {
-                case "AIK" -> step = step.replaceAll("<information>", entry.getValue());
-                case "A" -> {
-                    switch (tokenMap.get("AIK")) {
-                        case "button" -> step = step.replaceAll("<action>", "clicks");
-                        case "input" -> step = step.replaceAll("<action>", "enters");
-                        case "dropdown", "radio button", "checkbox" -> step = step.replaceAll("<action>", "selects");
+                switch (entry.getKey()) {
+                    case "A" -> {
+                        switch (tokenMap.get("A")) {
+                            case "enter", "input", "type", "enters" -> step = step.replace("<action>", "enters");
+                        }
                     }
+                    case "AIK" -> {
+                            switch (tokenMap.get("AIK")) {
+                                case "button" -> step = step.replace("<action>", "clicks");
+                                case "input" -> step = step.replace("<action>", "enters");
+                                case "dropdown", "radio button", "checkbox" -> step = step.replace("<action>", "selects");
+                            }
+                        step = step.replace("<information>", entry.getValue());
+                    }
+                    case "AIN" -> step = step.replace("<element>", entry.getValue());
+                    default -> step = step.replace("<information>", "element");
                 }
-                case "AIN" -> step = step.replaceAll("<element>", entry.getValue());
             }
+            step = step.replace("<page>", CustomPOSTagger.pageName);
+            return step;
+        } catch (NullPointerException e) {
+            String step = "Given user navigates to <url>";
+
+            for (Map.Entry<String, String> entry : tokenMap.entrySet()) {
+
+                if ("AD".equals(entry.getKey())) {
+                    step = step.replace("<url>", entry.getValue());
+                    CustomPOSTagger.pageName = entry.getValue();
+                }
+            }
+            return step;
         }
-        return step;
     }
+
+    public static String identifyAction( HashMap<String, String> tokenMap) {
+        String action = null;
+        try {
+            switch (tokenMap.get("AIK")) {
+                case "button" -> action = "click";
+                case "input" -> action = "type";
+                case "dropdown", "radio button", "checkbox" -> action = "select";
+            }
+            return action;
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
 }

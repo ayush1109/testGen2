@@ -5,50 +5,95 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import fetcher.DOMFetcher;
+import fetcher.Healer;
+import fetcher.NodeInfo;
+import fetcher.NodeManager;
 import opennlp.tools.postag.*;
 import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.util.*;
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import static fetcher.Utilities.parseTree;
 
 public class CustomPOSTagger {
     static String modelFile = "";
+    static String pageName = "";
 
     public static void main(String[] args) {
         try {
-//            Train a custom part-of-speech tagging model
-//            trainModel("src/main/java/org/example/training_data.txt", "custom-pos-model-all.bin");
+
+            Map<Integer, List<String>> data = ExcelUtilities.readBySheetNumber("C:\\Users\\ayush.garg\\Downloads\\gmail_scenario.xlsx", 0);
+            List<Testcase> testcaseList = ExcelUtilities.getTestCases(data);
+            List<String> steps = List.of("navigate to jewel", "switch to apply button");
+            List<String> stepsGPOG = new ArrayList<>();
+            StringBuilder content = new StringBuilder();
+            content.append("Feature: ").append(testcaseList.get(0).getFeatureName());
+            for (Testcase testcase : testcaseList
+            ) {
+                SeleniumActions.open();
+                ArrayList<HashMap<String, String>> scenarioLocators = new ArrayList<>();
+                content.append("\n\n  Scenario: ").append(testcase.getScenarioName());
+
+                for (String sampleString : testcase.getSteps()
+                ) {
+                    String keyword = testcase.getSteps().indexOf(sampleString) % 2 != 0 ? "Then" : "When";
+                    CreateFeatureFile.create(testcaseList.get(0).getFeatureName(), content);
+                    if (sampleString.startsWith("log") || sampleString.startsWith("launch") || sampleString.startsWith("login") || sampleString.startsWith("navigate"))
+                        modelFile = "custom-pos-model-url.bin";
+                    else if (StringUtils.contains(sampleString, "enter") || StringUtils.contains(sampleString, "input") || StringUtils.contains(sampleString, "type"))
+                        modelFile = "custom-pos-model-input.bin";
+                    else modelFile = "custom-pos-model-all.bin";
+
+                    //  Test the model
+                    testModel(sampleString, modelFile);
+
+                    List<TokenWithTag> result = testModel(sampleString, modelFile);
+                    HashMap<String, String> tokenToKeys;
+                    // Display the result
+                    System.out.println("Token\t:\tTag\t:\tProbability\n---------------------------------------------");
+                    for (TokenWithTag tokenWithTag : result) {
+                        System.out.println(tokenWithTag.token + "\t:\t" + tokenWithTag.tag + "\t:\t" + tokenWithTag.probability);
+                    }
+
+                    tokenToKeys = MapTokenToKeys.map(result);
+
+                    if (keyword.equals("When")) {
+                        String inputData = null;
+                        String action = GenerateStep.identifyAction(tokenToKeys);
+                        if (!StringUtils.equalsIgnoreCase("click", action))
+                            try {
+                                inputData = tokenToKeys.get("DATA");
+                            } catch (NullPointerException ignored) {
+                            }
+//                        By element = findXpath(tokenToKeys.get("AIN"));
+                        SeleniumActions.performAction(tokenToKeys.get("AIN"), action, inputData);
+                    }
 
 
-            String sampleString = "navagite to apply button";
-                modelFile="custom-pos-model-all.bin";
+                    stepsGPOG.add(GenerateStep.generate(tokenToKeys, keyword));
+                    content.append("\n    ").append(GenerateStep.generate(tokenToKeys, keyword));
 
-            //  Test the model
-            testModel(sampleString, modelFile);
 
-            List<TokenWithTag> result = testModel(sampleString, modelFile);
-            HashMap<String, String> tokenToKeys = new HashMap<>();
-            // Display the result
-            System.out.println("Token\t:\tTag\t:\tProbability\n---------------------------------------------");
-            for (TokenWithTag tokenWithTag : result) {
-                System.out.println(tokenWithTag.token + "\t:\t" + tokenWithTag.tag + "\t:\t" + tokenWithTag.probability);
+//
+//                String action = tokenToKeys.get("A");
+//                switch (action) {
+//                    case "open":
+//                        Actions.initialiseBrowser(tokenToKeys.get("AIN"));
+//                        break;
+//
+//                    case "load":
+//                        Actions.openWebsite(tokenToKeys.get("AD"));
+//                        break;
+//                }
+                }
             }
-
-            tokenToKeys = MapTokenToKeys.map(result);
-
-            System.out.println(GenerateStep.generate(tokenToKeys));
-
-
-            String action = tokenToKeys.get("A");
-            switch (action) {
-                case "open":
-                    Actions.initialiseBrowser(tokenToKeys.get("AIN"));
-                    break;
-
-                case "load":
-                    Actions.openWebsite(tokenToKeys.get("AD"));
-                    break;
-            }
+            stepsGPOG.forEach(System.out::println);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,25 +117,6 @@ public class CustomPOSTagger {
                 writer.write(sentence);
                 writer.newLine();
             }
-        }
-    }
-
-    private static void trainModel(String trainingFile, String modelFile) throws IOException {
-        try (InputStream dataIn = new FileInputStream(trainingFile)) {
-            ObjectStream<String> lineStream = new PlainTextByLineStream(new InputStreamFactory() {
-                @Override
-                public InputStream createInputStream() throws IOException {
-                    return dataIn;
-                }
-            }, StandardCharsets.UTF_8);
-
-            ObjectStream<POSSample> sampleStream = new WordTagSampleStream(lineStream);
-
-            TrainingParameters params = TrainingParameters.defaultParams();
-            params.put(TrainingParameters.ITERATIONS_PARAM, "100");
-
-            POSModel model = POSTaggerME.train("en", sampleStream, params, new POSTaggerFactory());
-            model.serialize(new FileOutputStream(modelFile));
         }
     }
 
