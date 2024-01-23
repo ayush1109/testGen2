@@ -2,13 +2,19 @@ package com.gemini;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class GenerateStep {
     public static String generate(HashMap<String, String> tokenMap, String keyword) {
         try {
+            String url = Utils.readProperties("url");
+            final String page = url.split("\\.")[0].split("//")[1];
+
+
             String step = keyword + " for the <page> page, user <action> on <element> <information>";
+            step = step.replace("<page>", page);
 
             for (Map.Entry<String, String> entry : tokenMap.entrySet()) {
 
@@ -43,6 +49,8 @@ public class GenerateStep {
                 }
             }
             return step;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

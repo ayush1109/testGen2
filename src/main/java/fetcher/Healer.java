@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Healer {
     static List<NodeInfo> searchNodes = new ArrayList<>();
-    WebDriver driver;
+    static WebDriver driver;
     private List<Set<ComponentScanner>> selectorDetailLevels;
     private static final List<Set<ComponentScanner>> TEMP = new ArrayList<Set<ComponentScanner>>() {
         {
@@ -23,29 +23,28 @@ public class Healer {
         }
     };
 
-    public By findNewLocations(String element, List<NodeInfo> paths, NodeInfo destination) {
-
-        int num = 0;
+    public By findNewLocations(String identity, List<NodeInfo> paths, NodeInfo destination, WebDriver driver) {
+        this.driver = driver;
         PathLocator pathLocator = new PathLocator(new LCSNodePathDistance(), new LongestNodeDistance());
         AbstractMap.SimpleImmutableEntry<Integer, Map<Double, List<AbstractMap.SimpleImmutableEntry<NodeInfo, Integer>>>> scoresToNodes = pathLocator.findScoresToNodes(new NodePath((NodeInfo[]) paths.toArray(new NodeInfo[0])), destination);
         List<NodePath> nodes = pathLocator.destinationLeaves;
         this.selectorDetailLevels = Collections.unmodifiableList(TEMP);
         List<Set<ComponentScanner>> detailLevels = this.selectorDetailLevels;
-        List<NodeInfo> listNodes = findNodeWithText(nodes, element);
+        List<NodeInfo> listNodes = findNodeWithText(nodes, identity);
         System.out.println(listNodes);
-        if (listNodes.size() > 0) {
-            for (int i = 0; i < listNodes.size(); i++) {
-
-                if (listNodes.get(i).getTag().equals("img") || listNodes.get(i).getTag().equals("button") || listNodes.get(i).getTag().equals("input") || listNodes.get(i).getTag().equals("span")) {
-                    num = i;
-                    break;
-                }
-            }
+//        Comparator<NodeInfo> customComparator = Comparator.comparing(node -> !node.toString().contains("Search"))
+//                .thenComparingInt(node -> node.);
+//        construct(listNodes.get(0));
+        // Sort the listNodes based on the customComparator
+//        Collections.sort(listNodes, customComparator);
+        StringBuilder xpath = construct(listNodes.get(0));
+        if (xpath == null) {
+            Set<ComponentScanner> detailLevel = detailLevels.get(5);
+            return this.construct((NodeInfo) listNodes.get(0), detailLevel);
         }
-        Set<ComponentScanner> detailLevel = detailLevels.get(5);
-//        By locator = this.construct((NodeInfo) nodes.get(f).getLastNode(), detailLevel);
-        By locator = this.construct((NodeInfo) listNodes.get(num), detailLevel);
-        return locator;
+//        for (int index = 5; index < detailLevels.size(); index++) {
+
+        return By.xpath(xpath.toString());
     }
 
 
@@ -79,6 +78,40 @@ public class Healer {
         }).collect(Collectors.joining()));
     }
 
+    public static StringBuilder construct(NodeInfo nodeInfo) {
+
+        StringBuilder xpath = new StringBuilder("//");
+        for (int i = 1; i <= 4; i++) {
+            switch (i) {
+                case 1:
+                    buildXPathWithOneField(xpath, nodeInfo);
+                    Boolean status = checkstatus(xpath);
+                    if (status) {
+                        return xpath;
+                    }
+                    xpath = new StringBuilder("//");
+                    break;
+                case 2:
+                    xpath = buildXPathWithTwoFields(xpath, nodeInfo);
+                    if (checkstatus(xpath)) {
+                        return xpath;
+                    }
+                    xpath = new StringBuilder("//");
+                    // Add more cases for additional field combinations as needed
+
+                case 3:
+                    xpath = buildXPathWithThreeFields(xpath, nodeInfo);
+                    if (checkstatus(xpath)) {
+                        return xpath;
+                    }
+                default:
+                    return null;
+            }
+        }
+        return null;
+    }
+
+
     public static List<NodeInfo> findNodeWithText(List<NodePath> nodes, String searchText) {
         searchNodes.clear();
         for (NodePath node : nodes) {
@@ -88,6 +121,90 @@ public class Healer {
             }
         }
         return searchNodes;
+    }
+
+    private static void buildXPathWithOneField(StringBuilder xpath, NodeInfo nodeInfo) {
+
+        if (!nodeInfo.getTag().isBlank()) {
+            xpath.append(nodeInfo.getTag());
+        }
+    }
+
+
+    private static StringBuilder buildXPathWithTwoFields(StringBuilder xpath, NodeInfo nodeInfo) {
+
+        if (!(nodeInfo.getTag().isEmpty()) && !(nodeInfo.getId().equals(""))) {
+            xpath.append(nodeInfo.getTag())
+                    .append("[@id='" + nodeInfo.getId() + "']");
+            return xpath;
+        } else if (!(nodeInfo.getTag().isEmpty()) && !(nodeInfo.getInnerText().equals(""))) {
+            xpath.append(nodeInfo.getTag())
+                    .append("[text()='" + nodeInfo.getInnerText() + "']");
+            return xpath;
+//
+        }
+//        } else if (!(nodeInfo.getTag().isEmpty()) && !(nodeInfo.getOtherAttributes().get("href").equals(""))) {
+//            xpath.append(nodeInfo.getTag())
+//                    .append("@href='" + nodeInfo.getOtherAttributes().get("href") + "']");
+//            return xpath;
+//        }
+//        else if (!(nodeInfo.getTag().isEmpty()) && !(nodeInfo.getOtherAttributes().get("target").equals(""))
+//        {
+//            xpath.append(nodeInfo.getTag())
+//                    .append("@href='" + nodeInfo.getOtherAttributes().get("href") + "']");
+//            return xpath;
+//        }
+//
+
+//        MY SAMPLE CODE
+
+
+        for (Map.Entry<String, String> entry : nodeInfo.getOtherAttributes().entrySet()) {
+            String attributeName = entry.getKey();
+            String attributeValue = entry.getValue();
+
+            if (!attributeValue.isEmpty()) {
+                // Handle special cases or apply a general pattern for other attributes
+                xpath.append(nodeInfo.getTag()).append("[@" + attributeName + "='" + attributeValue + "']");
+
+                if (checkstatus(xpath)) {
+                    return xpath;
+                } else {
+                    xpath = new StringBuilder("//");
+                    xpath.append(nodeInfo.getTag());
+                }
+            }
+        }
+        return null;
+
+    }
+
+    public static boolean checkstatus(StringBuilder xpath) {
+        if (driver.findElements(By.xpath(String.valueOf(xpath))).size() > 1) {
+            return false;
+        } else return true;
+    }
+
+    private static StringBuilder buildXPathWithThreeFields(StringBuilder xpath, NodeInfo nodeInfo) {
+
+        if (!nodeInfo.getTag().isEmpty() && !nodeInfo.getId().isEmpty() && !nodeInfo.getInnerText().isEmpty()) {
+            xpath.append(nodeInfo.getTag())
+                    .append("[@id='" + nodeInfo.getId() + "'][text()='" + nodeInfo.getInnerText() + "']");
+            return xpath;
+        } else if (!nodeInfo.getTag().isEmpty() && !nodeInfo.getOtherAttributes().isEmpty()) {
+
+            for (Map.Entry<String, String> entry : nodeInfo.getOtherAttributes().entrySet()) {
+                String attributeName = entry.getKey();
+                String attributeValue = entry.getValue();
+                if (!attributeValue.isEmpty()) {
+                    xpath.append("[@" + attributeName + "='" + attributeValue + "']");
+                }
+            }
+            return xpath;
+        }
+        // Add more conditions as needed
+
+        return null;
     }
 
 

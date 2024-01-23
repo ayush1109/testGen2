@@ -35,7 +35,7 @@ public class SeleniumActions {
     }
 
     public static void close() {
-        driver.close();
+        driver.quit();
     }
 
     private static By findXpath(WebDriver driver, String element) {
@@ -46,7 +46,7 @@ public class SeleniumActions {
         String pageSource = DOMFetcher.getPageSource();
         NodeInfo destination = parseTree(pageSource);
         Healer healer = new Healer();
-        By xpath = healer.findNewLocations(element, objectList, destination);
+        By xpath = healer.findNewLocations(element, objectList, destination, driver);
         return xpath;
     }
 
@@ -63,7 +63,7 @@ public class SeleniumActions {
                     if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
                         scenarioLocators.clear();
                     }
-                    locatorMap.put(elementName, getCSSSelector(element));
+                    locatorMap.put(elementName, element.toString());
                     scenarioLocators.add(locatorMap);
                     SeleniumActions.featureMap.put(newUrl, scenarioLocators);
                     LocatorPOJO.setFeatures(SeleniumActions.featureMap);

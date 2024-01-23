@@ -122,6 +122,11 @@
             <artifactId>commons-text</artifactId>
             <version>1.9</version> <!-- Use the latest version available -->
         </dependency>
+        <dependency>
+            <groupId>com.google.code.javaparser</groupId>
+            <artifactId>javaparser</artifactId>
+            <version>1.0.9</version>
+        </dependency>
 
     </dependencies>
 
