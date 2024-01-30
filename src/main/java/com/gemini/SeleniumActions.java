@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static fetcher.Utilities.parseTree;
 
@@ -20,7 +22,8 @@ public class SeleniumActions {
 
     private static WebDriver driver;
 
-    private static final ArrayList<HashMap<String, String>> scenarioLocators = new ArrayList<>();
+    private static ArrayList<HashMap<String, String>> scenarioLocators = new ArrayList<>();
+    private static ArrayList<HashMap<String, String>> scenarioLocatorsDuplicate = new ArrayList<>();
     private static final HashMap<String, ArrayList<HashMap<String, String>>> featureMap = new HashMap<>();
 
     private static void setup() {
@@ -29,9 +32,12 @@ public class SeleniumActions {
         driver.manage().window().maximize();
     }
 
-    public static void open() throws IOException {
+    public static void open() throws IOException, InterruptedException {
         setup();
         driver.get(Utils.readProperties("url"));
+        Thread.sleep(4000);
+        driver.findElement(By.xpath("//button[text()='Login via SSO']")).click();
+        Thread.sleep(10000);
     }
 
     public static void close() {
@@ -52,6 +58,7 @@ public class SeleniumActions {
 
     public static void performAction(String elementName, String action, String data) {
         try {
+            ArrayList<HashMap<String, String>> scenarioUpdatedLocators = new ArrayList<>();
             HashMap<String, String> locatorMap = new HashMap<>();
             String previousUrl = getFeatureNameFromUrl();
             By element = findXpath(driver, elementName);
@@ -61,14 +68,46 @@ public class SeleniumActions {
                     Thread.sleep(4000);
                     String newUrl = getFeatureNameFromUrl();
                     if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
+//                        scenarioUpdatedLocators.addAll(scenarioLocators);
+//                        SeleniumActions.featureMap.put(previousUrl, scenarioUpdatedLocators);
+                        scenarioLocators = new ArrayList<>();
+                        ;
+                    }
+                    locatorMap.put(elementName + "_BUTTON", element.toString());
+//                    scenarioUpdatedLocators.add(locatorMap);
+                    int flag = 0;
+                    for (HashMap<String, String> copiedValue : scenarioLocatorsDuplicate) {
+                        if(copiedValue.keySet().stream().filter(key -> key.contains(elementName)).collect(Collectors.toList()).size() > 0)
+                        {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if (flag==0)
+                    {
+                        scenarioLocators.add(locatorMap);
+                    }
+
+                    SeleniumActions.featureMap.put(newUrl, scenarioLocators);
+                    LocatorPOJO.setFeatures(SeleniumActions.featureMap);
+                    scenarioLocatorsDuplicate.add(locatorMap);
+                }
+                case "input" -> driver.findElement(element).sendKeys(data);
+                case "verify" -> {
+                    String newUrl = getFeatureNameFromUrl();
+                    if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
+                        scenarioUpdatedLocators.addAll(scenarioLocators);
+                        SeleniumActions.featureMap.put(previousUrl, scenarioUpdatedLocators);
                         scenarioLocators.clear();
                     }
-                    locatorMap.put(elementName, element.toString());
+                    locatorMap.put(elementName +"_DIV", element.toString());
+                    scenarioUpdatedLocators.add(locatorMap);
                     scenarioLocators.add(locatorMap);
                     SeleniumActions.featureMap.put(newUrl, scenarioLocators);
                     LocatorPOJO.setFeatures(SeleniumActions.featureMap);
+                    scenarioLocatorsDuplicate.add(locatorMap);
                 }
-                case "input" -> driver.findElement(element).sendKeys(data);
+
             }
         } catch (Exception e) {
 

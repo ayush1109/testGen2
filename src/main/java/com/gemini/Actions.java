@@ -12,7 +12,7 @@ public class Actions {
 
         switch (ain) {
             case "edge":
-                System.setProperty(initialiseBrosersloc, "C:\\Users\\raghav.suneja\\Downloads\\GEMHEALUPDATED\\gemHeal\\src\\test\\resources\\drivers\\windows\\edge\\msedgedriver.exe");
+                System.setProperty(initialiseBrosersloc, "C:\\Users\\ayush.garg\\Downloads\\Demo\\Demo\\src\\main\\resources\\drivers\\edge\\msedgedriver.exe");
                 driver = new EdgeDriver();
                 break;
 

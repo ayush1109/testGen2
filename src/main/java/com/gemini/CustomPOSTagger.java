@@ -4,6 +4,7 @@ package com.gemini;//package org.example;//package org.example;
 import java.io.*;
 import java.util.*;
 
+import com.gemini.gpog.pageobjectgenerator.CodeGeneratorRunner;
 import opennlp.tools.postag.*;
 import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
@@ -32,7 +33,9 @@ public class CustomPOSTagger {
                     String keyword = testcase.getSteps().indexOf(sampleString) % 2 != 0 ? "Then" : "When";
                     if (sampleString.startsWith("log") || sampleString.startsWith("launch") || sampleString.startsWith("login") || sampleString.startsWith("navigate"))
                         modelFile = "custom-pos-model-url.bin";
-                    else if (StringUtils.contains(sampleString, "enter") || StringUtils.contains(sampleString, "input") || StringUtils.contains(sampleString, "type"))
+                    if ((sampleString.contains("verifies") || sampleString.contains("verify") || sampleString.contains("should")) && (keyword.equals("Then"))) {
+                        modelFile = "custom-pos-model-input-when.bin";
+                    } else if (StringUtils.contains(sampleString, "enter") || StringUtils.contains(sampleString, "input") || StringUtils.contains(sampleString, "type"))
                         modelFile = "custom-pos-model-input.bin";
                     else modelFile = "custom-pos-model-all.bin";
 
@@ -58,9 +61,11 @@ public class CustomPOSTagger {
                             } catch (NullPointerException ignored) {
                             }
                         SeleniumActions.performAction(tokenToKeys.get("AIN"), action, inputData);
+                    } else {
+                        String inputData = null;
+                        inputData = tokenToKeys.get("DATA");
+                        SeleniumActions.performAction(tokenToKeys.get("AIN"), "verify", inputData);
                     }
-
-
                     stepsGPOG.add(GenerateStep.generate(tokenToKeys, keyword));
                     content.append("\n    ").append(GenerateStep.generate(tokenToKeys, keyword));
                     CreateFiles.createFeatureFile(testcaseList.get(0).getFeatureName(), content);
@@ -82,15 +87,13 @@ public class CustomPOSTagger {
             System.out.println(LocatorPOJO.getFeatures());
             CreateFiles.createLocatorFile();
             SeleniumActions.close();
-
-        } catch (IOException e) {
+            CodeGeneratorRunner.run();
+        }
+        catch (IOException e) {
             e.printStackTrace();
+        }
+        catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
-
-
-
-
-
-

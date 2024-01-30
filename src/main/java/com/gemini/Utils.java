@@ -5,9 +5,7 @@ import japa.parser.ast.CompilationUnit;
 import japa.parser.ast.ImportDeclaration;
 import japa.parser.ast.PackageDeclaration;
 import japa.parser.ast.body.*;
-import japa.parser.ast.expr.Expression;
-import japa.parser.ast.expr.NameExpr;
-import japa.parser.ast.expr.ObjectCreationExpr;
+import japa.parser.ast.expr.*;
 import japa.parser.ast.stmt.BlockStmt;
 import japa.parser.ast.type.ClassOrInterfaceType;
 import opennlp.tools.postag.POSModel;
@@ -80,6 +78,7 @@ public class Utils {
 
         //adding imports for implementation class
         imports.add(new ImportDeclaration(new NameExpr("org.openqa.selenium.By"), false, false));
+        imports.add(new ImportDeclaration(new NameExpr("com.gemini.gpog.annotation.LocatorType"), false, false));
         return imports;
     }
 
@@ -90,11 +89,24 @@ public class Utils {
     public static void setStepDefinitionVariable(CompilationUnit c, String value, String locatorName) {
         //setting the variable for step definition
         String locatorValue = refactorValue(value);
+        String annotationValue = "";
+        annotationValue= "\"" + locatorName.split("_")[1] + "\"";
+        String annotationType = "LocatorType";
+        NormalAnnotationExpr na = new NormalAnnotationExpr();
+        na.setName(new NameExpr(annotationType));
+        List<MemberValuePair> list_mvp = new LinkedList<MemberValuePair>();
+
+        List<AnnotationExpr> list_espr = new LinkedList<AnnotationExpr>();
+        MemberValuePair mvp = new MemberValuePair("value", new NameExpr(annotationValue.toLowerCase()));
+        list_mvp.add(mvp);
+        na.setPairs(list_mvp);
+        list_espr.add(0, na);
         VariableDeclarator v = new VariableDeclarator();
-        v.setId(new VariableDeclaratorId(locatorName));
+        v.setId(new VariableDeclaratorId(locatorName.split("_")[0]));
         v.setInit(new ObjectCreationExpr(null, new ClassOrInterfaceType(null, locatorValue), null));
         FieldDeclaration f = ASTHelper.createFieldDeclaration(ModifierSet.STATIC,
                 ASTHelper.createReferenceType("By", 0), v);
+        f.setAnnotations(list_espr);
 
         ASTHelper.addMember(c.getTypes().get(0), f);
     }
@@ -128,6 +140,8 @@ public class Utils {
         String updatedContent = StringUtils.replace(content, "new By.xpath", "By.xpath")
                 .replace("()", "")
                 .replace("static", "public static");
+                //temprary
+//                .replace("static", "@LocatorType(value = \"button\")\npublic static");
 
         FileUtils.writeStringToFile(f, updatedContent);
 
