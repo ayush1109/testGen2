@@ -51,7 +51,8 @@ public class CustomPOSTagger {
                     }
 
                     tokenToKeys = MapTokenToKeys.map(result);
-
+                    stepsGPOG.add(GenerateStep.generate(tokenToKeys, keyword));
+                    content.append("\n    ").append(GenerateStep.generate(tokenToKeys, keyword));
                     if (keyword.equals("When")) {
                         String inputData = null;
                         String action = GenerateStep.identifyAction(tokenToKeys);
@@ -66,8 +67,7 @@ public class CustomPOSTagger {
                         inputData = tokenToKeys.get("DATA");
                         SeleniumActions.performAction(tokenToKeys.get("AIN"), "verify", inputData);
                     }
-                    stepsGPOG.add(GenerateStep.generate(tokenToKeys, keyword));
-                    content.append("\n    ").append(GenerateStep.generate(tokenToKeys, keyword));
+
                     CreateFiles.createFeatureFile(testcaseList.get(0).getFeatureName(), content);
 
 
@@ -87,13 +87,58 @@ public class CustomPOSTagger {
             System.out.println(LocatorPOJO.getFeatures());
             CreateFiles.createLocatorFile();
             SeleniumActions.close();
-            CodeGeneratorRunner.run();
+//            exec1();
+            exec2();
+//            CodeGeneratorRunner.main(null);
         }
+
         catch (IOException e) {
             e.printStackTrace();
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static int exec2() throws IOException,
+            InterruptedException {
+        String javaHome = System.getProperty("java.home");
+        String javaBin = javaHome +
+                File.separator + "bin" +
+                File.separator + "java";
+        String classpath = System.getProperty("java.class.path");
+        String className = "com.gemini.gpog.pageobjectgenerator.CodeGeneratorRunner";
+
+        List<String> command = new LinkedList<String>();
+        command.add(javaBin);
+        command.add("-cp");
+        command.add(classpath);
+        command.add(className);
+
+        ProcessBuilder builder = new ProcessBuilder(command);
+
+        Process process = builder.inheritIO().start();
+        process.waitFor();
+        return process.exitValue();
+    }
+
+    public static int exec1() throws IOException,
+            InterruptedException {
+        String javaHome = System.getProperty("java.home");
+        String javaBin = javaHome +
+                File.separator + "bin" +
+                File.separator + "java";
+        String classpath = System.getProperty("java.class.path");
+        String className = "C:\\Users\\ayush.garg\\Downloads\\Demo\\Demo\\src\\main\\java\\com\\gemini\\Dashboard_index";
+
+        List<String> command = new LinkedList<String>();
+        command.add("mvn compile");
+//        command.add(className + ".java");
+
+
+        ProcessBuilder builder = new ProcessBuilder(command);
+
+        Process process = builder.inheritIO().start();
+        process.waitFor();
+        return process.exitValue();
     }
 }

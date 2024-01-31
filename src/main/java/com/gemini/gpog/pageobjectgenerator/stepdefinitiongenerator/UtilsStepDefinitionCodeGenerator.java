@@ -1748,7 +1748,7 @@ public class UtilsStepDefinitionCodeGenerator {
                                                    boolean stepGeneration) throws IOException {
 
         String data = "";
-        String fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "main"
+        String fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
                 + File.separator + "java" + File.separator + directoryName + className;
         // String fileNameToCreate = System.getProperty("user.dir") +poName;
         File f = new File(fileNameToCreate + ".java");

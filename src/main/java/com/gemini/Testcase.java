@@ -7,7 +7,7 @@ public class Testcase {
     String sno;
     String scenarioName;
     List<String> steps;
-    String featureName;
+    static String featureName;
 
     public String getSno() {
         return sno;
@@ -33,12 +33,12 @@ public class Testcase {
         this.steps = steps;
     }
 
-    public String getFeatureName() {
+    public static String getFeatureName() {
         return featureName;
     }
 
     public void setFeatureName(String featureName) {
-        this.featureName = featureName;
+        Testcase.featureName = featureName;
     }
 
     public void clear() {

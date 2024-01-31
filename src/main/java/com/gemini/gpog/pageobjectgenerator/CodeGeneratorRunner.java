@@ -25,7 +25,7 @@ import static com.gemini.Utils.readProperties;
 
 public class CodeGeneratorRunner {
 
-    public static void run() {
+    public static void main(String[] args) {
 
         //Fetching arguments from command line
         try {
@@ -51,6 +51,12 @@ public class CodeGeneratorRunner {
 
             stepDefinitions.generateStepDefinitions();
             genericStepDefinitions.generateGenericStepMethods();
+
+            Utils.copyGPOGDirectoriesToProject();
+
+            Utils.copyGPOGFilesToProject();
+
+            Utils.writePOMFile();
 
 //            FeatureCodeGenerator.generateFeature();
 

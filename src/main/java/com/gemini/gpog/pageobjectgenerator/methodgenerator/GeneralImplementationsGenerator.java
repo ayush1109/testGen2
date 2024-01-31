@@ -19,9 +19,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.List;
 
 import static com.gemini.Utils.readProperties;
@@ -76,8 +79,7 @@ public class GeneralImplementationsGenerator implements GenerateImplementations 
          else if (StringUtils.equalsIgnoreCase("Serenity", reporting)) {
             iReporting = new EnableSerenityReporting();
         }
-
-        ClassLoader classLoader = GeneralImplementationsGenerator.class.getClassLoader();
+        ClassLoader classLoader = getClass().getClassLoader();
         List<String> locatorsList = LocatorsModel.getLocatorsList();
         for (String locator : locatorsList
         ) {
@@ -87,8 +89,7 @@ public class GeneralImplementationsGenerator implements GenerateImplementations 
                 Class<?> aClass = null;
                 if (StringUtils.equalsIgnoreCase("Gemini", env)) {
 //                    Object newObject = Class.forName("com.gemini.locator." + locator).newInstance();
-
-                    aClass = classLoader.loadClass("com.gemini.locator." + locator);
+                    aClass = getClass().getClassLoader().loadClass("com.gemini." + locator);
                     fields = aClass.getFields();
                     c = HelperFunctions.createEnhancedCompilationUnit("implementation", "Method", locator);
                     HelperFunctions.setTypeDeclaration(c, aClass.getSimpleName() + "Implementation");

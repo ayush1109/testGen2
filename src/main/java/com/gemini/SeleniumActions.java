@@ -114,7 +114,7 @@ public class SeleniumActions {
         }
     }
 
-    private static String getFeatureNameFromUrl() {
+    protected static String getFeatureNameFromUrl() {
         String currentURL = driver.getCurrentUrl().split("\\?")[0].split("://")[1];
         String[] uris = StringUtils.split(currentURL, "/");
         StringBuilder featureName = new StringBuilder();
