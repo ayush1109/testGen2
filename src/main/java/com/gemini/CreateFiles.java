@@ -33,7 +33,7 @@ public class CreateFiles {
         final HashMap<String, ArrayList<HashMap<String, String>>> features = LocatorPOJO.getFeatures();
         String fileName = null;
         for (Map.Entry<String, ArrayList<HashMap<String, String>>> entry : features.entrySet()) {
-            CompilationUnit c = Utils.createEnhancedCompilationUnit("com.gemini");
+            CompilationUnit c = Utils.createEnhancedCompilationUnit("com.gemini.locator");
             Utils.setTypeDeclaration(c, entry.getKey());
             fileName = entry.getKey();
             for (HashMap<String, String> locators : entry.getValue()
@@ -42,12 +42,12 @@ public class CreateFiles {
                     Utils.setStepDefinitionVariable(c, locator.getValue(), locator.getKey());
             }
             new Utils().savePageObjectsOnFileSystem("com" + File.separator + "gemini" +
-//                            File.separator + "locator" +
+                            File.separator + "locator" +
                             File.separator,
                     fileName, c, false);
 
             Utils.correctXpaths("com" + File.separator + "gemini" +
-//                            File.separator + "locator" +
+                            File.separator + "locator" +
                             File.separator,
                     fileName);
         }

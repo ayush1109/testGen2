@@ -245,13 +245,22 @@ public class Utils {
 
     }
 
-    private static void shiftClassFileToTarget(String fileName, String directoryName) throws IOException {
+//    private static void shiftClassFileToTarget(String fileName, String directoryName) throws IOException {
+////        String srcDir = "C:\\Users\\ayush.garg\\Downloads\\Demo\\Demo\\src\\main\\java\\com\\gemini\\Dashboard_index.java";
+//        String srcDir = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+//                + File.separator + "java" + File.separator + "com" + File.separator + "gemini" + File.separator + StringUtils.capitalize(fileName) + ".java";
+////        String tarDir = "C:\\Users\\ayush.garg\\Downloads\\Demo\\Demo\\target\\classes\\com\\gemini\\Dashboard_index.class";
+//        String tarDir = System.getProperty("user.dir") + File.separator + "target" + File.separator + "classes"
+//                 + File.separator + "com" + File.separator + "gemini" + File.separator  + StringUtils.capitalize(fileName) + ".class";
+//        FileUtils.copyFile(new File(srcDir), new File(tarDir));
+//    }
+
+    private static void shiftClassFileToTarget(String fileName, String directoryName,String file) throws IOException {
 //        String srcDir = "C:\\Users\\ayush.garg\\Downloads\\Demo\\Demo\\src\\main\\java\\com\\gemini\\Dashboard_index.java";
-        String srcDir = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                + File.separator + "java" + File.separator + "com" + File.separator + "gemini" + File.separator + StringUtils.capitalize(fileName) + ".java";
+        String srcDir = fileName+".class";
 //        String tarDir = "C:\\Users\\ayush.garg\\Downloads\\Demo\\Demo\\target\\classes\\com\\gemini\\Dashboard_index.class";
         String tarDir = System.getProperty("user.dir") + File.separator + "target" + File.separator + "classes"
-                 + File.separator + "com" + File.separator + "gemini" + File.separator  + StringUtils.capitalize(fileName) + ".class";
+                + File.separator + "com" + File.separator + "gemini" + File.separator + "locator" + File.separator +StringUtils.capitalize(file) + ".class";
         FileUtils.copyFile(new File(srcDir), new File(tarDir));
     }
 
@@ -272,8 +281,14 @@ public class Utils {
 
         FileUtils.writeStringToFile(f, updatedContent);
         compileJavaFile(fileNameToCreate + ".java");
-        shiftClassFileToTarget(fileNameToCreate + ".class", directory);
+        shiftClassFileToTarget(fileNameToCreate, directory, fileName);
+        deleteClassFiles( fileNameToCreate);
 
+    }
+
+    private static void deleteClassFiles( String fileName) throws IOException {
+        String srcDir = fileName+".class";
+        FileUtils.delete(new File(srcDir));
     }
 
     private static List<String> readSentencesFromFile(String filePath) throws IOException {
@@ -356,9 +371,9 @@ public class Utils {
                     fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
                             + File.separator + "java" + File.separator + "com" + File.separator + "gemini" + File.separator + "gpog" + File.separator + "pageobjectgenerator" + File.separator + file.name() + ".java";
                 } else {
-                    sourceDirectory = new File(System.getProperty("user.dir") + "\\" + readProperties("feature") + ".feature");
+                    sourceDirectory = new File(System.getProperty("user.dir") + "\\" + Testcase.getFeatureName() + ".feature");
                     fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
-                            + File.separator + "resources" + File.separator + "feature" + File.separator + readProperties("feature") + ".feature";
+                            + File.separator + "resources" + File.separator + "feature" + File.separator + Testcase.getFeatureName() + ".feature";
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LocatorsModel {
 
-    private static ArrayList<String> locatorsList;
+    private static List<String> locatorsList;
 
     private static String env;
 
@@ -31,7 +31,7 @@ public class LocatorsModel {
         return locatorsList;
     }
 
-    public static void setLocatorsList(ArrayList<String> locatorsList) {
+    public static void setLocatorsList(List<String> locatorsList) {
         LocatorsModel.locatorsList = locatorsList;
     }
 

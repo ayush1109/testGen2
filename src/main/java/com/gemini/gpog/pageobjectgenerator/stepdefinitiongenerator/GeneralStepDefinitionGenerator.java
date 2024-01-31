@@ -60,7 +60,7 @@ public class GeneralStepDefinitionGenerator implements GenerateStepDefinitions {
                 Class aClass = null;
                 CompilationUnit c = null;
                 if (StringUtils.equalsIgnoreCase("Gemini", env))
-                    aClass = classLoader.loadClass("com.gemini." + locator);
+                    aClass = classLoader.loadClass("com.gemini.locator." + locator);
                 else if (StringUtils.equalsIgnoreCase("EJ", env))
                     aClass = classLoader.loadClass("frontend.pageobjects." + locator + "PageObjects");
                 Field[] fields = aClass.getFields();

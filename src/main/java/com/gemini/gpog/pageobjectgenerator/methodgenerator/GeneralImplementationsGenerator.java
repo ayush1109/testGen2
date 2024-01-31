@@ -89,7 +89,7 @@ public class GeneralImplementationsGenerator implements GenerateImplementations 
                 Class<?> aClass = null;
                 if (StringUtils.equalsIgnoreCase("Gemini", env)) {
 //                    Object newObject = Class.forName("com.gemini.locator." + locator).newInstance();
-                    aClass = getClass().getClassLoader().loadClass("com.gemini." + locator);
+                    aClass = getClass().getClassLoader().loadClass("com.gemini.locator." + locator);
                     fields = aClass.getFields();
                     c = HelperFunctions.createEnhancedCompilationUnit("implementation", "Method", locator);
                     HelperFunctions.setTypeDeclaration(c, aClass.getSimpleName() + "Implementation");

@@ -27,11 +27,10 @@ public class SeleniumActions {
     private static final HashMap<String, ArrayList<HashMap<String, String>>> featureMap = new HashMap<>();
 
     private static void setup() {
-        System.setProperty("webdriver.edge.driver", "C:\\Users\\ayush.garg\\Downloads\\Demo\\Demo\\src\\main\\resources\\drivers\\edge\\msedgedriver.exe");
+        System.setProperty("webdriver.edge.driver", "C:\\Users\\raghav.suneja\\OneDrive - Gemini Solutions\\Desktop\\GemGen\\nlp_codeless\\src\\main\\resources\\drivers\\edge\\msedgedriver.exe");
         driver = new EdgeDriver();
         driver.manage().window().maximize();
     }
-
     public static void open() throws IOException, InterruptedException {
         setup();
         driver.get(Utils.readProperties("url"));
@@ -124,7 +123,7 @@ public class SeleniumActions {
             else
                 featureName.append(uris[i]);
         }
-        return featureName.toString().toLowerCase();
+        return StringUtils.capitalize(featureName.toString().toLowerCase());
     }
 
     private static String getCSSSelector(By xpath) {

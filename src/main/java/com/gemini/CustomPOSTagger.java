@@ -87,9 +87,7 @@ public class CustomPOSTagger {
             System.out.println(LocatorPOJO.getFeatures());
             CreateFiles.createLocatorFile();
             SeleniumActions.close();
-//            exec1();
-            exec2();
-//            CodeGeneratorRunner.main(null);
+            CodeGeneratorRunner.run();
         }
 
         catch (IOException e) {

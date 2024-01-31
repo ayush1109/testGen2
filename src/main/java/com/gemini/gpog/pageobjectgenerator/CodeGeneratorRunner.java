@@ -25,15 +25,15 @@ import static com.gemini.Utils.readProperties;
 
 public class CodeGeneratorRunner {
 
-    public static void main(String[] args) {
+    public static void run() {
 
         //Fetching arguments from command line
         try {
-//            LocatorsModel.setLocatorsList(new ArrayList<>(LocatorPOJO.getFeatures().keySet()).stream().map(StringUtils::capitalize).collect(Collectors.toList()));
-            LocatorsModel.setLocatorsList(new ArrayList<>(List.of((readProperties("locator").split(",")))));
+            LocatorsModel.setLocatorsList(new ArrayList<>(LocatorPOJO.getFeatures().keySet()).stream().map(StringUtils::capitalize).collect(Collectors.toList()));
+//            LocatorsModel.setLocatorsList(new ArrayList<>(List.of((readProperties("locator").split(",")))));
 
             LocatorsModel.setEnv(readProperties("env"));
-
+//            LocatorsModel.setEnv("gemini");
             LocatorsModel.setFramework(readProperties("framework"));
 
             LocatorsModel.setReporting(readProperties("reporting"));
