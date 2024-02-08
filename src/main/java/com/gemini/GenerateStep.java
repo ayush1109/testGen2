@@ -27,18 +27,22 @@ public class GenerateStep {
                         case "A" -> {
                             switch (tokenMap.get("A")) {
                                 case "enter", "input", "type", "enters" -> step = step.replace("<action>", "enters");
+                                case "click" -> step = step.replace("<action>", "clicks");
                             }
                         }
                         case "AIK" -> {
                             switch (tokenMap.get("AIK")) {
-                                case "button" -> step = step.replace("<action>", "clicks");
+                                case "button", "option", "tab" -> {
+                                    step = step.replace("<action>", "clicks");
+                                    step = step.replace("<information>", "button");
+                                }
                                 case "input" -> step = step.replace("<action>", "enters");
                                 case "dropdown", "radio button", "checkbox" ->
                                         step = step.replace("<action>", "selects");
                             }
                             step = step.replace("<information>", entry.getValue());
                         }
-                        case "AIN" -> step = step.replace("<element>", entry.getValue());
+                        case "AIN" -> step = step.replace("<element>", entry.getValue().trim());
                         default -> step = step.replace("<information>", "element");
                     }
                 }
@@ -129,8 +133,8 @@ public class GenerateStep {
         String action = null;
         try {
             switch (tokenMap.get("AIK")) {
-                case "button" -> action = "click";
-                case "input" -> action = "type";
+                case "button", "tab", "option" -> action = "click";
+                case "input", "field", "type" -> action = "input";
                 case "dropdown", "radio button", "checkbox" -> action = "select";
             }
             return action;

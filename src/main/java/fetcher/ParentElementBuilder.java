@@ -18,4 +18,16 @@ public class ParentElementBuilder implements ElementBuilder {
             return creator.create(parent);
         }).collect(Collectors.joining())).concat(" > ");
     }
+
+
+
+//    new method xpath
+
+//    public String create(NodeInfo nodeInfo) {
+//        NodeInfo parent = nodeInfo.getParent();
+//        return parent == null ? "" : ((String) Stream.of(this.tagCreator, this.idCreator, this.classCreator).map((creator) -> {
+//            return creator.create(parent);
+//        }).collect(Collectors.joining())).concat("/");
+//    }
+
 }

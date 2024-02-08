@@ -93,7 +93,7 @@ public class Utils {
         //setting the variable for step definition
         String locatorValue = refactorValue(value);
         String annotationValue = "";
-        annotationValue = "\"" + locatorName.split("_")[1] + "\"";
+        annotationValue = "\"" + locatorName.split("-")[1] + "\"";
         String annotationType = "LocatorType";
         NormalAnnotationExpr na = new NormalAnnotationExpr();
         na.setName(new NameExpr(annotationType));
@@ -105,7 +105,7 @@ public class Utils {
         na.setPairs(list_mvp);
         list_espr.add(0, na);
         VariableDeclarator v = new VariableDeclarator();
-        v.setId(new VariableDeclaratorId(locatorName.split("_")[0]));
+        v.setId(new VariableDeclaratorId(locatorName.split("-")[0].replace(".", "").replace("?", "")));
         v.setInit(new ObjectCreationExpr(null, new ClassOrInterfaceType(null, locatorValue), null));
         FieldDeclaration f = ASTHelper.createFieldDeclaration(ModifierSet.STATIC,
                 ASTHelper.createReferenceType("By", 0), v);
@@ -273,7 +273,7 @@ public class Utils {
 
         String content = FileUtils.readFileToString(f, StandardCharsets.UTF_8);
 
-        String updatedContent = StringUtils.replace(content, "new By.xpath", "By.xpath")
+        String updatedContent = StringUtils.replace(content, "new By", "By")
                 .replace("()", "")
                 .replace("static", "public static");
         //temprary

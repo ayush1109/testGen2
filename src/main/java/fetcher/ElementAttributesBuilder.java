@@ -2,6 +2,8 @@ package fetcher;
 
 
 
+import fetcher.ElementBuilder;
+import fetcher.NodeInfo;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashSet;
@@ -39,4 +41,17 @@ public class ElementAttributesBuilder implements ElementBuilder {
             return String.format("[%s='%s']", ((String)entry.getKey()).trim(), ((String)entry.getValue()).trim());
         }).collect(Collectors.joining());
     }
+
+//    new method xpath
+
+//    public String create(NodeInfo nodeInfo) {
+//        return (String) nodeInfo.getOtherAttributes().entrySet().stream().filter((entry) -> {
+//            return StringUtils.isNoneBlank(new CharSequence[]{(CharSequence) entry.getKey(), (CharSequence) entry.getValue()});
+//        }).filter((entry) -> {
+//            return !SKIPPED_ATTRIBUTES.contains(entry.getKey());
+//        }).map((entry) -> {
+//            return String.format("[@%s='%s']", ((String) entry.getKey()).trim(), ((String) entry.getValue()).trim());
+//        }).collect(Collectors.joining());
+//    }
+
 }

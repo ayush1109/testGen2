@@ -35,3 +35,19 @@ user_MISC inputs_A the_DT lastName_AIN ayush_DATA
 user_MISC inputs_A the_DT pincode_AIN ayush_DATA
 user_MISC inputs_A the_DT address_AIN ayush_DATA
 user_MISC inputs_A the_DT state_AIN ayush_DATA
+
+write_A username_AIN as_IN ayush123_DATA
+write_A reason_AIN as_IN ayush_DATA
+write_A password_AIN as_IN ayush_DATA
+write_A username_AIN as_IN raghav_DATA
+write_A date_AIN as_IN GemGen_DATA
+write_A phone_AIN as_IN 99999999_DATA
+write_A firstName_AIN as_IN ayush_DATA
+write_A lastName_AIN as_IN ayush_DATA
+write_A feedback_AIN as_IN test_DATA
+
+enter_A ayush.garg@geminisolutions.com_DATA in_MISC username_AIN field_AIK
+enter_A Gemini@123_DATA in_MISC password_AIN field_AIK
+enter_A reasonTest_DATA in_MISC reason_AIN field_AIK
+enter_A data_DATA in_MISC explanation_AIN field_AIK
+enter_A data_DATA in_MISC date_AIN field_AIK

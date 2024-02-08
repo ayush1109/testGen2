@@ -1,0 +1,65 @@
+verify_MISC modern_AIN perl_AIN is_MISC visible_SA
+verify_MISC leave_AIN management_AIN is_MISC visible_SA
+verify_MISC Employee_AIN Directory_AIN is_MISC visible_SA
+verify_MISC appraisal_AIN management_AIN is_MISC visible_SA
+verify_MISC leave_AIN management_AIN is_MISC visible_SA
+verify_MISC appraisal_AIN management_AIN is_MISC visible_SA
+verify_MISC Organization_AIN Structure_AIN is_MISC visible_SA
+verify_MISC Accounts_AIN Portal_AIN is_MISC visible_SA
+
+verify_MISC reimbursement_AIN is_MISC visible_SA
+verify_MISC modern_AIN div_AIK visible_SA
+verify_MISC leave_AIN span_AIK visible_SA
+verify_MISC Employee_AIN is_MISC visible_SA
+verify_MISC appraisal_AIN is_MISC visible_SA
+verify_MISC leave_AIN is_MISC visible_SA
+verify_MISC appraisal_AIN is_MISC visible_SA
+verify_MISC Organization_AIN is_MISC visible_SA
+verify_MISC Accounts_AIN is_MISC visible_SA
+
+success_AIN message_AIK should_MISC appear_MISC
+failure_AIN message_AIK should_MISC appear_MISC
+warning_AIN message_AIK should_MISC appear_MISC
+primary_AIN message_AIK should_MISC appear_MISC
+neutral_AIN message_AIK should_MISC appear_MISC
+
+success_AIN should_MISC be_MISC visible_MISC
+failure_AIN should_MISC be_MISC visible_MISC
+warning_AIN should_MISC be_MISC visible_MISC
+primary_AIN should_MISC be_MISC visible_MISC
+neutral_AIN should_MISC be_MISC visible_MISC
+search_AIN should_MISC be_MISC visible_MISC
+
+
+success_AIN is_AIN required_AIN should_MISC be_MISC visible_MISC
+failure_AIN is_AIN required_AIN should_MISC be_MISC visible_MISC
+warning_AIN is_AIN required_AIN should_MISC be_MISC visible_MISC
+primary_AIN is_AIN required_AIN should_MISC be_MISC visible_MISC
+neutral_AIN is_AIN required_AIN should_MISC be_MISC visible_MISC
+search_AIN is_AIN required_AIN should_MISC be_MISC visible_MISC
+
+enter_AIN your_AIN username_AIN and_AIN password_AIN should_MISC be_MISC visible_MISC
+failure_AIN is_AIN required_AIN and_AIN password_AIN should_MISC be_MISC visible_MISC
+warning_AIN is_AIN required_AIN and_AIN password_AIN should_MISC be_MISC visible_MISC
+primary_AIN is_AIN required_AIN and_AIN password_AIN should_MISC be_MISC visible_MISC
+neutral_AIN is_AIN required_AIN and_AIN password_AIN should_MISC be_MISC visible_MISC
+search_AIN is_AIN required_AIN and_AIN password_AIN should_MISC be_MISC visible_MISC
+
+verify_MISC modern_AIN perl_AIN is_MISC present_SA
+verify_MISC leave_AIN management_AIN is_MISC present_SA
+verify_MISC Employee_AIN Directory_AIN is_MISC present_SA
+verify_MISC appraisal_AIN management_AIN is_MISC present_SA
+verify_MISC leave_AIN management_AIN is_MISC present_SA
+verify_MISC appraisal_AIN management_AIN is_MISC present_SA
+verify_MISC Organization_AIN Structure_AIN is_MISC present_SA
+verify_MISC Accounts_AIN Portal_AIN is_MISC present_SA
+
+verify_MISC reimbursement_AIN is_MISC present_SA
+verify_MISC modern_AIN is_MISC present_SA
+verify_MISC leave_AIN is_MISC present_SA
+verify_MISC Employee_AIN is_MISC present_SA
+verify_MISC appraisal_AIN is_MISC present_SA
+verify_MISC leave_AIN is_MISC present_SA
+verify_MISC appraisal_AIN is_MISC present_SA
+verify_MISC Organization_AIN is_MISC present_SA
+verify_MISC Accounts_AIN is_MISC present_SA

@@ -23,30 +23,56 @@ public class Healer {
         }
     };
 
-    public By findNewLocations(String identity, List<NodeInfo> paths, NodeInfo destination, WebDriver driver) {
+    public By findNewLocations(String identity, List<NodeInfo> paths, NodeInfo destination, WebDriver driver, String action) {
         this.driver = driver;
+        int n = 0;
         PathLocator pathLocator = new PathLocator(new LCSNodePathDistance(), new LongestNodeDistance());
         AbstractMap.SimpleImmutableEntry<Integer, Map<Double, List<AbstractMap.SimpleImmutableEntry<NodeInfo, Integer>>>> scoresToNodes = pathLocator.findScoresToNodes(new NodePath((NodeInfo[]) paths.toArray(new NodeInfo[0])), destination);
         List<NodePath> nodes = pathLocator.destinationLeaves;
         this.selectorDetailLevels = Collections.unmodifiableList(TEMP);
         List<Set<ComponentScanner>> detailLevels = this.selectorDetailLevels;
         List<NodeInfo> listNodes = findNodeWithText(nodes, identity);
+        for (NodeInfo nodeInfo : listNodes
+        ) {
+            if (action.equals("input") || (action.equals("write"))) {
+                n = nodeInfo.getIndex();
+            }
+        }
         System.out.println(listNodes);
+        if(listNodes.size() == 0) {
+            By xpath = By.xpath("//*[contains(text(), '" + identity + "')]");
+            if(identity.equalsIgnoreCase("delete")||identity.equalsIgnoreCase("Bulk Approve") || identity.equalsIgnoreCase("close")) return xpath;
+            if(driver.findElements(xpath).size() > 1) {
+                if (identity.equalsIgnoreCase("lunch"))
+                {
+                    return By.xpath("//*[text()='" + identity + "']");
+                }
+                return By.xpath("//*[text()=' " + identity + "']");
+            } else
+                return By.xpath("//*[contains(text(), '" + identity + "')]");
+        }
 //        Comparator<NodeInfo> customComparator = Comparator.comparing(node -> !node.toString().contains("Search"))
 //                .thenComparingInt(node -> node.);
 //        construct(listNodes.get(0));
         // Sort the listNodes based on the customComparator
 //        Collections.sort(listNodes, customComparator);
-        StringBuilder xpath = construct(listNodes.get(0));
-        if (xpath == null) {
+        StringBuilder xpath = userFriendlyXpath(listNodes.get(n));
+        By absolute = null;
+        int flag = 1;
+        if ((xpath==null)||(driver.findElements(By.xpath(xpath.toString())).size() == 0)) {
+            xpath = null;
+//            Set<ComponentScanner> detailLevel = detailLevels.get(5);
+//            absolute = this.absoluteXpath(listNodes.get(n), detailLevel);
             Set<ComponentScanner> detailLevel = detailLevels.get(5);
-            return this.construct((NodeInfo) listNodes.get(0), detailLevel);
+            xpath = new StringBuilder(construct(listNodes.get(n), detailLevel).toString());
+            xpath = new StringBuilder(xpath.substring(15));
+            flag = 0;
         }
+
 //        for (int index = 5; index < detailLevels.size(); index++) {
-
-        return By.xpath(xpath.toString());
+        if (flag == 1) return By.xpath(xpath.toString());
+        else return By.cssSelector(xpath.toString());
     }
-
 
     protected HealedElement toLocator(ScoreGenerator<NodeInfo> node, WebDriver driver) {
 
@@ -78,7 +104,7 @@ public class Healer {
         }).collect(Collectors.joining()));
     }
 
-    public static StringBuilder construct(NodeInfo nodeInfo) {
+    public static StringBuilder userFriendlyXpath(NodeInfo nodeInfo) {
 
         StringBuilder xpath = new StringBuilder("//");
         for (int i = 1; i <= 4; i++) {
@@ -111,13 +137,52 @@ public class Healer {
         return null;
     }
 
+    protected By absoluteXpath(NodeInfo nodeInfo, Set<ComponentScanner> detailLevel) {
+        return By.xpath((String) detailLevel.stream().map((component) -> {
+            return component.createComponent(nodeInfo);
+        }).collect(Collectors.joining()));
+    }
 
     public static List<NodeInfo> findNodeWithText(List<NodePath> nodes, String searchText) {
         searchNodes.clear();
-        for (NodePath node : nodes) {
+        if(searchText.equalsIgnoreCase("sign in")) {
+            for (NodePath node : nodes) {
+                try {
+                    if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equals(searchText))) {
+                        searchNodes.add(node.getLastNode());
+                    }
+                } catch (NullPointerException e) {
+                    if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText))) {
+                        searchNodes.add(node.getLastNode());
+                    }
+                }
+//            if (node.getLastNode().getOtherAttributes().get("value") == null) {
 
-            if (node.getLastNode().getInnerText().equals(searchText) || node.getLastNode().toString().contains(searchText)) {
-                searchNodes.add(node.getLastNode());
+//            }
+//            else if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equalsIgnoreCase(searchText))) {
+//                searchNodes.add(node.getLastNode());
+//            }
+
+            }
+        }
+        else {
+            for (NodePath node : nodes) {
+                try {
+                    if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equalsIgnoreCase(searchText))) {
+                        searchNodes.add(node.getLastNode());
+                    }
+                } catch (NullPointerException e) {
+                    if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText))) {
+                        searchNodes.add(node.getLastNode());
+                    }
+                }
+//            if (node.getLastNode().getOtherAttributes().get("value") == null) {
+
+//            }
+//            else if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equalsIgnoreCase(searchText))) {
+//                searchNodes.add(node.getLastNode());
+//            }
+
             }
         }
         return searchNodes;
@@ -180,7 +245,7 @@ public class Healer {
     }
 
     public static boolean checkstatus(StringBuilder xpath) {
-        if (driver.findElements(By.xpath(String.valueOf(xpath))).size() > 1) {
+        if (driver.findElements(By.xpath(String.valueOf(xpath))).size() > 1 || driver.findElements(By.xpath(String.valueOf(xpath))).size() == 0) {
             return false;
         } else return true;
     }

@@ -1,6 +1,5 @@
 package fetcher;
 
-
 public class TagElementBuilder implements ElementBuilder {
     public TagElementBuilder() {
     }
@@ -8,5 +7,13 @@ public class TagElementBuilder implements ElementBuilder {
     public String create(NodeInfo nodeInfo) {
         return nodeInfo.getTag();
     }
-}
 
+
+//    new method xpath
+
+
+//    public String create(NodeInfo nodeInfo) {
+//        return nodeInfo.getTag();
+//    }
+
+}

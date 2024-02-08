@@ -14,4 +14,15 @@ public class PositionElementBuilder implements ElementBuilder {
             return String.format(":nth-child(%d)", i + 1);
         }).orElse("");
     }
+
+
+//    new methodxpath
+
+//    public String create(NodeInfo nodeInfo) {
+//        NodeInfo parent = nodeInfo.getParent();
+//        return parent == null ? "" : (String) Optional.ofNullable(nodeInfo.getIndex()).map((i) -> {
+//            return "[" + (i + 1) + "]";
+//        }).orElse("");
+//    }
+
 }

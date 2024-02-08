@@ -27,7 +27,7 @@ public class SeleniumActions {
     private static final HashMap<String, ArrayList<HashMap<String, String>>> featureMap = new HashMap<>();
 
     private static void setup() {
-        System.setProperty("webdriver.edge.driver", "C:\\Users\\raghav.suneja\\OneDrive - Gemini Solutions\\Desktop\\GemGen\\nlp_codeless\\src\\main\\resources\\drivers\\edge\\msedgedriver.exe");
+        System.setProperty("webdriver.edge.driver", "src/main/resources/drivers/edge/msedgedriver.exe");
         driver = new EdgeDriver();
         driver.manage().window().maximize();
     }
@@ -35,15 +35,23 @@ public class SeleniumActions {
         setup();
         driver.get(Utils.readProperties("url"));
         Thread.sleep(4000);
-        driver.findElement(By.xpath("//button[text()='Login via SSO']")).click();
+        driver.findElement(By.id("username")).sendKeys("ayush.garg@geminisolutions.com");
+        driver.findElement(By.id("password")).sendKeys("Gemini@123");
+        driver.findElement(By.id("btnLogin")).click();
         Thread.sleep(10000);
+    }
+
+    public static void openForLogin() throws IOException, InterruptedException {
+        setup();
+        driver.get(Utils.readProperties("url"));
+        Thread.sleep(4000);
     }
 
     public static void close() {
         driver.quit();
     }
 
-    private static By findXpath(WebDriver driver, String element) {
+    private static By findXpath(WebDriver driver, String element, String action) {
 
         NodeManager nodeManager = new NodeManager();
         List<NodeInfo> objectList = new ArrayList<>();
@@ -51,7 +59,7 @@ public class SeleniumActions {
         String pageSource = DOMFetcher.getPageSource();
         NodeInfo destination = parseTree(pageSource);
         Healer healer = new Healer();
-        By xpath = healer.findNewLocations(element, objectList, destination, driver);
+        By xpath = healer.findNewLocations(element, objectList, destination, driver, action);
         return xpath;
     }
 
@@ -60,7 +68,7 @@ public class SeleniumActions {
             ArrayList<HashMap<String, String>> scenarioUpdatedLocators = new ArrayList<>();
             HashMap<String, String> locatorMap = new HashMap<>();
             String previousUrl = getFeatureNameFromUrl();
-            By element = findXpath(driver, elementName);
+            By element = findXpath(driver, elementName, action);
             switch (action) {
                 case "click" -> {
                     driver.findElement(element).click();
@@ -72,11 +80,11 @@ public class SeleniumActions {
                         scenarioLocators = new ArrayList<>();
                         ;
                     }
-                    locatorMap.put(elementName + "_BUTTON", element.toString());
+                    locatorMap.put(elementName.replace(" ", "_") + "-BUTTON", element.toString());
 //                    scenarioUpdatedLocators.add(locatorMap);
                     int flag = 0;
                     for (HashMap<String, String> copiedValue : scenarioLocatorsDuplicate) {
-                        if(copiedValue.keySet().stream().filter(key -> key.contains(elementName)).collect(Collectors.toList()).size() > 0)
+                        if(copiedValue.keySet().stream().filter(key -> key.contains(elementName.replace(" ", "_"))).collect(Collectors.toList()).size() > 0)
                         {
                             flag = 1;
                             break;
@@ -91,7 +99,7 @@ public class SeleniumActions {
                     LocatorPOJO.setFeatures(SeleniumActions.featureMap);
                     scenarioLocatorsDuplicate.add(locatorMap);
                 }
-                case "input" -> driver.findElement(element).sendKeys(data);
+                case "input", "write" -> driver.findElement(element).sendKeys(data);
                 case "verify" -> {
                     String newUrl = getFeatureNameFromUrl();
                     if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
@@ -99,7 +107,7 @@ public class SeleniumActions {
                         SeleniumActions.featureMap.put(previousUrl, scenarioUpdatedLocators);
                         scenarioLocators.clear();
                     }
-                    locatorMap.put(elementName +"_DIV", element.toString());
+                    locatorMap.put(elementName.replace(" ", "_") +"-DIV", element.toString());
                     scenarioUpdatedLocators.add(locatorMap);
                     scenarioLocators.add(locatorMap);
                     SeleniumActions.featureMap.put(newUrl, scenarioLocators);

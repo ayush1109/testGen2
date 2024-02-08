@@ -1,0 +1,523 @@
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+click_A on_IN the_DT My_AIN reimbursement_AIN button_AIK
+click_A on_IN the_DT Employee_AIN Directory_AIN tab_AIK
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+click_A on_IN the_DT appraisal_AIN management_AIN modal_AIK
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+click_A on_IN the_DT Organization_AIN Structure_AIN option_AIK
+click_A on_IN the_DT Accounts_AIN Portal_AIN option_AIK
+click_A on_IN the_DT other_AIN portals_AIN option_AIK
+
+select_A on_IN the_DT leave_AIN management_AIN option_AIK
+select_A on_IN the_DT My_AIN reimbursement_AIN button_AIK
+select_A on_IN the_DT Employee_AIN Directory_AIN tab_AIK
+select_A on_IN the_DT leave_AIN management_AIN option_AIK
+select_A on_IN the_DT appraisal_AIN management_AIN modal_AIK
+select_A on_IN the_DT leave_AIN management_AIN option_AIK
+select_A on_IN the_DT Organization_AIN Structure_AIN option_AIK
+select_A on_IN the_DT Accounts_AIN Portal_AIN option_AIK
+select_A on_IN the_DT other_AIN portals_AIN option_AIK
+
+click_A leave_AIN management_AIN option_AIK
+click_A My_AIN reimbursement_AIN button_AIK
+click_A Employee_AIN Directory_AIN tab_AIK
+click_A leave_AIN management_AIN option_AIK
+click_A appraisal_AIN management_AIN modal_AIK
+click_A leave_AIN management_AIN option_AIK
+click_A Organization_AIN Structure_AIN option_AIK
+click_A Accounts_AIN Portal_AIN option_AIK
+click_A other_AIN portals_AIN option_AIK
+click_A knowledge_AIN base_AIN tab_AIK
+click_A golden_AIN bridge_AIN tab_AIK
+click_A office_AIN location_AIN tab_AIK
+click_A scenario_AIN modal_AIN tab_AIK
+click_A modern_AIN perl_AIN tab_AIK
+click_A success_AIN message_AIN tab_AIK
+click_A update_AIN email_AIN tab_AIK
+
+select_A leave_AIN management_AIN option_AIK
+select_A My_AIN reimbursement_AIN button_AIK
+select_A Employee_AIN Directory_AIN tab_AIK
+select_A leave_AIN management_AIN option_AIK
+select_A appraisal_AIN management_AIN modal_AIK
+select_A leave_AIN management_AIN option_AIK
+select_A Organization_AIN Structure_AIN option_AIK
+select_A Accounts_AIN Portal_AIN option_AIK
+select_A other_AIN portals_AIN option_AIK
+select_A knowledge_AIN base_AIN tab_AIK
+
+click_A the_DT leave_AIN management_AIN option_AIK
+click_A the_DT My_AIN reimbursement_AIN button_AIK
+click_A the_DT Employee_AIN Directory_AIN tab_AIK
+click_A the_DT leave_AIN management_AIN option_AIK
+click_A the_DT appraisal_AIN management_AIN modal_AIK
+click_A the_DT leave_AIN management_AIN option_AIK
+click_A the_DT Organization_AIN Structure_AIN option_AIK
+click_A the_DT Accounts_AIN Portal_AIN option_AIK
+click_A the_DT other_AIN portals_AIN option_AIK
+click_A the_DT knowledge_AIN base_AIN tab_AIK
+
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+click_A on_IN the_DT leave_AIN management_AIN option_AIK
+
+click_A the_DT gmail_AIN link_AIK
+click_A the_DT yahoo_AIN link_AIK
+click_A the_DT apply_AIN link_AIK
+click_A the_DT login_AIN link_AIK
+click_A the_DT signup_AIN link_AIK
+click_A the_DT policy_AIN link_AIK
+click_A the_DT edit_AIN link_AIK
+click_A the_DT close_AIN link_AIK
+click_A the_DT action_AIN link_AIK
+
+click_A gmail_AIN link_AIK
+click_A yahoo_AIN link_AIK
+click_A apply_AIN link_AIK
+click_A login_AIN link_AIK
+click_A signup_AIN link_AIK
+click_A policy_AIN link_AIK
+click_A edit_AIN link_AIK
+click_A close_AIN link_AIK
+click_A action_AIN link_AIK
+
+tap_A the_DT gmail_AIN icon_AIK
+tap_A the_DT yahoo_AIN link_AIK
+tap_A the_DT apply_AIN link_AIK
+tap_A the_DT login_AIN link_AIK
+tap_A the_DT signup_AIN link_AIK
+tap_A the_DT policy_AIN link_AIK
+tap_A the_DT edit_AIN link_AIK
+tap_A the_DT close_AIN link_AIK
+tap_A the_DT action_AIN link_AIK
+
+tap_A gmail_AIN link_AIK
+tap_A yahoo_AIN link_AIK
+tap_A apply_AIN link_AIK
+tap_A login_AIN link_AIK
+tap_A signup_AIN link_AIK
+tap_A policy_AIN link_AIK
+tap_A edit_AIN link_AIK
+tap_A close_AIN link_AIK
+tap_A action_AIN link_AIK
+
+select_A the_DT gmail_AIN option_AIK
+select_A the_DT yahoo_AIN option_AIK
+select_A the_DT apply_AIN option_AIK
+select_A the_DT login_AIN option_AIK
+select_A the_DT signup_AIN option_AIK
+select_A the_DT policy_AIN option_AIK
+select_A the_DT edit_AIN option_AIK
+select_A the_DT close_AIN option_AIK
+select_A the_DT action_AIN option_AIK
+
+select_A gmail_AIN option_AIK
+select_A yahoo_AIN option_AIK
+select_A apply_AIN option_AIK
+select_A login_AIN option_AIK
+select_A signup_AIN option_AIK
+select_A policy_AIN option_AIK
+select_A edit_AIN option_AIK
+select_A close_AIN option_AIK
+select_A action_AIN option_AIK
+
+push_A the_DT gmail_AIN option_AIK
+push_A the_DT yahoo_AIN option_AIK
+push_A the_DT apply_AIN option_AIK
+push_A the_DT login_AIN option_AIK
+push_A the_DT signup_AIN option_AIK
+push_A the_DT policy_AIN option_AIK
+push_A the_DT edit_AIN option_AIK
+push_A the_DT close_AIN option_AIK
+push_A the_DT action_AIN option_AIK
+
+push_A gmail_AIN option_AIK
+push_A yahoo_AIN option_AIK
+push_A apply_AIN option_AIK
+push_A login_AIN option_AIK
+push_A signup_AIN option_AIK
+push_A policy_AIN option_AIK
+push_A edit_AIN option_AIK
+push_A close_AIN option_AIK
+push_A action_AIN option_AIK
+
+choose_A the_DT gmail_AIN option_AIK
+choose_A the_DT yahoo_AIN option_AIK
+choose_A the_DT apply_AIN option_AIK
+choose_A the_DT login_AIN option_AIK
+choose_A the_DT signup_AIN option_AIK
+choose_A the_DT policy_AIN option_AIK
+choose_A the_DT edit_AIN option_AIK
+choose_A the_DT close_AIN option_AIK
+choose_A the_DT action_AIN option_AIK
+
+choose_A gmail_AIN option_AIK
+choose_A yahoo_AIN option_AIK
+choose_A apply_AIN option_AIK
+choose_A login_AIN option_AIK
+choose_A signup_AIN option_AIK
+choose_A policy_AIN option_AIK
+choose_A edit_AIN option_AIK
+choose_A close_AIN option_AIK
+choose_A action_AIN option_AIK
+
+click_A on_IN the_DT link_AIK for_IN gmail_AIN
+click_A on_IN the_DT link_AIK for_IN yahoo_AIN
+click_A on_IN the_DT link_AIK for_IN apply_AIN
+click_A on_IN the_DT link_AIK for_IN login_AIN
+click_A on_IN the_DT link_AIK for_IN signup_AIN
+click_A on_IN the_DT link_AIK for_IN policy_AIN
+click_A on_IN the_DT link_AIK for_IN edit_AIN
+click_A on_IN the_DT link_AIK for_IN close_AIN
+click_A on_IN the_DT link_AIK for_IN action_AIN
+
+click_A on_IN link_AIK for_IN gmail_AIN
+click_A on_IN link_AIK for_IN yahoo_AIN
+click_A on_IN link_AIK for_IN apply_AIN
+click_A on_IN link_AIK for_IN login_AIN
+click_A on_IN link_AIK for_IN signup_AIN
+click_A on_IN link_AIK for_IN policy_AIN
+click_A on_IN link_AIK for_IN edit_AIN
+click_A on_IN link_AIK for_IN close_AIN
+click_A on_IN link_AIK for_IN action_AIN
+
+press_A the_DT link_AIK labeled_MISC gmail_AIN
+press_A the_DT link_AIK labeled_MISC yahoo_AIN
+press_A the_DT link_AIK labeled_MISC apply_AIN
+press_A the_DT link_AIK labeled_MISC login_AIN
+press_A the_DT link_AIK labeled_MISC signup_AIN
+press_A the_DT link_AIK labeled_MISC policy_AIN
+press_A the_DT link_AIK labeled_MISC edit_AIN
+press_A the_DT link_AIK labeled_MISC close_AIN
+press_A the_DT link_AIK labeled_MISC action_AIN
+
+press_A link_AIK labeled_MISC gmail_AIN
+press_A link_AIK labeled_MISC yahoo_AIN
+press_A link_AIK labeled_MISC apply_AIN
+press_A link_AIK labeled_MISC login_AIN
+press_A link_AIK labeled_MISC signup_AIN
+press_A link_AIK labeled_MISC policy_AIN
+press_A link_AIK labeled_MISC edit_AIN
+press_A link_AIK labeled_MISC close_AIN
+press_A link_AIK labeled_MISC action_AIN
+
+access_MISC gmail_AIN by_IN pressing_A the_DT link_AIK
+access_MISC yahoo_AIN by_IN pressing_A the_DT link_AIK
+access_MISC apply_AIN by_IN pressing_A the_DT link_AIK
+access_MISC login_AIN by_IN pressing_A the_DT link_AIK
+access_MISC signup_AIN by_IN pressing_A the_DT link_AIK
+access_MISC policy_AIN by_IN pressing_A the_DT link_AIK
+access_MISC edit_AIN by_IN pressing_A the_DT link_AIK
+access_MISC close_AIN by_IN pressing_A the_DT link_AIK
+access_MISC action_AIN by_IN pressing_A the_DT link_AIK
+
+access_MISC gmail_AIN by_IN pressing_A link_AIK
+access_MISC yahoo_AIN by_IN pressing_A link_AIK
+access_MISC apply_AIN by_IN pressing_A link_AIK
+access_MISC login_AIN by_IN pressing_A link_AIK
+access_MISC signup_AIN by_IN pressing_A link_AIK
+access_MISC policy_AIN by_IN pressing_A link_AIK
+access_MISC edit_AIN by_IN pressing_A link_AIK
+access_MISC close_AIN by_IN pressing_A link_AIK
+access_MISC action_AIN by_IN pressing_A link_AIK
+
+navigate_A to_IN gmail_AIN using_MISC the_DT designated_MISC link_AIK
+navigate_A to_IN yahoo_AIN using_MISC the_DT designated_MISC link_AIK
+navigate_A to_IN apply_AIN using_MISC the_DT designated_MISC link_AIK
+navigate_A to_IN login_AIN using_MISC the_DT designated_MISC link_AIK
+navigate_A to_IN signup_AIN using_MISC the_DT designated_MISC link_AIK
+navigate_A to_IN policy_AIN using_MISC the_DT designated_MISC link_AIK
+navigate_A to_IN edit_AIN using_MISC the_DT designated_MISC link_AIK
+navigate_A to_IN close_AIN using_MISC the_DT designated_MISC link_AIK
+navigate_A to_IN action_AIN using_MISC the_DT designated_MISC link_AIK
+
+navigate_A to_IN gmail_AIN using_MISC designated_MISC link_AIK
+navigate_A to_IN yahoo_AIN using_MISC designated_MISC link_AIK
+navigate_A to_IN apply_AIN using_MISC designated_MISC link_AIK
+navigate_A to_IN login_AIN using_MISC designated_MISC link_AIK
+navigate_A to_IN signup_AIN using_MISC designated_MISC link_AIK
+navigate_A to_IN policy_AIN using_MISC designated_MISC link_AIK
+navigate_A to_IN edit_AIN using_MISC designated_MISC link_AIK
+navigate_A to_IN close_AIN using_MISC designated_MISC link_AIK
+navigate_A to_IN action_AIN using_MISC designated_MISC link_AIK
+
+press_A on_IN the_DT gmail_AIN button_AIK
+press_A on_IN the_DT yahoo_AIN button_AIK
+press_A on_IN the_DT apply_AIN button_AIK
+press_A on_IN the_DT login_AIN button_AIK
+press_A on_IN the_DT signup_AIN button_AIK
+press_A on_IN the_DT policy_AIN button_AIK
+press_A on_IN the_DT edit_AIN button_AIK
+press_A on_IN the_DT close_AIN button_AIK
+press_A on_IN the_DT action_AIN button_AIK
+
+press_A on_IN gmail_AIN button_AIK
+press_A on_IN yahoo_AIN button_AIK
+press_A on_IN apply_AIN button_AIK
+press_A on_IN login_AIN button_AIK
+press_A on_IN signup_AIN button_AIK
+press_A on_IN policy_AIN button_AIK
+press_A on_IN edit_AIN button_AIK
+press_A on_IN close_AIN button_AIK
+press_A on_IN action_AIN button_AIK
+
+press_A on_IN the_DT gmail_AIN link_AIK
+press_A on_IN the_DT yahoo_AIN link_AIK
+press_A on_IN the_DT apply_AIN link_AIK
+press_A on_IN the_DT login_AIN link_AIK
+press_A on_IN the_DT signup_AIN link_AIK
+press_A on_IN the_DT policy_AIN link_AIK
+press_A on_IN the_DT edit_AIN link_AIK
+press_A on_IN the_DT close_AIN link_AIK
+press_A on_IN the_DT action_AIN link_AIK
+
+press_A on_IN gmail_AIN link_AIK
+press_A on_IN yahoo_AIN link_AIK
+press_A on_IN apply_AIN link_AIK
+press_A on_IN login_AIN link_AIK
+press_A on_IN signup_AIN link_AIK
+press_A on_IN policy_AIN link_AIK
+press_A on_IN edit_AIN link_AIK
+press_A on_IN close_AIN link_AIK
+press_A on_IN action_AIN link_AIK
+
+press_A on_IN the_DT gmail_AIN option_AIK
+press_A on_IN the_DT yahoo_AIN option_AIK
+press_A on_IN the_DT apply_AIN option_AIK
+press_A on_IN the_DT login_AIN option_AIK
+press_A on_IN the_DT signup_AIN option_AIK
+press_A on_IN the_DT policy_AIN option_AIK
+press_A on_IN the_DT edit_AIN option_AIK
+press_A on_IN the_DT close_AIN option_AIK
+press_A on_IN the_DT action_AIN option_AIK
+
+press_A on_IN gmail_AIN option_AIK
+press_A on_IN yahoo_AIN option_AIK
+press_A on_IN apply_AIN option_AIK
+press_A on_IN login_AIN option_AIK
+press_A on_IN signup_AIN option_AIK
+press_A on_IN policy_AIN option_AIK
+press_A on_IN edit_AIN option_AIK
+press_A on_IN close_AIN option_AIK
+press_A on_IN action_AIN option_AIK
+
+
+click_A the_DT gmail_AIN image_AIK
+click_A the_DT yahoo_AIN image_AIK
+click_A the_DT apply_AIN image_AIK
+click_A the_DT login_AIN image_AIK
+click_A the_DT signup_AIN image_AIK
+click_A the_DT policy_AIN image_AIK
+click_A the_DT edit_AIN image_AIK
+click_A the_DT close_AIN image_AIK
+click_A the_DT action_AIN image_AIK
+
+click_A gmail_AIN image_AIK
+click_A yahoo_AIN image_AIK
+click_A apply_AIN image_AIK
+click_A login_AIN image_AIK
+click_A signup_AIN image_AIK
+click_A policy_AIN image_AIK
+click_A edit_AIN image_AIK
+click_A close_AIN image_AIK
+click_A action_AIN image_AIK
+
+tap_A the_DT gmail_AIN icon_AIK
+tap_A the_DT yahoo_AIN image_AIK
+tap_A the_DT apply_AIN image_AIK
+tap_A the_DT login_AIN image_AIK
+tap_A the_DT signup_AIN image_AIK
+tap_A the_DT policy_AIN image_AIK
+tap_A the_DT edit_AIN image_AIK
+tap_A the_DT close_AIN image_AIK
+tap_A the_DT action_AIN image_AIK
+
+tap_A gmail_AIN image_AIK
+tap_A yahoo_AIN image_AIK
+tap_A apply_AIN image_AIK
+tap_A login_AIN image_AIK
+tap_A signup_AIN image_AIK
+tap_A policy_AIN image_AIK
+tap_A edit_AIN image_AIK
+tap_A close_AIN image_AIK
+tap_A action_AIN image_AIK
+
+
+
+select_A the_DT gmail_AIN option_AIK
+select_A the_DT yahoo_AIN option_AIK
+select_A the_DT apply_AIN option_AIK
+select_A the_DT login_AIN option_AIK
+select_A the_DT signup_AIN option_AIK
+select_A the_DT policy_AIN option_AIK
+select_A the_DT edit_AIN option_AIK
+select_A the_DT close_AIN option_AIK
+select_A the_DT action_AIN option_AIK
+
+select_A gmail_AIN option_AIK
+select_A yahoo_AIN option_AIK
+select_A apply_AIN option_AIK
+select_A login_AIN option_AIK
+select_A signup_AIN option_AIK
+select_A policy_AIN option_AIK
+select_A edit_AIN option_AIK
+select_A close_AIN option_AIK
+select_A action_AIN option_AIK
+
+hit_A the_DT gmail_AIN option_AIK
+hit_A the_DT yahoo_AIN option_AIK
+hit_A the_DT apply_AIN option_AIK
+hit_A the_DT login_AIN option_AIK
+hit_A the_DT signup_AIN option_AIK
+hit_A the_DT policy_AIN option_AIK
+hit_A the_DT edit_AIN option_AIK
+hit_A the_DT close_AIN option_AIK
+hit_A the_DT action_AIN option_AIK
+
+hit_A gmail_AIN option_AIK
+hit_A yahoo_AIN option_AIK
+hit_A apply_AIN option_AIK
+hit_A login_AIN option_AIK
+hit_A signup_AIN option_AIK
+hit_A policy_AIN option_AIK
+hit_A edit_AIN option_AIK
+hit_A close_AIN option_AIK
+hit_A action_AIN option_AIK
+
+push_A the_DT gmail_AIN option_AIK
+push_A the_DT yahoo_AIN option_AIK
+push_A the_DT apply_AIN option_AIK
+push_A the_DT login_AIN option_AIK
+push_A the_DT signup_AIN option_AIK
+push_A the_DT policy_AIN option_AIK
+push_A the_DT edit_AIN option_AIK
+push_A the_DT close_AIN option_AIK
+push_A the_DT action_AIN option_AIK
+
+push_A gmail_AIN option_AIK
+push_A yahoo_AIN option_AIK
+push_A apply_AIN option_AIK
+push_A login_AIN option_AIK
+push_A signup_AIN option_AIK
+push_A policy_AIN option_AIK
+push_A edit_AIN option_AIK
+push_A close_AIN option_AIK
+push_A action_AIN option_AIK
+
+choose_A the_DT gmail_AIN option_AIK
+choose_A the_DT yahoo_AIN option_AIK
+choose_A the_DT apply_AIN option_AIK
+choose_A the_DT login_AIN option_AIK
+choose_A the_DT signup_AIN option_AIK
+choose_A the_DT policy_AIN option_AIK
+choose_A the_DT edit_AIN option_AIK
+choose_A the_DT close_AIN option_AIK
+choose_A the_DT action_AIN option_AIK
+
+choose_A gmail_AIN option_AIK
+choose_A yahoo_AIN option_AIK
+choose_A apply_AIN option_AIK
+choose_A login_AIN option_AIK
+choose_A signup_AIN option_AIK
+choose_A policy_AIN option_AIK
+choose_A edit_AIN option_AIK
+choose_A close_AIN option_AIK
+choose_A action_AIN option_AIK
+
+click_A on_IN the_DT image_AIK for_IN gmail_AIN
+click_A on_IN the_DT image_AIK for_IN yahoo_AIN
+click_A on_IN the_DT image_AIK for_IN apply_AIN
+click_A on_IN the_DT image_AIK for_IN login_AIN
+click_A on_IN the_DT image_AIK for_IN signup_AIN
+click_A on_IN the_DT image_AIK for_IN policy_AIN
+click_A on_IN the_DT image_AIK for_IN edit_AIN
+click_A on_IN the_DT image_AIK for_IN close_AIN
+click_A on_IN the_DT image_AIK for_IN action_AIN
+
+click_A on_IN image_AIK for_IN gmail_AIN
+click_A on_IN image_AIK for_IN yahoo_AIN
+click_A on_IN image_AIK for_IN apply_AIN
+click_A on_IN image_AIK for_IN login_AIN
+click_A on_IN image_AIK for_IN signup_AIN
+click_A on_IN image_AIK for_IN policy_AIN
+click_A on_IN image_AIK for_IN edit_AIN
+click_A on_IN image_AIK for_IN close_AIN
+click_A on_IN image_AIK for_IN action_AIN
+
+press_A the_DT image_AIK labeled_MISC gmail_AIN
+press_A the_DT image_AIK labeled_MISC yahoo_AIN
+press_A the_DT image_AIK labeled_MISC apply_AIN
+press_A the_DT image_AIK labeled_MISC login_AIN
+press_A the_DT image_AIK labeled_MISC signup_AIN
+press_A the_DT image_AIK labeled_MISC policy_AIN
+press_A the_DT image_AIK labeled_MISC edit_AIN
+press_A the_DT image_AIK labeled_MISC close_AIN
+press_A the_DT image_AIK labeled_MISC action_AIN
+
+press_A image_AIK labeled_MISC gmail_AIN
+press_A image_AIK labeled_MISC yahoo_AIN
+press_A image_AIK labeled_MISC apply_AIN
+press_A image_AIK labeled_MISC login_AIN
+press_A image_AIK labeled_MISC signup_AIN
+press_A image_AIK labeled_MISC policy_AIN
+press_A image_AIK labeled_MISC edit_AIN
+press_A image_AIK labeled_MISC close_AIN
+press_A image_AIK labeled_MISC action_AIN
+
+click_A on_IN leave_AIN management?_AIN
+click_A on_IN profile_AIN picture?_AIN
+click_A on_IN user_AIN icon?_AIN
+click_A on_IN profile_AIN icon?_AIN
+click_A on_IN demo_AIN management?_AIN
+click_A on_IN apply_AIN lunch?_AIN
+click_A on_IN appraisal_AIN management?_AIN
+click_A on_IN organisationA_IN structure?_AIN
+click_A on_IN Employee_AIN Directory?_AIN
+click_A on_IN forgot_AIN password?_AIN
+click_A on_IN leave_AIN management?_AIN
+click_A on_IN profile_AIN picture?_AIN
+click_A on_IN user_AIN icon?_AIN
+click_A on_IN profile_AIN icon?_AIN
+click_A on_IN demo_AIN management?_AIN
+click_A on_IN apply_AIN lunch?_AIN
+click_A on_IN appraisal_AIN management?_AIN
+click_A on_IN organisationA_IN structure?_AIN
+click_A on_IN Employee_AIN Directory?_AIN
+click_A on_IN forgot_AIN password?_AIN
+
+click_A on_IN leave_AIN management_AIN
+click_A on_IN profile_AIN picture_AIN
+click_A on_IN user_AIN icon_AIN
+click_A on_IN profile_AIN icon_AIN
+click_A on_IN demo_AIN management_AIN
+click_A on_IN apply_AIN lunch_AIN
+click_A on_IN appraisal_AIN management_AIN
+click_A on_IN organisationA_IN structure_AIN
+click_A on_IN Employee_AIN Directory_AIN
+
+select_A Customize_AIN your_AIN holidays_AIN option_AIK
+select_A your_AIN leave_AIN management_AIN option_AIK 
+select_A your_AIN profile_AIN picture_AIN option_AIK
+select_A your_AIN user_AIN icon_AIN option_AIK
+select_A your_AIN profile_AIN icon_AIN option_AIK
+select_A your_AIN demo_AIN management_AIN option_AIK
+select_A your_AIN apply_AIN lunch_AIN option_AIK
+select_A your_AIN appraisal_AIN management_AIN option_AIK
+select_A your_AIN organisationA_IN structure_AIN option_AIK
+select_A your_AIN Employee_AIN Directory_AIN option_AIK
+select_A Customize_AIN your_AIN holidays_AIN option_AIK
+select_A your_AIN leave_AIN management_AIN option_AIK 
+select_A your_AIN profile_AIN picture_AIN option_AIK
+select_A your_AIN user_AIN icon_AIN option_AIK
+select_A your_AIN profile_AIN icon_AIN option_AIK
+select_A your_AIN demo_AIN management_AIN option_AIK
+select_A your_AIN apply_AIN lunch_AIN option_AIK
+select_A your_AIN appraisal_AIN management_AIN option_AIK
+select_A your_AIN organisationA_IN structure_AIN option_AIK
+select_A your_AIN Employee_AIN Directory_AIN option_AIK
