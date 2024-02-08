@@ -36,13 +36,21 @@ public class GenerateStep {
                                     step = step.replace("<action>", "clicks");
                                     step = step.replace("<information>", "button");
                                 }
-                                case "input" -> step = step.replace("<action>", "enters");
+                                case "input", "field" -> {
+                                    step = step.replace("<action>", "enters");
+                                    step = step.replace("<action>", "enters \"(.*?)\"");
+                                }
                                 case "dropdown", "radio button", "checkbox" ->
                                         step = step.replace("<action>", "selects");
                             }
                             step = step.replace("<information>", entry.getValue());
                         }
-                        case "AIN" -> step = step.replace("<element>", entry.getValue().trim());
+                        case "AIN" -> {
+                            step = step.replace("<element>", entry.getValue().trim().replace(" ", "_"));
+                            if(tokenMap.get("A").equals("enters") || tokenMap.get("A").equals("enter") || tokenMap.get("A").equals("type")) {
+                                step.replace("on <element>", "as " + entry.getValue().trim().replace(" ", "_"));
+                            }
+                        }
                         default -> step = step.replace("<information>", "element");
                     }
                 }
