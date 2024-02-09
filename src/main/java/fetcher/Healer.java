@@ -36,6 +36,7 @@ public class Healer {
         ) {
             if (action.equals("input") || (action.equals("write"))) {
                 n = nodeInfo.getIndex();
+                break;
             }
         }
         System.out.println(listNodes);
@@ -142,7 +143,6 @@ public class Healer {
             return component.createComponent(nodeInfo);
         }).collect(Collectors.joining()));
     }
-
     public static List<NodeInfo> findNodeWithText(List<NodePath> nodes, String searchText) {
         searchNodes.clear();
         if(searchText.equalsIgnoreCase("sign in")) {
@@ -151,9 +151,17 @@ public class Healer {
                     if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equals(searchText))) {
                         searchNodes.add(node.getLastNode());
                     }
+
                 } catch (NullPointerException e) {
-                    if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText))) {
-                        searchNodes.add(node.getLastNode());
+                    try {
+                        if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText)) || (node.getLastNode().getOtherAttributes().get("placeholder").equals(searchText))) {
+                            searchNodes.add(node.getLastNode());
+                        }
+                    } catch (NullPointerException e1)
+                    {
+                        if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText))) {
+                            searchNodes.add(node.getLastNode());
+                        }
                     }
                 }
 //            if (node.getLastNode().getOtherAttributes().get("value") == null) {
@@ -164,6 +172,7 @@ public class Healer {
 //            }
 
             }
+
         }
         else {
             for (NodePath node : nodes) {
@@ -171,9 +180,16 @@ public class Healer {
                     if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equalsIgnoreCase(searchText))) {
                         searchNodes.add(node.getLastNode());
                     }
+
                 } catch (NullPointerException e) {
-                    if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText))) {
-                        searchNodes.add(node.getLastNode());
+                    try {
+                        if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText)) || (node.getLastNode().getOtherAttributes().get("placeholder").equalsIgnoreCase(searchText))) {
+                            searchNodes.add(node.getLastNode());
+                        }
+                    } catch (NullPointerException e1) {
+                        if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText))) {
+                            searchNodes.add(node.getLastNode());
+                        }
                     }
                 }
 //            if (node.getLastNode().getOtherAttributes().get("value") == null) {
@@ -187,7 +203,6 @@ public class Healer {
         }
         return searchNodes;
     }
-
     private static void buildXPathWithOneField(StringBuilder xpath, NodeInfo nodeInfo) {
 
         if (!nodeInfo.getTag().isBlank()) {

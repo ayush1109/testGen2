@@ -15,11 +15,10 @@ public class GenerateStep {
 //            final String page = url.split("\\.")[0].split("//")[1];
 
             String url = getFeatureNameFromUrl();
-            final String page = url;
             if (StringUtils.equalsIgnoreCase(keyword, "when")) {
 
                 String step = keyword + " for the <page> page, user <action> on <element> <information>";
-                step = step.replace("<page>", page);
+                step = step.replace("<page>", url);
 
                 for (Map.Entry<String, String> entry : tokenMap.entrySet()) {
 
@@ -47,8 +46,8 @@ public class GenerateStep {
                         }
                         case "AIN" -> {
                             step = step.replace("<element>", entry.getValue().trim().replace(" ", "_"));
-                            if(tokenMap.get("A").equals("enters") || tokenMap.get("A").equals("enter") || tokenMap.get("A").equals("type")) {
-                                step.replace("on <element>", "as " + entry.getValue().trim().replace(" ", "_"));
+                            if(tokenMap.get("A").equals("enters") || tokenMap.get("A").equals("enter") || tokenMap.get("A").equals("write")) {
+                                step = step.replace("<action>", "enters as \"" + tokenMap.get("DATA") + "\"");
                             }
                         }
                         default -> step = step.replace("<information>", "element");
@@ -59,7 +58,7 @@ public class GenerateStep {
             } else {
                 if (tokenMap.containsKey("AF")) {
                     String step = keyword + " for the <page> page, user verifies <data> is the text of <element> <information>";
-                    step = step.replace("<page>", page);
+                    step = step.replace("<page>", url);
                     for (Map.Entry<String, String> entry : tokenMap.entrySet()) {
                         switch (entry.getKey()) {
                             case "AIK" -> {
@@ -84,7 +83,7 @@ public class GenerateStep {
 //                            step = step.replace("<information>", entry.getValue());
                             }
                             case "AIN" -> {
-                                step = step.replace("<element>", tokenMap.get("AIN"));
+                                step = step.replace("<element>", tokenMap.get("AIN").trim().replace(" ", "_"));
                                 break;
                             }
                             case "DATA" -> {
@@ -97,7 +96,7 @@ public class GenerateStep {
                     return step;
                 } else {
                     String step = keyword + " for the <page> page, user verifies <element> <information> is <subaction>";
-                    step = step.replace("<page>", page);
+                    step = step.replace("<page>", url);
                     for (Map.Entry<String, String> entry : tokenMap.entrySet()) {
                         switch (entry.getKey()) {
                             case "AIK" -> {
@@ -110,11 +109,12 @@ public class GenerateStep {
 //                            step = step.replace("<information>", entry.getValue());
                             }
                             case "AIN" -> {
-                                step = step.replace("<element>", tokenMap.get("AIN"));
+                                step = step.replace("<element>", tokenMap.get("AIN").trim().replace(" ", "_"));
                             }
                             case "SA" -> {
                                 step = step.replace("<subaction>", tokenMap.get("SA"));
                             }
+                            default -> step = step.replace("<information>", "element");
                         }
                     }
                     return step;

@@ -86,7 +86,7 @@ public class Utils {
     }
 
     private static String refactorValue(String value) {
-        return value.replace(": ", "(\"") + "\")";
+        return value.replace(": //", "(\"//") + "\")";
     }
 
     public static void setStepDefinitionVariable(CompilationUnit c, String value, String locatorName) {

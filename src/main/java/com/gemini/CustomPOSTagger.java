@@ -18,15 +18,14 @@ public class CustomPOSTagger {
     public static void main(String[] args) {
         try {
 
-            LinkedHashMap<Integer, List<String>> data = ExcelUtilities.readBySheetNumber(Utils.readProperties("filePath"), 1);
+            LinkedHashMap<Integer, List<String>> data = ExcelUtilities.readBySheetNumber(Utils.readProperties("filePath"), 0);
             List<Testcase> testcaseList = ExcelUtilities.getTestCases(data);
             List<String> stepsGPOG = new ArrayList<>();
             StringBuilder content = new StringBuilder();
             content.append("Feature: ").append(Testcase.getFeatureName());
             for (Testcase testcase : testcaseList
             ) {
-                if(testcase.getScenarioName().contains("login")) SeleniumActions.openForLogin();
-                else SeleniumActions.open();
+                SeleniumActions.open();
                 content.append("\n\n  Scenario: ").append(testcase.getScenarioName());
 
                 for (String sampleString : testcase.getSteps()
@@ -54,7 +53,7 @@ public class CustomPOSTagger {
                     String inputData = null;
                     if (keyword.equals("When")) {
                         String action = GenerateStep.identifyAction(tokenToKeys);
-                        if(action == null) action = tokenToKeys.get("A");
+                        if (action == null) action = tokenToKeys.get("A");
                         if (!StringUtils.equalsIgnoreCase("click", action))
                             try {
                                 inputData = tokenToKeys.get("DATA");
