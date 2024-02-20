@@ -1,0 +1,18 @@
+webdriver {
+  driver = edge
+  timeouts {
+    implicitlywait = 5000
+  }
+  wait {
+    for {
+      timeout = 10000
+    }
+  }
+  capabilities {
+  "ms:edgeOptions" {
+        args = ["--start-maximized", "inprivate"]
+      }
+   }
+}
+
+webdriver.base.url = ${base-url}

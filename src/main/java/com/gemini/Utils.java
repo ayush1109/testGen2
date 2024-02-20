@@ -86,7 +86,10 @@ public class Utils {
     }
 
     private static String refactorValue(String value) {
-        return value.replace(": //", "(\"//") + "\")";
+        String updatedValue = "";
+        updatedValue = value.replace(": //", "(\"//") + "\")";
+        updatedValue = updatedValue.replace("cssSelector: ", "cssSelector(\"");
+        return updatedValue;
     }
 
     public static void setStepDefinitionVariable(CompilationUnit c, String value, String locatorName) {
@@ -274,7 +277,7 @@ public class Utils {
         String content = FileUtils.readFileToString(f, StandardCharsets.UTF_8);
 
         String updatedContent = StringUtils.replace(content, "new By", "By")
-                .replace("()", "")
+                .replace("\")()", "\")")
                 .replace("static", "public static");
         //temprary
 //                .replace("static", "@LocatorType(value = \"button\")\npublic static");
@@ -373,7 +376,7 @@ public class Utils {
                 } else {
                     sourceDirectory = new File(System.getProperty("user.dir") + "\\" + Testcase.getFeatureName() + ".feature");
                     fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
-                            + File.separator + "resources" + File.separator + "feature" + File.separator + Testcase.getFeatureName() + ".feature";
+                            + File.separator + "resources" + File.separator + "features" + File.separator + Testcase.getFeatureName() + ".feature";
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -400,6 +403,43 @@ public class Utils {
 
         fileWriter.close();
 
+    }
 
+    public static void createRunnerFile() throws IOException {
+        File runnerFile = new File(readProperties("projectPath") + "/src/test/java/com/gemini/Runner.java");
+
+        String runnerContent = FileUtils.readFileToString(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\RunnerContent.txt"));
+
+        FileWriter fileWriter = new FileWriter(runnerFile);
+
+        fileWriter.write(runnerContent);
+
+        fileWriter.close();
+    }
+
+    public static void createSerenityFile() throws IOException {
+        File serenityFile = new File(readProperties("projectPath") + "/src/test/resources/serenity.conf");
+
+        String serenityContent = FileUtils.readFileToString(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\serenityContent.txt"));
+
+        serenityContent = serenityContent.replace("${base-url}", "\"" + readProperties("url") + "\"");
+
+        FileWriter fileWriter = new FileWriter(serenityFile);
+
+        fileWriter.write(serenityContent);
+
+        fileWriter.close();
+    }
+
+    public static void createConfigFile() throws IOException {
+        File configFile = new File(readProperties("projectPath") + "/src/test/resources/config.properties");
+
+        String configContent = FileUtils.readFileToString(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\configContent.txt"));
+
+        FileWriter fileWriter = new FileWriter(configFile);
+
+        fileWriter.write(configContent);
+
+        fileWriter.close();
     }
 }

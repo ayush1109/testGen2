@@ -193,12 +193,12 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
         if (!textOrVisibilityParameter) {
             functionName = "verify" + meaningFulName + "IsDisplayed";
-            annotationValue = "\"" + "^user verifies " + meaningFulName.toLowerCase() + " is visible" + "$" + "\"";
+            annotationValue = "\"" + "^user verifies " + field.getName() + " is visible" + "$" + "\"";
             blockToEnter = functionName + "(" + ")";
             method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
         } else {
             functionName = "verify" + functionName + "Value";
-            annotationValue = "\"" + "^" + "user verifies " + "\\\"(.*)\\\"" + meaningFulName.toLowerCase() + " value" + "$" + "\"";
+            annotationValue = "\"" + "^" + "user verifies " + "\\\"(.*)\\\"" + field.getName() + " value" + "$" + "\"";
             blockToEnter = functionName + "(" + "typeText" + ")";
             method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
             parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "typeText"));
@@ -272,7 +272,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
         if (StringUtils.equalsIgnoreCase(type, "button") || StringUtils.equalsIgnoreCase(type, "div") || StringUtils.equalsIgnoreCase(type, "span") || StringUtils.equalsIgnoreCase(type, "radio button") || StringUtils.equalsIgnoreCase(type, "checkbox") || StringUtils.equalsIgnoreCase(type, "table") || StringUtils.equalsIgnoreCase(type, "image") || StringUtils.equalsIgnoreCase(type, "link")) {
             functionName = Settings.USER_CLICK_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_CLICK_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + type + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_CLICK_ANNOTATION + " " + field.getName() + " " + type + "$" + "\""; //changed the step definition
             textToEnter = "clickOn" + meaningFulName;
             blockToEnter = textToEnter + "(" + ")";
             annotationType = "When";
@@ -280,7 +280,7 @@ public class UtilsStepDefinitionCodeGenerator {
         }
         if (StringUtils.equalsIgnoreCase(type, "click")) {
             functionName = Settings.USER_SCROLL_CLICK_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_SCROLL_CLICK_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + "element" + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_SCROLL_CLICK_ANNOTATION + " " + field.getName() + " " + "element" + "$" + "\""; //changed the step definition
             textToEnter = "scrollClick" + meaningFulName;
             blockToEnter = textToEnter + "(" + ")";
             annotationType = "When";
@@ -288,7 +288,7 @@ public class UtilsStepDefinitionCodeGenerator {
         }
         if (StringUtils.equalsIgnoreCase(type, "input")) {
             functionName = Settings.USER_INPUT_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_INPUT_ANNOTATION + " input for " + meaningFulName.toLowerCase() + "$" + "\"";
+            annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_INPUT_ANNOTATION + " input for " + field.getName() + "$" + "\"";
             textToEnter = "typeTextInto" + meaningFulName;
             blockToEnter = textToEnter + "(" + "typeText" + ")";
             parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "typeText"));
@@ -297,7 +297,7 @@ public class UtilsStepDefinitionCodeGenerator {
         }
         if (StringUtils.equalsIgnoreCase(type, "dropdown")) {
             functionName = Settings.USER_SELECT_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_SELECT_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + type + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_SELECT_ANNOTATION + " " + field.getName() + " " + type + "$" + "\""; //changed the step definition
             textToEnter = "select" + meaningFulName + "Element";
             blockToEnter = textToEnter + "(" + "selectValue" + ")";
             parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "selectValue"));
@@ -306,7 +306,7 @@ public class UtilsStepDefinitionCodeGenerator {
         }
         if (StringUtils.equalsIgnoreCase(type, "image")) {
             functionName = Settings.USER_IMAGE_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_IMAGE_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + type + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_IMAGE_ANNOTATION + " " + field.getName() + " " + type + "$" + "\""; //changed the step definition
             textToEnter = "uploadFileTo" + meaningFulName;
             blockToEnter = textToEnter + "(" + "filePath" + ")";
             parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "filePath"));
@@ -350,7 +350,7 @@ public class UtilsStepDefinitionCodeGenerator {
         String annotationType = "";
         List<Parameter> parameters = new LinkedList<>();
         functionName = Settings.USER_CLICK_FUNCTION + meaningFulName + Settings.USER_NAVIGATE_FUNCTION;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_CLICK_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + type + " " + Settings.USER_NAVIGATE_ANNOTATION + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_CLICK_ANNOTATION + " " + field.getName() + " " + type + " " + Settings.USER_NAVIGATE_ANNOTATION + "$" + "\""; //changed the step definition
         textToEnter = "clickOn" + meaningFulName + Settings.USER_NAVIGATE_FUNCTION;
         blockToEnter = textToEnter + "(" + ")";
         annotationType = "When";
@@ -391,7 +391,7 @@ public class UtilsStepDefinitionCodeGenerator {
         MethodDeclaration method = null;
         List<Parameter> parameters = new LinkedList<>();
         functionName = "verify" + meaningFulName + "IsSelected";
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user verifies " + meaningFulName.toLowerCase() + " is selected" + "$" + "\"";
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user verifies " + field.getName() + " is selected" + "$" + "\"";
         blockToEnter = functionName + "(" + ")";
         method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
         // add a body to the method
@@ -427,7 +427,7 @@ public class UtilsStepDefinitionCodeGenerator {
 
         if (valueVerification) {
             functionName = Settings.USER_VERIFIES_VALUE + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user verifies " + "\\\"(.*)\\\"" + " is the value for " + meaningFulName.toLowerCase() + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user verifies " + "\\\"(.*)\\\"" + " is the value for " + field.getName() + "$" + "\""; //changed the step definition
             textToEnter = "verifyValueFrom" + meaningFulName;
             blockToEnter = textToEnter + "(" + "valueOfElement" + ")";
 //        blockToEnter = functionName + "(" + "" + ")";
@@ -435,7 +435,7 @@ public class UtilsStepDefinitionCodeGenerator {
             parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "valueOfElement"));
         } else {
             functionName = Settings.USER_GET_ATTRIBUTE_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_GET_ATTRIBUTE_ANNOTATION + meaningFulName.toLowerCase() + " element" + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_GET_ATTRIBUTE_ANNOTATION + field.getName() + " element" + "$" + "\""; //changed the step definition
             textToEnter = "getAttributeFrom" + meaningFulName;
             blockToEnter = textToEnter + "(" + "attributeValue" + ")";
 //        blockToEnter = functionName + "(" + "" + ")";
@@ -481,7 +481,7 @@ public class UtilsStepDefinitionCodeGenerator {
         MethodDeclaration method = null;
         List<Parameter> parameters = new LinkedList<>();
         functionName = "hoverOver" + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user hovers over " + meaningFulName.toLowerCase() + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user hovers over " + field.getName() + "$" + "\""; //changed the step definition
         blockToEnter = functionName + "(" + "" + ")";
         method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
         // add a body to the method
@@ -695,7 +695,7 @@ public class UtilsStepDefinitionCodeGenerator {
         } else {
             blockToEnter = functionName + "()";
         }
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_RIGHT_CLICK_ANNOTATION + " " + meaningFulName.toLowerCase() + "$" + "\"";
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_RIGHT_CLICK_ANNOTATION + " " + field.getName() + "$" + "\"";
         //changed the step definition
         annotationType = "When";
         loggerUtils.log(LogLevel.INFO, "Step created: " + annotationValue + "and function created: " + functionName);
@@ -730,13 +730,14 @@ public class UtilsStepDefinitionCodeGenerator {
         String annotationType = "";
         List<Parameter> parameters = new LinkedList<>();
         functionName = Settings.USER_RIGHT_CLICK_FUNCTION + meaningFulName;
-        if (readProperties("framework").contains("GEMJAR")) {
-            parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "element"));
-            blockToEnter = functionName + "(" + "element" + ")";
-        } else {
+//        if (readProperties("framework").contains("GEMJAR")) {
+//            parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "element"));
+//            blockToEnter = functionName + "(" + "element" + ")";
+//        } else {
+
             blockToEnter = functionName + "()";
-        }
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_RIGHT_CLICK_ANNOTATION + " " + meaningFulName.toLowerCase() + "$" + "\"";
+//        }
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_RIGHT_CLICK_ANNOTATION + " " + field.getName() + "$" + "\"";
         //changed the step definition
         annotationType = "When";
         loggerUtils.log(LogLevel.INFO, "Step created: " + annotationValue + "and function created: " + functionName);
@@ -771,7 +772,7 @@ public class UtilsStepDefinitionCodeGenerator {
         annotationType = "Then";
         MethodDeclaration method = null;
         functionName = "verify" + meaningFulName + "Exists";
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user verifies " + meaningFulName.toLowerCase() + " is present on screen$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user verifies " + field.getName() + " is present on screen$" + "\""; //changed the step definition
         blockToEnter = functionName + "(" + ")";
         method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
         BlockStmt block = new BlockStmt();
@@ -806,7 +807,7 @@ public class UtilsStepDefinitionCodeGenerator {
         parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "attribute"));
         parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "value"));
         functionName = "verifyAttributeContainsValueFor" + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user verifies attribute \\\"(.*?)\\\" contains \\\"(.*?)\\\" value for " + meaningFulName.toLowerCase() + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user verifies attribute \\\"(.*?)\\\" contains \\\"(.*?)\\\" value for " + field.getName() + "$" + "\""; //changed the step definition
         blockToEnter = functionName + "(attribute, value" + ")";
         method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
         method.setParameters(parameters);
@@ -840,7 +841,7 @@ public class UtilsStepDefinitionCodeGenerator {
         MethodDeclaration method = null;
         List<Parameter> parameters = new LinkedList<>();
         functionName = "scrollTo" + meaningFulName + "Element";
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user scrolls to " + meaningFulName.toLowerCase() + " element$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user scrolls to " + field.getName() + " element$" + "\""; //changed the step definition
         blockToEnter = functionName + "(" + ")";
         method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
         BlockStmt block = new BlockStmt();
@@ -872,7 +873,7 @@ public class UtilsStepDefinitionCodeGenerator {
         annotationType = "Then";
         MethodDeclaration method = null;
         functionName = "verifyElementSelectedFor" + field.getName();
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user verifies " + meaningFulName.toLowerCase() + " checkbox is selected$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user verifies " + field.getName() + " checkbox is selected$" + "\""; //changed the step definition
         blockToEnter = functionName + "(" + ")";
         method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
         // add a body to the method
@@ -906,7 +907,7 @@ public class UtilsStepDefinitionCodeGenerator {
         MethodDeclaration method = null;
         List<Parameter> parameters = new LinkedList<>();
         functionName = "verify" + meaningFulName + "IsNotSelected";
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user verifies " + meaningFulName.toLowerCase() + " checkbox is not selected$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user verifies " + field.getName() + " checkbox is not selected$" + "\""; //changed the step definition
         blockToEnter = functionName + "(" + ")";
         method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
         // add a body to the method
@@ -939,7 +940,7 @@ public class UtilsStepDefinitionCodeGenerator {
         String annotationType = "";
         List<Parameter> parameters = new LinkedList<>();
         functionName = Settings.USER_VERIFIES_VALUE_ATTRIBUTE + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user verifies " + "\\\"(.*)\\\"" + " attribute for " + meaningFulName.toLowerCase() + " as " + "\\\"(.*)\\\"" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user verifies " + "\\\"(.*)\\\"" + " attribute for " + field.getName() + " as " + "\\\"(.*)\\\"" + "$" + "\""; //changed the step definition
         textToEnter = "verifyAttributeValueFor" + meaningFulName;
         blockToEnter = textToEnter + "(" + "attributeName" + "," + "attributeValue" + ")";
 //        blockToEnter = functionName + "(" + "" + ")";
@@ -985,7 +986,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_GETTEXT_FUNCTION + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_GETTEXT_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + "element" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_GETTEXT_ANNOTATION + " " + field.getName() + " " + "element" + "$" + "\""; //changed the step definition
         textToEnter = "getTextFrom" + meaningFulName;
         blockToEnter = textToEnter + "(" + ")";
         annotationType = "When";
@@ -1027,7 +1028,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_TYPE_AND_ENTER_FUNCTION + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_TYPE_AND_ENTER_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + "element and presses enter" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_TYPE_AND_ENTER_ANNOTATION + " " + field.getName() + " " + "element and presses enter" + "$" + "\""; //changed the step definition
         blockToEnter = functionName + "(" + "typeText" + ")";
         annotationType = "When";
         loggerUtils.log(LogLevel.INFO, "Step created: " + annotationValue + "and function created: " + functionName);
@@ -1069,7 +1070,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_TYPE_AND_TAB_FUNCTION + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_TYPE_AND_TAB_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + "element and presses tab" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_TYPE_AND_TAB_ANNOTATION + " " + field.getName() + " " + "element and presses tab" + "$" + "\""; //changed the step definition
         blockToEnter = functionName + "(" + "typeText" + ")";
         annotationType = "When";
         loggerUtils.log(LogLevel.INFO, "Step created: " + annotationValue + "and function created: " + functionName);
@@ -1114,7 +1115,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_CLEAR_FUNCTION + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_CLEAR_ANNOTATION + " " + "text for " + meaningFulName.toLowerCase() + " " + type + " element" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_CLEAR_ANNOTATION + " " + "text for " + field.getName() + " " + type + " element" + "$" + "\""; //changed the step definition
         textToEnter = "clear" + meaningFulName;
         blockToEnter = textToEnter + "(" + ")";
         annotationType = "When";
@@ -1160,7 +1161,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_VERIFY_CLEAR_FUNCTION + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_VERIFY_CLEAR_ANNOTATION + " " + "value for " + meaningFulName.toLowerCase() + " " + type + " element is cleared" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_VERIFY_CLEAR_ANNOTATION + " " + "value for " + field.getName() + " " + type + " element is cleared" + "$" + "\""; //changed the step definition
         textToEnter = "verifyValueClearedFor" + meaningFulName;
         blockToEnter = textToEnter + "(" + ")";
         annotationType = "Then";
@@ -1246,7 +1247,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
         if (StringUtils.equalsIgnoreCase(type, "button") || StringUtils.equalsIgnoreCase(type, "click") || StringUtils.equalsIgnoreCase(type, "image") || StringUtils.equalsIgnoreCase(type, "link")) {
             functionName = Settings.USER_CLICK_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className) + Settings.USER_CLICK_ANNOTATION + " " + meaningFulName + " " + type + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", className) + Settings.USER_CLICK_ANNOTATION + " " + field.getName() + " " + type + "$" + "\""; //changed the step definition
             textToEnter = "clickOn" + meaningFulName;
             blockToEnter = textToEnter + "(" + ")";
             annotationType = "When";
@@ -1255,7 +1256,7 @@ public class UtilsStepDefinitionCodeGenerator {
         }
         if (StringUtils.equalsIgnoreCase(type, "click")) {
             functionName = Settings.USER_SCROLL_CLICK_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className) + Settings.USER_SCROLL_CLICK_ANNOTATION + " " + meaningFulName + " " + "element" + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", className) + Settings.USER_SCROLL_CLICK_ANNOTATION + " " + field.getName() + " " + "element" + "$" + "\""; //changed the step definition
             textToEnter = "scrollClick" + meaningFulName;
             blockToEnter = textToEnter + "(" + ")";
             annotationType = "When";
@@ -1264,7 +1265,7 @@ public class UtilsStepDefinitionCodeGenerator {
         }
         if (StringUtils.equalsIgnoreCase(type, "input")) {
             functionName = Settings.USER_INPUT_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className) + Settings.USER_INPUT_ANNOTATION + " input for " + meaningFulName +"$" + "\"";
+            annotationValue = "\"" + pageName.replace("<page>", className) + Settings.USER_INPUT_ANNOTATION + " input for " + field.getName() +"$" + "\"";
             textToEnter = "typeTextInto" + meaningFulName;
             blockToEnter = textToEnter + "(" + "typeText" + ")";
             key = "Type text into " + meaningFulName;
@@ -1274,7 +1275,7 @@ public class UtilsStepDefinitionCodeGenerator {
         }
         if (StringUtils.equalsIgnoreCase(type, "dropdown")) {
             functionName = Settings.USER_SELECT_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className) + Settings.USER_SELECT_ANNOTATION + " " + meaningFulName + " " + type + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", className) + Settings.USER_SELECT_ANNOTATION + " " + field.getName() + " " + type + "$" + "\""; //changed the step definition
             textToEnter = "select" + meaningFulName;
             blockToEnter = textToEnter + "(" + "selectValue" + ")";
             key = "Select value from " + meaningFulName;
@@ -1284,7 +1285,7 @@ public class UtilsStepDefinitionCodeGenerator {
         }
         if (StringUtils.equalsIgnoreCase(type, "image")) {
             functionName = Settings.USER_IMAGE_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className) + Settings.USER_IMAGE_ANNOTATION + " " + meaningFulName + " " + type + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", className) + Settings.USER_IMAGE_ANNOTATION + " " + field.getName() + " " + type + "$" + "\""; //changed the step definition
             textToEnter = "uploadFileTo" + meaningFulName;
             blockToEnter = textToEnter + "(" + "filePath" + ")";
             key = "Upload file to " + meaningFulName;
@@ -1330,7 +1331,7 @@ public class UtilsStepDefinitionCodeGenerator {
 
         if (valueVerification) {
             functionName = Settings.USER_VERIFIES_VALUE + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className) + "User verifies " + "\\\"(.*)\\\"" + " is the value for " + meaningFulName + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", className) + "User verifies " + "\\\"(.*)\\\"" + " is the value for " + field.getName() + "$" + "\""; //changed the step definition
             textToEnter = "verifyValueFrom" + meaningFulName;
             blockToEnter = textToEnter + "(" + "valueOfElement" + ")";
 //        blockToEnter = functionName + "(" + "" + ")";
@@ -1386,7 +1387,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_DOUBLE_CLICK_FUNCTION + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_DOUBLE_CLICK_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + "element" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_DOUBLE_CLICK_ANNOTATION + " " + field.getName() + " " + "element" + "$" + "\""; //changed the step definition
         textToEnter = "doubleClickOn" + meaningFulName;
         blockToEnter = textToEnter + "(" + ")";
         annotationType = "When";
@@ -1432,12 +1433,12 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
         if (!textOrVisibilityParameter) {
             functionName = "verify" + meaningFulName + "IsDisplayed";
-            annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user verifies" + " " + meaningFulName.toLowerCase() + " " + type + " is visible" + "$" + "\"";
+            annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user verifies" + " " + field.getName() + " " + type + " is visible" + "$" + "\"";
             blockToEnter = functionName + "(" + ")";
             method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
         } else {
             functionName = "verify" + functionName + "Text";
-            annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user verifies" + " " + "\\\"(.*)\\\"" + " is the text of " + meaningFulName.toLowerCase() + " " + type + "$" + "\"";
+            annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user verifies" + " " + "\\\"(.*)\\\"" + " is the text of " + field.getName() + " " + type + "$" + "\"";
             blockToEnter = functionName + "(" + "typeText" + ")";
             method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
             parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "typeText"));
@@ -1477,7 +1478,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_CLICKABLE_FUNCTION + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_CLICKABLE_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + "element" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_CLICKABLE_ANNOTATION + " " + field.getName() + " " + "element" + "$" + "\""; //changed the step definition
         textToEnter = "elementIsClickable" + meaningFulName;
         blockToEnter = textToEnter + "(" + ")";
         annotationType = "Then";
@@ -1519,7 +1520,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_COUNT_CHILD_ELEMENTS + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_VERIFY_CHILD_ELEMENTS_COUNT_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + "element" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_VERIFY_CHILD_ELEMENTS_COUNT_ANNOTATION + " " + field.getName() + " " + "element" + "$" + "\""; //changed the step definition
         textToEnter = Settings.USER_COUNT_CHILD_ELEMENTS + meaningFulName;
         blockToEnter = textToEnter + "(count" + ")";
         annotationType = "Then";
@@ -1561,7 +1562,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_COUNT_ELEMENTS + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_VERIFY_ELEMENTS_COUNT_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + "element" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_VERIFY_ELEMENTS_COUNT_ANNOTATION + " " + field.getName() + " " + "element" + "$" + "\""; //changed the step definition
         textToEnter = Settings.USER_COUNT_ELEMENTS + meaningFulName;
         blockToEnter = textToEnter + "(count" + ")";
         annotationType = "Then";
@@ -1602,7 +1603,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_CONTAINS_FUNCTION + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_CONTAINS_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + "element" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_CONTAINS_ANNOTATION + " " + field.getName() + " " + "element" + "$" + "\""; //changed the step definition
         textToEnter = "verify" + meaningFulName + "ContainsText";
         blockToEnter = textToEnter + "(" + "typeText" + ")";
         annotationType = "Then";
@@ -1647,7 +1648,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_ENABLED_FUNCTION + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_ENABLED_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + type + " is enabled" + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_ENABLED_ANNOTATION + " " + field.getName() + " " + type + " is enabled" + "$" + "\""; //changed the step definition
         textToEnter = "verify" + meaningFulName + "IsEnabled";
         blockToEnter = textToEnter + "(" + ")";
         annotationType = "When";
@@ -1688,7 +1689,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
 
         functionName = Settings.USER_DESELECT_FUNCTION + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_DESELECT_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + type + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_DESELECT_ANNOTATION + " " + field.getName() + " " + type + "$" + "\""; //changed the step definition
         textToEnter = "deselect" + meaningFulName + "Element";
         blockToEnter = textToEnter + "(" + "deselectValue" + ")";
         parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "deselectValue"));
@@ -1739,6 +1740,21 @@ public class UtilsStepDefinitionCodeGenerator {
         return meaningfulName.toString();
     }
 
+    private static String underscoreMeaningFulName(String tempVarName) {
+        String res = tempVarName.toLowerCase();
+        res = res.replaceAll("\\s", "");
+        res = res.replaceAll("&amp", "");
+        res = res.replaceAll("#", "");
+
+        StringBuilder meaningfulName = new StringBuilder();
+        for (String name : res.split("_")
+        ) {
+            meaningfulName.append(StringUtils.capitalize(name));
+        }
+
+        return meaningfulName.toString();
+    }
+
     /**
      * makes the source code of each state persistent
      *
@@ -1749,7 +1765,7 @@ public class UtilsStepDefinitionCodeGenerator {
 
         String data = "";
         String fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
-                + File.separator + "java" + File.separator + directoryName + className;
+                + File.separator + "java/com/gemini" + File.separator + directoryName + className;
         // String fileNameToCreate = System.getProperty("user.dir") +poName;
         File f = new File(fileNameToCreate + ".java");
 
@@ -2321,7 +2337,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
         if (StringUtils.equalsIgnoreCase(type, "button") || StringUtils.equalsIgnoreCase(type, "click") || StringUtils.equalsIgnoreCase(type, "image") || StringUtils.equalsIgnoreCase(type, "a")) {
             functionName = Settings.USER_CLICK_FUNCTION + meaningFulName;
-            annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_CLICK_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + type + "$" + "\""; //changed the step definition
+            annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_CLICK_ANNOTATION + " " + field.getName() + " " + type + "$" + "\""; //changed the step definition
             textToEnter = "clickOn" + meaningFulName;
             blockToEnter = textToEnter + "(" + ")";
             annotationType = "When";
@@ -2509,7 +2525,7 @@ public class UtilsStepDefinitionCodeGenerator {
         String annotationType = "";
         List<Parameter> parameters = new LinkedList<>();
         functionName = Settings.USER_SELECTS_FUNCTION + meaningFulName;
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.USER_SELECTS_ANNOTATION + " " + meaningFulName.toLowerCase() + " " + type + "$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.USER_SELECTS_ANNOTATION + " " + field.getName() + " " + type + "$" + "\""; //changed the step definition
         textToEnter = "select" + meaningFulName;
         blockToEnter = textToEnter + "(" + ")";
         annotationType = "When";
@@ -3451,17 +3467,18 @@ public class UtilsStepDefinitionCodeGenerator {
         annotationType = "When";
         annotationValue = "\"" + Settings.TAKE_SNAPSHOT + "\"";
         MethodDeclaration method = null;
-        if (readProperties("framework").contains("GEMJAR")) {
-            blockToEnter = functionName + "(" + ")";
-            method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
-            method.setParameters(parameters);
-            // add a body to the method
-        } else {
+//        if (readProperties("framework").contains("GEMJAR")) {
+//            blockToEnter = functionName + "(" + ")";
+//            method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
+//            method.setParameters(parameters);
+//            // add a body to the method
+//        } else {
+
             blockToEnter = functionName + "(" + "filePath" + ")";
             method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, functionName);
             parameters.add(ASTHelper.createParameter(ASTHelper.createReferenceType("String", 0), "filePath"));
             method.setParameters(parameters);
-        }
+//        }
         BlockStmt block = new BlockStmt();
         method.setBody(block);
         NormalAnnotationExpr na = new NormalAnnotationExpr();
@@ -3491,7 +3508,7 @@ public class UtilsStepDefinitionCodeGenerator {
         List<Parameter> parameters = new LinkedList<>();
         functionName = "validateRowCountOf" + meaningFulName + "Table";
         annotationType = "Then";
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.VERIFY_ROW_COUNT + field.getName().toLowerCase() + " table$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.VERIFY_ROW_COUNT + field.getName().toLowerCase() + " table$" + "\""; //changed the step definition
         MethodDeclaration method = null;
 
         //Adding Parameters
@@ -3534,7 +3551,7 @@ public class UtilsStepDefinitionCodeGenerator {
         meaningFulName = getMeaningFullName(field.getName());
         functionName = "validateColumnCountOf" + meaningFulName + "Table";
         annotationType = "Then";
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.VERIFY_COLUMN_COUNT + field.getName().toLowerCase() + " table$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.VERIFY_COLUMN_COUNT + field.getName().toLowerCase() + " table$" + "\""; //changed the step definition
         MethodDeclaration method = null;
 
         //Adding Parameters
@@ -3620,7 +3637,7 @@ public class UtilsStepDefinitionCodeGenerator {
         meaningFulName = getMeaningFullName(field.getName());
         functionName = "getColValueFor" + meaningFulName;
         annotationType = "When";
-        annotationValue = "\"" + Settings.GET_COLUMN_VALUE + " " + meaningFulName.toLowerCase() + " table$" + "\"";
+        annotationValue = "\"" + Settings.GET_COLUMN_VALUE + " " + field.getName() + " table$" + "\"";
         MethodDeclaration method = null;
 
         //Adding Parameters
@@ -3662,7 +3679,7 @@ public class UtilsStepDefinitionCodeGenerator {
         meaningFulName = getMeaningFullName(field.getName());
         functionName = "getAllCellValuesFor" + meaningFulName + "Table";
         annotationType = "When";
-        annotationValue = "\"" + Settings.GET_ALL_CELLS_VALUE + " " + meaningFulName.toLowerCase() + " table$" + "\"";
+        annotationValue = "\"" + Settings.GET_ALL_CELLS_VALUE + " " + field.getName() + " table$" + "\"";
         MethodDeclaration method = null;
 
         //Adding Parameters
@@ -3704,7 +3721,7 @@ public class UtilsStepDefinitionCodeGenerator {
         meaningFulName = getMeaningFullName(field.getName());
         functionName = "changeFocusTo" + meaningFulName;
         annotationType = "Then";
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + Settings.CHANGE_FOCUS + field.getName().toLowerCase() + " element$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + Settings.CHANGE_FOCUS + field.getName().toLowerCase() + " element$" + "\""; //changed the step definition
         MethodDeclaration method = null;
 
         //Adding Parameters
@@ -3744,7 +3761,7 @@ public class UtilsStepDefinitionCodeGenerator {
         meaningFulName = getMeaningFullName(field.getName());
         functionName = "verify" + meaningFulName + "IsImage";
         annotationType = "Then";
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "verify " + field.getName().toLowerCase() + " element is image$" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "verify " + field.getName().toLowerCase() + " element is image$" + "\""; //changed the step definition
         MethodDeclaration method = null;
 
         //Adding Parameters
@@ -3784,7 +3801,7 @@ public class UtilsStepDefinitionCodeGenerator {
         meaningFulName = getMeaningFullName(field.getName());
         functionName = "verify" + meaningFulName + "IsDisabled";
         annotationType = "Then";
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user verifies " + field.getName().toLowerCase() + " element is disabled" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user verifies " + field.getName().toLowerCase() + " element is disabled" + "\""; //changed the step definition
         MethodDeclaration method = null;
 
         //Adding Parameters
@@ -3825,10 +3842,10 @@ public class UtilsStepDefinitionCodeGenerator {
         meaningFulName = getMeaningFullName(field.getName());
         functionName = "verify" + meaningFulName + "ISDisplayed";
         annotationType = "Then";
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "verify " + field.getName() + " element is displayed" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "verify " + field.getName() + " element is displayed" + "\""; //changed the step definition
         functionName = "getRowValueFor" + meaningFulName;
         annotationType = "Then";
-        annotationValue = "\"" + pageName.replace("<page>", className.toLowerCase()) + "user gets row value for " + field.getName().toLowerCase() + " table" + "\""; //changed the step definition
+        annotationValue = "\"" + pageName.replace("<page>", StringUtils.capitalize(className)) + "user gets row value for " + field.getName().toLowerCase() + " table" + "\""; //changed the step definition
         MethodDeclaration method = null;
 
         //Adding Parameters

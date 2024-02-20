@@ -76,7 +76,17 @@ public class SerenityMethodCodeGenerator implements Framework {
 
     @Override
     public void generateMethodForVisibility(String locator, CompilationUnit c, Field field, LoggerUtils loggerUtils, Reporting reporting) {
-
+        String meaningFulName = HelperFunctions.getMeaningFullName(field.getName());
+        loggerUtils.log(LogLevel.INFO, "Name of field: " + meaningFulName);
+        MethodDeclaration method = new MethodDeclaration(ModifierSet.PUBLIC, ASTHelper.VOID_TYPE, "verify" + meaningFulName + "IsDisplayed");
+        BlockStmt block = new BlockStmt();
+        method.setBody(block);
+        ASTHelper.addStmt(block, new NameExpr("//The below function is for web element @FindBy(" + locator + "." + field.getName() + ")"));
+        ASTHelper.addStmt(block, new NameExpr("try{\n\t\t\twaitABit(8000);\n\t\t\tassertTrue(\"" + meaningFulName + " is not visible\", "+ "$(" + locator + "." + field.getName() + ")." + "isDisplayed" + "(" + "))"));
+        ASTHelper.addStmt(block, new NameExpr("\tloggerUtils.log(LogLevel.INFO, \"" + meaningFulName + " is visible\")"));
+        ASTHelper.addStmt(block, new NameExpr("}" + "\n\t\tcatch(" + "Exception e" + "){\n\t\t\t" + "loggerUtils.log(LogLevel.INFO, " + "\"User gets an exception: \"" + "+" + "e" + ")"));
+        ASTHelper.addStmt(block, new NameExpr("}"));
+        ASTHelper.addMember(c.getTypes().get(0), method);
     }
 
     @Override
@@ -739,7 +749,7 @@ public class SerenityMethodCodeGenerator implements Framework {
 
         ASTHelper.addStmt(block, new NameExpr("//The below function is for web element @FindBy(" + locator + "." + field.getName() + ")"));
 
-        ASTHelper.addStmt(block, new NameExpr("try{\n\t\t\t" + "elementIsClickable" + meaningFulName + "()"));
+        ASTHelper.addStmt(block, new NameExpr("try{\n\t\t\twaitABit(3000);\n\t\t\t" + "elementIsClickable" + meaningFulName + "()"));
         ASTHelper.addStmt(block, new NameExpr("\t" + "$(" + locator + "." + field.getName() + ")" + "." + "click" + "(" + ")"));
         ASTHelper.addStmt(block, new NameExpr("\tloggerUtils.log(LogLevel.INFO, " + "\"User click on the " + field.getName() + " element\"" + ")"));
         ASTHelper.addStmt(block, new NameExpr("}" + "\n\t\tcatch(" + "Exception e" + "){\n\t\t\t" + "reporting.reportSteps(\"Failure\", \"Could not click " + meaningFulName + "\", \"\")"));

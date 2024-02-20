@@ -32,13 +32,16 @@ public class CodeGeneratorRunner {
             LocatorsModel.setLocatorsList(new ArrayList<>(LocatorPOJO.getFeatures().keySet()).stream().map(StringUtils::capitalize).collect(Collectors.toList()));
 //            LocatorsModel.setLocatorsList(new ArrayList<>(List.of((readProperties("locator").split(",")))));
 
-            LocatorsModel.setEnv(readProperties("env"));
-//            LocatorsModel.setEnv("gemini");
-            LocatorsModel.setFramework(readProperties("framework"));
+//            LocatorsModel.setEnv(readProperties("env"));
+            LocatorsModel.setEnv("gemini");
+//            LocatorsModel.setFramework(readProperties("framework"));
+            LocatorsModel.setFramework("serenity");
 
-            LocatorsModel.setReporting(readProperties("reporting"));
+//            LocatorsModel.setReporting(readProperties("reporting"));
+            LocatorsModel.setReporting("serenity");
 
-            LocatorsModel.setLogging(readProperties("logging"));
+//            LocatorsModel.setLogging(readProperties("logging"));
+            LocatorsModel.setLogging("slf4j");
 
             GenerateImplementations implementations = new GeneralImplementationsGenerator();
             GenerateStepDefinitions stepDefinitions = new GeneralStepDefinitionGenerator();
@@ -58,7 +61,13 @@ public class CodeGeneratorRunner {
 
             Utils.writePOMFile();
 
-//            FeatureCodeGenerator.generateFeature();
+            Utils.createRunnerFile();
+
+            Utils.createSerenityFile();
+
+            Utils.createConfigFile();
+
+            //            FeatureCodeGenerator.generateFeature();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

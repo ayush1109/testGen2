@@ -92,7 +92,7 @@ public class GeneralStepDefinitionGenerator implements GenerateStepDefinitions {
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethod(c, field, locatorType, aClass.getSimpleName(), iLoggerUtils, locator);// Radio and CheckBox and Normal Click Operation
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenClickable(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodContains(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
-//                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
+                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, true, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionRightClickElement(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
 //                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionAttributeGetter(c, field, false, aClass.getSimpleName(), iLoggerUtils, locator);
@@ -107,7 +107,7 @@ public class GeneralStepDefinitionGenerator implements GenerateStepDefinitions {
                         if (StringUtils.equalsIgnoreCase(locatorType, "checkbox")) {
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodForSelect(c, field, locatorType, aClass.getSimpleName(), iLoggerUtils, locator);// Radio and CheckBox and Normal Click Operation
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenClickable(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
-//                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
+                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, true, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
 //                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionAttributeGetter(c, field, false, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionAttributeGetter(c, field, true, aClass.getSimpleName(), iLoggerUtils, locator);
@@ -125,8 +125,8 @@ public class GeneralStepDefinitionGenerator implements GenerateStepDefinitions {
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionTextGetter(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionTypeTextAndEnter(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionTypeTextAndTab(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
-//                        UtilsStepDefinitionCodeGenerator.generateElementBasicFunctions(c, field, locatorType, aClass.getSimpleName(), iLoggerUtils, locator);// Radio and CheckBox and Normal Click Operation
-//                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
+                        UtilsStepDefinitionCodeGenerator.generateElementBasicFunctions(c, field, locatorType, aClass.getSimpleName(), iLoggerUtils, locator);// Radio and CheckBox and Normal Click Operation
+                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, true, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenEnabled(c, field, aClass.getSimpleName(), iLoggerUtils, locator, locatorType);
 //                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionAttributeGetter(c, field, false, aClass.getSimpleName(), iLoggerUtils, locator);
@@ -156,7 +156,7 @@ public class GeneralStepDefinitionGenerator implements GenerateStepDefinitions {
                         if (StringUtils.equalsIgnoreCase(locatorType, "a")) {
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethod(c, field, locatorType, aClass.getSimpleName(), iLoggerUtils, locator);// Radio and CheckBox and Normal Click Operation
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenClickable(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
-//                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
+                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, true, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
 //                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionAttributeGetter(c, field, false, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionAttributeGetter(c, field, true, aClass.getSimpleName(), iLoggerUtils, locator);
@@ -172,7 +172,7 @@ public class GeneralStepDefinitionGenerator implements GenerateStepDefinitions {
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodForSelect(c, field, locatorType, aClass.getSimpleName(), iLoggerUtils, locator);// Radio and CheckBox and Normal Click Operation
 //                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenSelected(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenEnabled(c, field, aClass.getSimpleName(), iLoggerUtils, locator, locatorType);
-//                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
+                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, true, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
 //                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionAttributeGetter(c, field, false, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionAttributeGetter(c, field, true, aClass.getSimpleName(), iLoggerUtils, locator);
@@ -186,7 +186,7 @@ public class GeneralStepDefinitionGenerator implements GenerateStepDefinitions {
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenClickable(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenEnabled(c, field, aClass.getSimpleName(), iLoggerUtils, locator, locatorType);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionTextGetter(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
-//                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
+                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
 //                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethod(c, field, locatorType, aClass.getSimpleName(), iLoggerUtils, locator);// Radio and CheckBox and Normal Click Operation
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodDeselects(c, field, aClass.getSimpleName(), iLoggerUtils, locator, locatorType);// Radio and CheckBox and Normal Click Operation
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, true, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
@@ -202,7 +202,7 @@ public class GeneralStepDefinitionGenerator implements GenerateStepDefinitions {
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenClickable(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionScrollToView(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodContains(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
-//                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
+                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, false, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenVisibility(c, field, true, aClass.getSimpleName(), iLoggerUtils, locatorType, locator);
 //                        UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionAttributeGetter(c, field, false, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionAttributeGetter(c, field, true, aClass.getSimpleName(), iLoggerUtils, locator);

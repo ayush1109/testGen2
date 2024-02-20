@@ -32,6 +32,7 @@ public class SeleniumActions {
         driver = new EdgeDriver();
         driver.manage().window().maximize();
     }
+
     public static void open() throws IOException, InterruptedException {
         setup();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
@@ -64,57 +65,59 @@ public class SeleniumActions {
             switch (action) {
                 case "click" -> {
                     driver.findElement(element).click();
-                    Thread.sleep(4000);
+                    Thread.sleep(6000);
                     String newUrl = getFeatureNameFromUrl();
-                    if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
-//                        scenarioUpdatedLocators.addAll(scenarioLocators);
-//                        SeleniumActions.featureMap.put(previousUrl, scenarioUpdatedLocators);
-                        scenarioLocators = new ArrayList<>();
-                        ;
-                    }
                     locatorMap.put(elementName.replace(" ", "_") + "-BUTTON", element.toString());
-//                    scenarioUpdatedLocators.add(locatorMap);
                     int flag = 0;
                     for (HashMap<String, String> copiedValue : scenarioLocatorsDuplicate) {
-                        if(copiedValue.keySet().stream().filter(key -> key.contains(elementName.replace(" ", "_"))).count() > 0)
-                        {
+                        if (copiedValue.keySet().toString().replace("[", "").replace("]", "").equalsIgnoreCase(elementName.replace(" ", "_") + "-BUTTON")) {
                             flag = 1;
                             break;
                         }
                     }
-                    if (flag==0)
-                    {
-                        scenarioLocators.add(locatorMap);
-                    }
-
-                    SeleniumActions.featureMap.put(newUrl, scenarioLocators);
                     LocatorPOJO.setFeatures(SeleniumActions.featureMap);
                     scenarioLocatorsDuplicate.add(locatorMap);
+                    if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
+                        if (SeleniumActions.featureMap.containsKey(previousUrl)) {
+                            scenarioLocators = (ArrayList<HashMap<String, String>>) SeleniumActions.featureMap.get(previousUrl).stream().collect(Collectors.toList());
+                        }
+                        if (flag == 0) {
+                            scenarioLocators.add(locatorMap);
+                        }
+                        SeleniumActions.featureMap.put(previousUrl, scenarioLocators);
+                        scenarioLocators = new ArrayList<>();
+                    } else {
+                        if (SeleniumActions.featureMap.containsKey(newUrl)) {
+                            scenarioLocators = (ArrayList<HashMap<String, String>>) SeleniumActions.featureMap.get(newUrl).stream().collect(Collectors.toList());
+                        }
+                        if (flag == 0) {
+                            scenarioLocators.add(locatorMap);
+                        }
+                        SeleniumActions.featureMap.put(newUrl, scenarioLocators);
+                    }
                 }
                 case "input", "write" -> {
                     driver.findElement(element).sendKeys(data);
                     String newUrl = getFeatureNameFromUrl();
                     if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
-//                        scenarioUpdatedLocators.addAll(scenarioLocators);
-//                        SeleniumActions.featureMap.put(previousUrl, scenarioUpdatedLocators);
                         scenarioLocators = new ArrayList<>();
-                        ;
                     }
                     locatorMap.put(elementName.replace(" ", "_") + "-INPUT", element.toString());
-//                    scenarioUpdatedLocators.add(locatorMap);
                     int flag = 0;
+
                     for (HashMap<String, String> copiedValue : scenarioLocatorsDuplicate) {
-                        if(copiedValue.keySet().stream().filter(key -> key.contains(elementName.replace(" ", "_"))).count() > 0)
-                        {
+                        if (copiedValue.keySet().toString().replace("[", "").replace("]", "").equalsIgnoreCase(elementName.replace(" ", "_") + "-INPUT")) {
                             flag = 1;
                             break;
                         }
                     }
-                    if (flag==0)
-                    {
+
+                    if (SeleniumActions.featureMap.containsKey(newUrl)) {
+                        scenarioLocators = (ArrayList<HashMap<String, String>>) SeleniumActions.featureMap.get(newUrl).stream().collect(Collectors.toList());
+                    }
+                    if (flag == 0) {
                         scenarioLocators.add(locatorMap);
                     }
-
                     SeleniumActions.featureMap.put(newUrl, scenarioLocators);
                     LocatorPOJO.setFeatures(SeleniumActions.featureMap);
                     scenarioLocatorsDuplicate.add(locatorMap);
@@ -122,25 +125,23 @@ public class SeleniumActions {
                 case "verify" -> {
                     String newUrl = getFeatureNameFromUrl();
                     if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
-//                        scenarioUpdatedLocators.addAll(scenarioLocators);
-//                        SeleniumActions.featureMap.put(previousUrl, scenarioUpdatedLocators);
                         scenarioLocators = new ArrayList<>();
                     }
-                    locatorMap.put(elementName.replace(" ", "_") +"-DIV", element.toString());
+                    locatorMap.put(elementName.replace(" ", "_") + "-DIV", element.toString());
                     int flag = 0;
                     for (HashMap<String, String> copiedValue : scenarioLocatorsDuplicate) {
-                        if(copiedValue.keySet().stream().filter(key -> key.contains(elementName.replace(" ", "_"))).count() > 0)
-                        {
+                        if (copiedValue.keySet().toString().replace("[", "").replace("]", "").equalsIgnoreCase(elementName.replace(" ", "_") + "-DIV")) {
                             flag = 1;
                             break;
                         }
                     }
-                    if (flag==0)
-                    {
+                    if (SeleniumActions.featureMap.containsKey(newUrl)) {
+                        scenarioLocators = (ArrayList<HashMap<String, String>>) SeleniumActions.featureMap.get(previousUrl).stream().collect(Collectors.toList());
+                    }
+                    if (flag == 0) {
                         scenarioLocators.add(locatorMap);
                     }
-//                    scenarioUpdatedLocators.add(locatorMap);
-//                    scenarioLocators.add(locatorMap);
+
                     SeleniumActions.featureMap.put(newUrl, scenarioLocators);
                     LocatorPOJO.setFeatures(SeleniumActions.featureMap);
                     scenarioLocatorsDuplicate.add(locatorMap);

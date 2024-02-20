@@ -13,7 +13,6 @@ public class GenerateStep {
         try {
 //            String url = Utils.readProperties("url");
 //            final String page = url.split("\\.")[0].split("//")[1];
-
             String url = getFeatureNameFromUrl();
             if (StringUtils.equalsIgnoreCase(keyword, "when")) {
 
@@ -25,8 +24,16 @@ public class GenerateStep {
                     switch (entry.getKey()) {
                         case "A" -> {
                             switch (tokenMap.get("A")) {
-                                case "enter", "input", "type", "enters" -> step = step.replace("<action>", "enters");
-                                case "click" -> step = step.replace("<action>", "clicks");
+                                case "enter", "input", "type", "enters", "write" -> {
+                                    step = keyword + " for the <page> page, user <action> \"<data>\" as <information> for <element>";
+                                    step = step.replace("<page>", url);
+                                    step = step.replace("<action>", "enters");
+                                    step = step.replace("<information>", "input");
+                                    step = step.replace("<data>", tokenMap.get("DATA"));                                }
+                                case "click", "choose", "tap" -> {
+                                    step = step.replace("<action>", "clicks");
+                                    step = step.replace("<information>", "button");
+                                }
                             }
                         }
                         case "AIK" -> {
@@ -36,8 +43,11 @@ public class GenerateStep {
                                     step = step.replace("<information>", "button");
                                 }
                                 case "input", "field" -> {
+                                    step = keyword + " for the <page> page, user <action> \"<data>\" as <information> for <element>";
+                                    step = step.replace("<page>", url);
                                     step = step.replace("<action>", "enters");
-                                    step = step.replace("<action>", "enters \"(.*?)\"");
+                                    step = step.replace("<information>", "input");
+                                    step = step.replace("<data>", tokenMap.get("DATA"));
                                 }
                                 case "dropdown", "radio button", "checkbox" ->
                                         step = step.replace("<action>", "selects");
@@ -45,10 +55,7 @@ public class GenerateStep {
                             step = step.replace("<information>", entry.getValue());
                         }
                         case "AIN" -> {
-                            step = step.replace("<element>", entry.getValue().trim().replace(" ", "_"));
-                            if(tokenMap.get("A").equals("enters") || tokenMap.get("A").equals("enter") || tokenMap.get("A").equals("write")) {
-                                step = step.replace("<action>", "enters as \"" + tokenMap.get("DATA") + "\"");
-                            }
+                            step = step.replace("<element>", entry.getValue().trim().replace(" .", "").replace(" ?", "").replace(" ", "_"));
                         }
                         default -> step = step.replace("<information>", "element");
                     }
@@ -105,16 +112,20 @@ public class GenerateStep {
                                     case "dropdown" -> step = step.replace("<information>", "dropdown");
                                     case "radio button" -> step = step.replace("<information>", "radio button");
                                     case "checkbox" -> step = step.replace("<information>", "checkbox");
+                                    case "div" -> step = step.replace("<information>", "div");
                                 }
 //                            step = step.replace("<information>", entry.getValue());
                             }
                             case "AIN" -> {
-                                step = step.replace("<element>", tokenMap.get("AIN").trim().replace(" ", "_"));
+                                step = step.replace("<element>", entry.getValue().trim().replace(" .", "").replace(" ?", "").replace(" ", "_"));
                             }
                             case "SA" -> {
                                 step = step.replace("<subaction>", tokenMap.get("SA"));
+                                if(tokenMap.get("SA").equalsIgnoreCase("present"))
+                                    step = step.replace("present", "visible");
+                                step = step.replace("Present", "visible");
                             }
-                            default -> step = step.replace("<information>", "element");
+                            default -> step = step.replace("<information>", "div");
                         }
                     }
                     return step;

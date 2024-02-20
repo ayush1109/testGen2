@@ -122,6 +122,7 @@ public class GeneralImplementationsGenerator implements GenerateImplementations 
                     if (StringUtils.contains(locatorType, "input")) {
                         iFramework.generateMethodClickable(locator, c, field, iLoggerUtils, iReporting);
                         iFramework.generateMethodTypeSetter(locator, c, field, iLoggerUtils, iReporting);
+                        iFramework.generateInputTypeInto(locator, c, field, iLoggerUtils, iReporting);
                         iFramework.generateInputTypeAndEnter(locator, c, field, iLoggerUtils, iReporting);
                         iFramework.generateInputTypeAndTab(locator, c, field, iLoggerUtils, iReporting);
                         iFramework.generateTypeGetter(locator, c, field, iLoggerUtils, iReporting);

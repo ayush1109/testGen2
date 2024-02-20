@@ -23,6 +23,7 @@ public class CustomPOSTagger {
             List<String> stepsGPOG = new ArrayList<>();
             StringBuilder content = new StringBuilder();
             content.append("Feature: ").append(Testcase.getFeatureName());
+            content.append("\n\n  Background:\n    Given user is on homepage");
             for (Testcase testcase : testcaseList
             ) {
                 SeleniumActions.open();

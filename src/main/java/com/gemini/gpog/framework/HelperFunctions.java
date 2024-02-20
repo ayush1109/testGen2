@@ -41,7 +41,7 @@ public class HelperFunctions {
 
     public static CompilationUnit createEnhancedCompilationUnit(String name, String type, String locator) throws IOException {
         CompilationUnit cu = new CompilationUnit();
-        cu.setPackage(new PackageDeclaration(ASTHelper.createNameExpr(name)));
+        cu.setPackage(new PackageDeclaration(ASTHelper.createNameExpr("com.gemini." + name)));
         cu.setImports(HelperFunctions.getAllImports(type, locator));
         return cu;
     }
@@ -49,9 +49,10 @@ public class HelperFunctions {
     public static void setTypeDeclaration(CompilationUnit c, String className) throws IOException {
         // create the type declaration and class
         String classToExtend = "";
-        if (readProperties("framework").contains("GEMJAR")) {
-            classToExtend = classToExtend + "DriverAction";
-        } else if (StringUtils.containsIgnoreCase(className, "StepDefinitions")) {
+//        if (readProperties("framework").contains("GEMJAR")) {
+//            classToExtend = classToExtend + "DriverAction";
+//        }
+        if (StringUtils.containsIgnoreCase(className, "StepDefinitions")) {
             classToExtend = classToExtend + "StepsObjectsSub";
         } else if (StringUtils.equalsIgnoreCase("StepsObjectsSub", className)) {
             classToExtend = classToExtend + "PageObject";
@@ -104,18 +105,19 @@ public class HelperFunctions {
             imports.add(new ImportDeclaration(new NameExpr("org.openqa.selenium.support.PageFactory"), false, false));
         } else {
             //adding imports for implementation class
-            if (readProperties("framework").contains("GEMJAR")) {
-                imports.add(new ImportDeclaration(new NameExpr("com.gemini.generic.reporting.GemTestReporter"), false, false));
-                imports.add(new ImportDeclaration(new NameExpr("com.gemini.generic.reporting.STATUS"), false, false));
-                imports.add(new ImportDeclaration(new NameExpr("com.gemini.generic.ui.utils.DriverAction"), false, false));
-                imports.add(new ImportDeclaration(new NameExpr("com.gemini.generic.utils.GemJarUtils"), false, false));
-                imports.add(new ImportDeclaration(new NameExpr("org.openqa.selenium.chrome.ChromeOptions"), false, false));
-                imports.add(new ImportDeclaration(new NameExpr("io.github.bonigarcia.wdm.WebDriverManager"), false, false));
-                imports.add(new ImportDeclaration(new NameExpr("org.openqa.selenium.firefox.FirefoxDriver"), false, false));
-                imports.add(new ImportDeclaration(new NameExpr("com.gemini.generic.utils.GemJarGlobalVar"), false, false));
-                imports.add(new ImportDeclaration(new NameExpr("java.io.File"), false, false));
-                imports.add(new ImportDeclaration(new NameExpr("net.serenitybdd.core.pages.WebElementFacade"), false, false));
-            } else if (StringUtils.equalsIgnoreCase(type, "EJ")) {
+//            if (readProperties("framework").contains("GEMJAR")) {
+//                imports.add(new ImportDeclaration(new NameExpr("com.gemini.generic.reporting.GemTestReporter"), false, false));
+//                imports.add(new ImportDeclaration(new NameExpr("com.gemini.generic.reporting.STATUS"), false, false));
+//                imports.add(new ImportDeclaration(new NameExpr("com.gemini.generic.ui.utils.DriverAction"), false, false));
+//                imports.add(new ImportDeclaration(new NameExpr("com.gemini.generic.utils.GemJarUtils"), false, false));
+//                imports.add(new ImportDeclaration(new NameExpr("org.openqa.selenium.chrome.ChromeOptions"), false, false));
+//                imports.add(new ImportDeclaration(new NameExpr("io.github.bonigarcia.wdm.WebDriverManager"), false, false));
+//                imports.add(new ImportDeclaration(new NameExpr("org.openqa.selenium.firefox.FirefoxDriver"), false, false));
+//                imports.add(new ImportDeclaration(new NameExpr("com.gemini.generic.utils.GemJarGlobalVar"), false, false));
+//                imports.add(new ImportDeclaration(new NameExpr("java.io.File"), false, false));
+//                imports.add(new ImportDeclaration(new NameExpr("net.serenitybdd.core.pages.WebElementFacade"), false, false));
+//            }
+            if (StringUtils.equalsIgnoreCase(type, "EJ")) {
                 imports.add(new ImportDeclaration(new NameExpr("frontend.pageobjects.SamplePageObjects"), false, false));
                 imports.add(new ImportDeclaration(new NameExpr("net.serenitybdd.core.pages.WebElementFacade"), false, false));
                 imports.add(new ImportDeclaration(new NameExpr("org.slf4j.Logger"), false, false));
@@ -171,7 +173,7 @@ public class HelperFunctions {
     }
 
     public static String readProperties(String property) throws IOException { // Function to read Data from Properties File
-        FileReader read = new FileReader(System.getProperty("user.dir") + "\\src\\main\\resources\\config.properties");
+        FileReader read = new FileReader(System.getProperty("user.dir") + "\\src\\test\\resources\\config.properties");
         Properties credential = new Properties();
         credential.load(read);
         return credential.getProperty(property);
@@ -179,7 +181,7 @@ public class HelperFunctions {
 
     public static CompilationUnit createEnhancedCompilationUnitStepDefinitions(String name, String type, String locator) {
         CompilationUnit cu = new CompilationUnit();
-        cu.setPackage(new PackageDeclaration(ASTHelper.createNameExpr(name)));
+        cu.setPackage(new PackageDeclaration(ASTHelper.createNameExpr("com.gemini." + name)));
         cu.setImports(HelperFunctions.getAllImportsStepDefinitions(type, locator));
         return cu;
     }
@@ -202,8 +204,8 @@ public class HelperFunctions {
             imports.add(new ImportDeclaration(new NameExpr("io.cucumber.java.en.Then"), false, false));
             imports.add(new ImportDeclaration(new NameExpr("io.cucumber.java.en.When"), false, false));
             imports.add(new ImportDeclaration(new NameExpr("frontend.pages.UtilsImplementation"), false, false));
-            if(!StringUtils.containsIgnoreCase(locator, "utils"))
-            imports.add(new ImportDeclaration(new NameExpr("frontend.pages." + locator + "Page"), false, false));
+            if (!StringUtils.containsIgnoreCase(locator, "utils"))
+                imports.add(new ImportDeclaration(new NameExpr("frontend.pages." + locator + "Page"), false, false));
         } else {
             //adding imports for stepDefinition class
             imports.add(new ImportDeclaration(new NameExpr("io.cucumber.java.en.And"), false, false));
@@ -214,7 +216,7 @@ public class HelperFunctions {
             imports.add(new ImportDeclaration(new NameExpr("org.openqa.selenium.By"), false, false));
             imports.add(new ImportDeclaration(new NameExpr("org.openqa.selenium.support.PageFactory"), false, false));
             imports.add(new ImportDeclaration(new NameExpr("java.util.concurrent.TimeUnit"), false, false));
-            imports.add(new ImportDeclaration(new NameExpr("implementation" + "." + locator + "Implementation"), false, false));
+            imports.add(new ImportDeclaration(new NameExpr("com.gemini.implementation" + "." + locator + "Implementation"), false, false));
             imports.add(new ImportDeclaration(new NameExpr("org.openqa.selenium.*"), false, false));
 
         }
