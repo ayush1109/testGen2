@@ -18,7 +18,7 @@ public class CustomPOSTagger {
     public static void main(String[] args) {
         try {
 
-            LinkedHashMap<Integer, List<String>> data = ExcelUtilities.readBySheetNumber(Utils.readProperties("filePath"), 0);
+            LinkedHashMap<Integer, List<String>> data = ExcelUtilities.read(Utils.readProperties("filePath"));
             List<Testcase> testcaseList = ExcelUtilities.getTestCases(data);
             List<String> stepsGPOG = new ArrayList<>();
             StringBuilder content = new StringBuilder();

@@ -11,13 +11,11 @@ import org.openqa.selenium.edge.EdgeDriver;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static fetcher.Utilities.parseTree;
+import static fetcher.Utilities.readProperties;
 
 public class SeleniumActions {
 
@@ -44,7 +42,6 @@ public class SeleniumActions {
     }
 
     private static By findXpath(WebDriver driver, String element, String action) {
-
         NodeManager nodeManager = new NodeManager();
         List<NodeInfo> objectList = new ArrayList<>();
         DOMFetcher DOMFetcher = new DOMFetcher(driver);
@@ -61,6 +58,14 @@ public class SeleniumActions {
             HashMap<String, String> locatorMap = new HashMap<>();
             String previousUrl = getFeatureNameFromUrl();
             By element = findXpath(driver, elementName, action);
+
+            if(Utils.readProperties("trueOrFalse").equalsIgnoreCase("true"))
+             if(element == null) {
+                 Scanner sc = new Scanner(System.in);
+                 System.out.println("Could not find xpath. Enter xpath for " + elementName);
+                 element = By.xpath(sc.nextLine());
+                 System.out.println("Updated xpath for " + elementName + " is " + element);
+             }
             Thread.sleep(2000);
             switch (action) {
                 case "click" -> {
