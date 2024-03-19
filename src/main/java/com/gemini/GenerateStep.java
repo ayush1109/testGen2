@@ -23,14 +23,21 @@ public class GenerateStep {
 
                     switch (entry.getKey()) {
                         case "A" -> {
-                            switch (tokenMap.get("A")) {
-                                case "enter", "input", "type", "enters", "write" -> {
+                            String finalAction = tokenMap.get("A");
+                            String action = finalAction;
+                            if (Utils.clickCommands.stream().anyMatch(e -> e.equalsIgnoreCase(finalAction)))
+                                action = "click";
+                            else if (Utils.typeCommands.stream().anyMatch(e -> e.equalsIgnoreCase(finalAction)))
+                                action = "input";
+                            switch (action) {
+                                case "input" -> {
                                     step = keyword + " for the <page> page, user <action> \"<data>\" as <information> for <element>";
                                     step = step.replace("<page>", url);
                                     step = step.replace("<action>", "enters");
                                     step = step.replace("<information>", "input");
-                                    step = step.replace("<data>", tokenMap.get("DATA"));                                }
-                                case "click", "choose", "tap" -> {
+                                    step = step.replace("<data>", tokenMap.get("DATA"));
+                                }
+                                case "click" -> {
                                     step = step.replace("<action>", "clicks");
                                     step = step.replace("<information>", "button");
                                 }
@@ -121,7 +128,7 @@ public class GenerateStep {
                             }
                             case "SA" -> {
                                 step = step.replace("<subaction>", tokenMap.get("SA"));
-                                if(tokenMap.get("SA").equalsIgnoreCase("present"))
+                                if (tokenMap.get("SA").equalsIgnoreCase("present"))
                                     step = step.replace("present", "visible");
                                 step = step.replace("Present", "visible");
                             }

@@ -59,7 +59,7 @@ public class SeleniumActions {
             String previousUrl = getFeatureNameFromUrl();
             By element = findXpath(driver, elementName, action);
 
-            if(Utils.readProperties("trueOrFalse").equalsIgnoreCase("true"))
+            if(Utils.readProperties("userInterventionNeeded").equalsIgnoreCase("true"))
              if(element == null) {
                  Scanner sc = new Scanner(System.in);
                  System.out.println("Could not find xpath. Enter xpath for " + elementName);

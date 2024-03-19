@@ -63,7 +63,7 @@ public class Healer {
         StringBuilder xpath = userFriendlyXpath(listNodes.get(n));
         By absolute = null;
         if (StringUtils.equalsIgnoreCase("select", action)) {
-
+            Objects.requireNonNull(xpath).append("/following::select");
         }
         int flag = 1;
         if ((xpath == null) || (driver.findElements(By.xpath(xpath.toString())).size() == 0)) {
@@ -73,6 +73,9 @@ public class Healer {
             Set<ComponentScanner> detailLevel = detailLevels.get(5);
             xpath = new StringBuilder(construct(listNodes.get(n), detailLevel).toString());
             xpath = new StringBuilder(xpath.substring(15));
+            if (StringUtils.equalsIgnoreCase("select", action)) {
+                Objects.requireNonNull(xpath).append("/following::select");
+            }
             flag = 0;
         }
 

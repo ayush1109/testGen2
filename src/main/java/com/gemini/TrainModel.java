@@ -16,7 +16,7 @@ public class TrainModel {
 
     public static void main(String[] args) throws IOException {
 //                    Train a custom part-of-speech tagging model
-            TrainModel.trainModel("src/main/java/com/gemini/training_data_verify.txt", "src/main/resources/models/custom-pos-model-temp-verify.bin");
+            TrainModel.trainModel("src/main/java/com/gemini/training_data_custom.txt", "src/main/resources/models/custom-pos-model-custom.bin");
     }
 
     public static void trainModel(String trainingFile, String modelFile) throws IOException {

@@ -131,6 +131,11 @@
             <version>1.9</version> <!-- Use the latest version available -->
         </dependency>
         <dependency>
+            <groupId>com.github.javaparser</groupId>
+            <artifactId>javaparser-core</artifactId>
+            <version>3.23.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.code.javaparser</groupId>
             <artifactId>javaparser</artifactId>
             <version>1.0.9</version>
@@ -164,6 +169,14 @@
             <version>4.13.2</version>
             <scope>main</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/de.defmacro/eclipse-astparser -->
+        <dependency>
+            <groupId>de.defmacro</groupId>
+            <artifactId>eclipse-astparser</artifactId>
+            <version>8.1</version>
+        </dependency>
+
 
 
 

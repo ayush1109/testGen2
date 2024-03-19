@@ -23,11 +23,23 @@ import javax.tools.*;
 import java.io.*;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.util.Objects.requireNonNull;
 
 public class Utils {
+
+    private static List<String> allSentences;
+
+    public static List<String> clickCommands = Arrays.asList("Press", "Tap", "Choose", "Select", "Hit", "Click");
+
+    public static List<String> typeCommands = Arrays.asList("Enter", "Input", "Write", "Insert", "Set", "Type");
+
+
     public static String readProperties(String property) throws IOException { // Function to read Data from Properties File
         FileReader read = new FileReader(System.getProperty("user.dir") + "\\src\\main\\resources\\config.properties");
         Properties credential = new Properties();
@@ -96,6 +108,7 @@ public class Utils {
         //setting the variable for step definition
         String locatorValue = refactorValue(value);
         String annotationValue = "";
+        if(locatorName.contains("-"))
         annotationValue = "\"" + locatorName.split("-")[1] + "\"";
         String annotationType = "LocatorType";
         NormalAnnotationExpr na = new NormalAnnotationExpr();
@@ -230,8 +243,6 @@ public class Utils {
 //        writer.flush();
 
 
-
-
 //        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 //        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
 //        InMemoryFileManager manager = new InMemoryFileManager(compiler.getStandardFileManager(null, null, null));
@@ -258,12 +269,12 @@ public class Utils {
 //        FileUtils.copyFile(new File(srcDir), new File(tarDir));
 //    }
 
-    private static void shiftClassFileToTarget(String fileName, String directoryName,String file) throws IOException {
+    private static void shiftClassFileToTarget(String fileName, String directoryName, String file) throws IOException {
 //        String srcDir = "C:\\Users\\ayush.garg\\Downloads\\Demo\\Demo\\src\\main\\java\\com\\gemini\\Dashboard_index.java";
-        String srcDir = fileName+".class";
+        String srcDir = fileName + ".class";
 //        String tarDir = "C:\\Users\\ayush.garg\\Downloads\\Demo\\Demo\\target\\classes\\com\\gemini\\Dashboard_index.class";
         String tarDir = System.getProperty("user.dir") + File.separator + "target" + File.separator + "classes"
-                + File.separator + "com" + File.separator + "gemini" + File.separator + "locator" + File.separator +StringUtils.capitalize(file) + ".class";
+                + File.separator + "com" + File.separator + "gemini" + File.separator + "locator" + File.separator + StringUtils.capitalize(file) + ".class";
         FileUtils.copyFile(new File(srcDir), new File(tarDir));
     }
 
@@ -285,12 +296,12 @@ public class Utils {
         FileUtils.writeStringToFile(f, updatedContent);
         compileJavaFile(fileNameToCreate + ".java");
         shiftClassFileToTarget(fileNameToCreate, directory, fileName);
-        deleteClassFiles( fileNameToCreate);
+        deleteClassFiles(fileNameToCreate);
 
     }
 
-    private static void deleteClassFiles( String fileName) throws IOException {
-        String srcDir = fileName+".class";
+    private static void deleteClassFiles(String fileName) throws IOException {
+        String srcDir = fileName + ".class";
         FileUtils.delete(new File(srcDir));
     }
 
@@ -314,6 +325,84 @@ public class Utils {
         }
     }
 
+//    private static ArrayList<String> createSentences(List<String> synoym, String data, String toReplace) {
+//        ArrayList<String> sentences = new ArrayList<>();
+//        synoym.forEach(s -> {
+//             sentences.add(StringUtils.replace(data, toReplace, s));
+//        });
+//        return sentences;
+//    }
+
+    private static ArrayList<String> extractWordsForDictonary(String data) {
+
+        ArrayList<String> dictionary = new ArrayList<>();
+        clickCommands = Arrays.asList("Press", "Tap", "Choose", "Select", "Hit", "Click");
+        typeCommands = Arrays.asList("Enter", "Input", "Write", "Insert", "Set", "Type");
+        String[] field2Replacements = {"password", "username", "Gmail", "userfield", "sample", "demo"};
+        String[] parts = data.split(" ");
+        int valueOfA = 0;
+        int valueofAin = 0;
+        String listToUse = "";
+        for (int i = 0; i < parts.length; i++) {
+
+            if (parts[i].split("_")[1].equals("A")) {
+                valueOfA = i;
+            } else if (parts[i].split("_")[1].equals("AIN")) {
+
+                valueofAin = i;
+            }
+        }
+        if (clickCommands.contains(parts[valueOfA].split("_")[0])) {
+            listToUse = "clickCommands";
+        } else listToUse = "typeCommands";
+
+
+        if (listToUse == "clickCommands") {
+            for (String field1Replacement : clickCommands) {
+                for (String field2Replacement : field2Replacements) {
+                    String partOne = parts[valueOfA].split("_")[0];
+                    String partTwo = parts[valueofAin].split("_")[0];
+                    dictionary.add(data.replace(partOne, field1Replacement).replace(partTwo, field2Replacement));
+
+                }
+            }
+        } else {
+            for (String field1Replacement : typeCommands) {
+                for (String field2Replacement : field2Replacements) {
+                    String partOne = parts[valueOfA].split("_")[0];
+                    String partTwo = parts[valueofAin].split("_")[0];
+                    dictionary.add(data.replace(partOne, field1Replacement).replace(partTwo, field2Replacement));
+
+                }
+            }
+        }
+
+        return dictionary;
+    }
+
+    static boolean createTrainingFile(String trainingData) throws IOException {
+        allSentences = new ArrayList<>();
+        Path path = Paths.get("src/main/java/com/gemini/training_data_custom.txt");
+
+        ArrayList<String> output = extractWordsForDictonary(trainingData);
+
+        AtomicBoolean flag = new AtomicBoolean(true);
+        output.forEach(data -> {
+            try {
+                if (Files.exists(path)) {
+                    FileUtils.writeStringToFile(path.toFile(), data, true);
+                } else {
+                    Files.createFile(path);
+                    FileUtils.writeStringToFile(path.toFile(), data, true);
+                }
+                FileUtils.writeStringToFile(path.toFile(), "\n", true);
+            } catch (IOException e) {
+                flag.set(false);
+            }
+        });
+        return flag.get();
+    }
+
     static List<TokenWithTag> testModel(String testSentence, String modelFile) throws IOException {
         List<TokenWithTag> result = new ArrayList<>();
         try (InputStream tokenModelIn = new FileInputStream("src/main/resources/trainingmodels/en-token.bin");
@@ -333,6 +422,8 @@ public class Utils {
                 TokenWithTag tokenWithTag = new TokenWithTag(tokens[i], tags[i], probs[i]);
                 result.add(tokenWithTag);
             }
+        } catch (Exception e) {
+            return null;
         }
         return result;
     }
