@@ -1,13 +1,24 @@
 package com.gemini;
 
+import com.gemini.gpog.framework.HelperFunctions;
+import com.gemini.locator.Timesheet_managetasktemplates;
 import fetcher.DOMFetcher;
 import fetcher.Healer;
 import fetcher.NodeInfo;
 import fetcher.NodeManager;
+import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.pages.PageObject;
+import net.thucydides.core.webdriver.WebdriverContext;
+import net.thucydides.core.webdriver.WebdriverManager;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.remote.SessionId;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -17,22 +28,27 @@ import java.util.stream.Collectors;
 import static fetcher.Utilities.parseTree;
 import static fetcher.Utilities.readProperties;
 
-public class SeleniumActions {
+public class SeleniumActions extends PageObject {
 
-    private static WebDriver driver;
+    public static WebDriver driver;
 
     private static ArrayList<HashMap<String, String>> scenarioLocators = new ArrayList<>();
     private static ArrayList<HashMap<String, String>> scenarioLocatorsDuplicate = new ArrayList<>();
     private static final HashMap<String, ArrayList<HashMap<String, String>>> featureMap = new HashMap<>();
 
-    private static void setup() {
-        System.setProperty("webdriver.edge.driver", "src/main/resources/drivers/edge/msedgedriver.exe");
-        driver = new EdgeDriver();
+    public static Set<String> failedScenarios = new HashSet<>();
+
+    private void setup() {
+
+        driver = getDriver();
+//        System.setProperty("webdriver.edge.driver", "src/main/resources/drivers/edge/msedgedriver.exe");
+//        driver = new EdgeDriver();
         driver.manage().window().maximize();
     }
 
-    public static void open() throws IOException, InterruptedException {
-        setup();
+    public static void openBrowser() throws IOException, InterruptedException {
+        SeleniumActions actions = new SeleniumActions();
+        actions.setup();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         driver.get(Utils.readProperties("url"));
     }
@@ -48,31 +64,65 @@ public class SeleniumActions {
         String pageSource = DOMFetcher.getPageSource();
         NodeInfo destination = parseTree(pageSource);
         Healer healer = new Healer();
-        By xpath = healer.findNewLocations(element, objectList, destination, driver, action);
-        return xpath;
+        return healer.findNewLocations(element, objectList, destination, driver, action);
     }
 
-    public static void performAction(String elementName, String action, String data) {
+    public static void performAction(String elementName, String action, String data, String scenarioName) {
         try {
             ArrayList<HashMap<String, String>> scenarioUpdatedLocators = new ArrayList<>();
             HashMap<String, String> locatorMap = new HashMap<>();
             String previousUrl = getFeatureNameFromUrl();
-            By element = findXpath(driver, elementName, action);
+            By xpath = findXpath(driver, elementName, action);
 
             if(Utils.readProperties("userInterventionNeeded").equalsIgnoreCase("true"))
-             if(element == null) {
+             if(xpath == null) {
                  Scanner sc = new Scanner(System.in);
                  System.out.println("Could not find xpath. Enter xpath for " + elementName);
-                 element = By.xpath(sc.nextLine());
-                 System.out.println("Updated xpath for " + elementName + " is " + element);
+                 xpath = By.xpath(sc.nextLine());
+                 System.out.println("Updated xpath for " + elementName + " is " + xpath);
              }
             Thread.sleep(2000);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
+
             switch (action) {
+                case "select" -> {
+                    new Select(element).selectByVisibleText(data);
+                    String newUrl = getFeatureNameFromUrl();
+                    locatorMap.put(elementName.replace(" ", "_") + "-DROPDOWN", xpath.toString());
+                    int flag = 0;
+                    for (HashMap<String, String> copiedValue : scenarioLocatorsDuplicate) {
+                        if (copiedValue.keySet().toString().replace("[", "").replace("]", "").equalsIgnoreCase(elementName.replace(" ", "_") + "-BUTTON")) {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    LocatorPOJO.setFeatures(SeleniumActions.featureMap);
+                    scenarioLocatorsDuplicate.add(locatorMap);
+                    if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
+                        if (SeleniumActions.featureMap.containsKey(previousUrl)) {
+                            scenarioLocators = (ArrayList<HashMap<String, String>>) SeleniumActions.featureMap.get(previousUrl).stream().collect(Collectors.toList());
+                        }
+                        if (flag == 0) {
+                            scenarioLocators.add(locatorMap);
+                        }
+                        SeleniumActions.featureMap.put(previousUrl, scenarioLocators);
+                        scenarioLocators = new ArrayList<>();
+                    } else {
+                        if (SeleniumActions.featureMap.containsKey(newUrl)) {
+                            scenarioLocators = (ArrayList<HashMap<String, String>>) SeleniumActions.featureMap.get(newUrl).stream().collect(Collectors.toList());
+                        }
+                        if (flag == 0) {
+                            scenarioLocators.add(locatorMap);
+                        }
+                        SeleniumActions.featureMap.put(newUrl, scenarioLocators);
+                    }
+                }
                 case "click" -> {
-                    driver.findElement(element).click();
+                    element.click();
                     Thread.sleep(6000);
                     String newUrl = getFeatureNameFromUrl();
-                    locatorMap.put(elementName.replace(" ", "_") + "-BUTTON", element.toString());
+                    locatorMap.put(elementName.replace(" ", "_") + "-BUTTON", xpath.toString());
                     int flag = 0;
                     for (HashMap<String, String> copiedValue : scenarioLocatorsDuplicate) {
                         if (copiedValue.keySet().toString().replace("[", "").replace("]", "").equalsIgnoreCase(elementName.replace(" ", "_") + "-BUTTON")) {
@@ -102,12 +152,12 @@ public class SeleniumActions {
                     }
                 }
                 case "input", "write" -> {
-                    driver.findElement(element).sendKeys(data);
+                    element.sendKeys(data);
                     String newUrl = getFeatureNameFromUrl();
                     if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
                         scenarioLocators = new ArrayList<>();
                     }
-                    locatorMap.put(elementName.replace(" ", "_") + "-INPUT", element.toString());
+                    locatorMap.put(elementName.replace(" ", "_") + "-INPUT", xpath.toString());
                     int flag = 0;
 
                     for (HashMap<String, String> copiedValue : scenarioLocatorsDuplicate) {
@@ -128,11 +178,13 @@ public class SeleniumActions {
                     scenarioLocatorsDuplicate.add(locatorMap);
                 }
                 case "verify" -> {
+                    boolean elementDisplayed = element.isDisplayed();
+                    if(!elementDisplayed) throw new Exception();
                     String newUrl = getFeatureNameFromUrl();
                     if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
                         scenarioLocators = new ArrayList<>();
                     }
-                    locatorMap.put(elementName.replace(" ", "_") + "-DIV", element.toString());
+                    locatorMap.put(elementName.replace(" ", "_") + "-DIV", xpath.toString());
                     int flag = 0;
                     for (HashMap<String, String> copiedValue : scenarioLocatorsDuplicate) {
                         if (copiedValue.keySet().toString().replace("[", "").replace("]", "").equalsIgnoreCase(elementName.replace(" ", "_") + "-DIV")) {
@@ -154,7 +206,7 @@ public class SeleniumActions {
 
             }
         } catch (Exception e) {
-
+                failedScenarios.add(scenarioName);
         }
     }
 
@@ -174,4 +226,5 @@ public class SeleniumActions {
     private static String getCSSSelector(By xpath) {
         return xpath.toString().substring(15);
     }
+
 }

@@ -16,6 +16,14 @@ user_MISC enters_A phone_AIN as_IN 99999999_DATA
 user_MISC enters_A firstName_AIN as_IN ayush_DATA
 user_MISC enters_A lastName_AIN as_IN ayush_DATA
 
+user_MISC enters_A username123_DATA in_IN Old_AIN Password_AIN field_AIK
+user_MISC enters_A Hello123_DATA in_IN Old_AIN Password_AIN field_AIK
+user_MISC enters_A Hello234_DATA in_IN New_AIN Password_AIN field_AIK
+user_MISC enters_A Hello234_DATA in_IN Confirm_AIN Password_AIN field_AIK
+user_MISC enters_A username123_DATA in_IN New_AIN Password_AIN field_AIK
+user_MISC enters_A username123_DATA in_IN Confirm_AIN Password_AIN field_AIK
+
+
 input_A the_DT username_AIN ayush_DATA
 input_A the_DT reason_AIN ayush_DATA
 input_A the_DT password_AIN ayush_DATA

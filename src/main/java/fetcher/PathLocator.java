@@ -26,17 +26,51 @@ public class PathLocator {
         return this.getSortedNodes((Map) this.findScoresToNodes(nodePath, newSource).getValue(), bestGuessesCount, -1.0);
     }
 
+    public int calculateDistance(NodePath n1, NodePath n2) {
+       return this.nodePathDistance.distance(n1, n2);
+
+    }
 
     public AbstractMap.SimpleImmutableEntry<Integer, Map<Double, List<AbstractMap.SimpleImmutableEntry<NodeInfo, Integer>>>> findScoresToNodes(NodePath nodePath, NodeInfo newSource) {
+        List<NodePath> destinationLeaves = this.findAllLeafPaths(newSource);
+        NodeInfo byPath = nodePath.getLastNode();
+        int pathLength = nodePath.getNodes().length;
+        List<AbstractMap.SimpleImmutableEntry<NodePath, Integer>> paths = new ArrayList();
+        int maxLCSDistance = 0;
+        Iterator var8 = destinationLeaves.iterator();
+
+        while(var8.hasNext()) {
+            NodePath destinationLeaf = (NodePath)var8.next();
+            int distance = this.nodePathDistance.distance(nodePath, destinationLeaf);
+            if (distance >= 0.1) {
+                maxLCSDistance = Math.max(maxLCSDistance, distance);
+                paths.add(new AbstractMap.SimpleImmutableEntry(destinationLeaf, distance));
+            }
+        }
+
+        int pathLengthToCheck = Math.min(maxLCSDistance, pathLength);
+        Map<Double, List<AbstractMap.SimpleImmutableEntry<NodeInfo, Integer>>> scoresToNodes = (Map)paths.stream().map((pathPair) -> {
+            return new AbstractMap.SimpleImmutableEntry((NodeInfo[])Arrays.copyOfRange(((NodePath)pathPair.getKey()).getNodes(), (Integer)pathPair.getValue() - 1, ((NodePath)pathPair.getKey()).getNodes().length), (Integer)pathPair.getValue());
+        }).flatMap((pathPair) -> {
+            return Arrays.stream((NodeInfo[])pathPair.getKey()).map((it) -> {
+                return new AbstractMap.SimpleImmutableEntry(it, (Integer)pathPair.getValue());
+            });
+        }).collect(Collectors.groupingBy((nodePair) -> {
+            return this.nodeDistance.distance(byPath, (NodeInfo)nodePair.getKey(), (Integer)nodePair.getValue(), pathLengthToCheck);
+        }));
+        return new AbstractMap.SimpleImmutableEntry(pathLengthToCheck, scoresToNodes);
+//working fine upto this
+    }
+
+
+
+    public AbstractMap.SimpleImmutableEntry<Integer, Map<Double, List<AbstractMap.SimpleImmutableEntry<NodeInfo, Integer>>>> findSimpleScoresToNodes(NodePath nodePath, NodeInfo newSource) {
         List<NodePath> destinationLeaves = this.findAllLeafPaths(newSource);
 
         this.destinationLeaves = this.findAllLeafPaths(newSource);
 
         return null;
     }
-
-
-
 
     public List<ScoreGenerator<NodeInfo>> getSortedNodes(Map<Double, List<AbstractMap.SimpleImmutableEntry<NodeInfo, Integer>>> scoresToNodes, int bestGuessesCount, double guessCap) {
         int nodeLimit = this.normalizeLimit(bestGuessesCount);

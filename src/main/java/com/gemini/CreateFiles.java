@@ -64,7 +64,7 @@ public class CreateFiles {
                     for (HashMap<String, String> locators : entry.getValue()
                     ) {
                         for (Map.Entry<String, String> locator : locators.entrySet()) {
-                            if(!locatorsMap.containsKey(locator.getKey()))
+                            if(locatorsMap.get(locator.getKey().replace(".", "").replace("?", "")) == null)
                             Utils.setStepDefinitionVariable(c, locator.getValue(), locator.getKey());
                         }
                     }
@@ -112,5 +112,26 @@ public class CreateFiles {
                         fileName);
             }
         }
+    }
+
+    public static void createFailedList() throws IOException {
+
+        StringBuilder content = new StringBuilder();
+
+        File failedScenarioFile = new File(Utils.readProperties("projectPath") + "/src/test/resources/failedScenarioFile.txt");
+        FileWriter fileWriter = new FileWriter(failedScenarioFile);
+
+//        content.append("Feature: ").append(testcase.getFeatureName());
+//        content.append("\n\n  Scenario: ").append(testcase.getScenarioName());
+//        content.append("\n    ").append(testcase.getSteps());
+
+        for (String scenario: SeleniumActions.failedScenarios
+             ) {
+            content.append(scenario).append("\n");
+        }
+
+        fileWriter.write(content.toString());
+
+        fileWriter.close();
     }
 }

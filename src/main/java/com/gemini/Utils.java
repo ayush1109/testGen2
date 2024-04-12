@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.tools.*;
 import java.io.*;
+import java.lang.reflect.Method;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -28,6 +29,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.util.Objects.requireNonNull;
 
@@ -35,9 +38,11 @@ public class Utils {
 
     private static List<String> allSentences;
 
-    public static List<String> clickCommands = Arrays.asList("Press", "Tap", "Choose", "Select", "Hit", "Click");
+    public static List<String> clickCommands = Arrays.asList("Press", "Tap", "Choose", "Hit", "Click");
 
     public static List<String> typeCommands = Arrays.asList("Enter", "Input", "Write", "Insert", "Set", "Type");
+
+    public static List<String> featureFileNames = new ArrayList<>();
 
 
     public static String readProperties(String property) throws IOException { // Function to read Data from Properties File
@@ -200,7 +205,7 @@ public class Utils {
         }
     }
 
-    private static void compileJavaFile(String javaFileName) {
+    public static void compileJavaFile(String javaFileName) {
         // Get the Java compiler
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
@@ -269,13 +274,11 @@ public class Utils {
 //        FileUtils.copyFile(new File(srcDir), new File(tarDir));
 //    }
 
-    private static void shiftClassFileToTarget(String fileName, String directoryName, String file) throws IOException {
+    public static void shiftClassFileToTarget(String fileName, String directoryName) throws IOException {
 //        String srcDir = "C:\\Users\\ayush.garg\\Downloads\\Demo\\Demo\\src\\main\\java\\com\\gemini\\Dashboard_index.java";
         String srcDir = fileName + ".class";
 //        String tarDir = "C:\\Users\\ayush.garg\\Downloads\\Demo\\Demo\\target\\classes\\com\\gemini\\Dashboard_index.class";
-        String tarDir = System.getProperty("user.dir") + File.separator + "target" + File.separator + "classes"
-                + File.separator + "com" + File.separator + "gemini" + File.separator + "locator" + File.separator + StringUtils.capitalize(file) + ".class";
-        FileUtils.copyFile(new File(srcDir), new File(tarDir));
+        FileUtils.copyFile(new File(srcDir), new File(directoryName));
     }
 
 
@@ -283,6 +286,10 @@ public class Utils {
         String fileNameToCreate = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
                 + File.separator + "java" + File.separator + directory + StringUtils.capitalize(fileName);
         // String fileNameToCreate = System.getProperty("user.dir") +poName;
+
+        String tarDir = System.getProperty("user.dir") + File.separator + "target" + File.separator + "classes"
+                + File.separator + "com" + File.separator + "gemini" + File.separator + "locator" + File.separator + StringUtils.capitalize(fileName) + ".class";
+
         File f = new File(fileNameToCreate + ".java");
 
         String content = FileUtils.readFileToString(f, StandardCharsets.UTF_8);
@@ -295,12 +302,12 @@ public class Utils {
 
         FileUtils.writeStringToFile(f, updatedContent);
         compileJavaFile(fileNameToCreate + ".java");
-        shiftClassFileToTarget(fileNameToCreate, directory, fileName);
+        shiftClassFileToTarget(fileNameToCreate, tarDir);
         deleteClassFiles(fileNameToCreate);
 
     }
 
-    private static void deleteClassFiles(String fileName) throws IOException {
+    public static void deleteClassFiles(String fileName) throws IOException {
         String srcDir = fileName + ".class";
         FileUtils.delete(new File(srcDir));
     }
@@ -380,7 +387,8 @@ public class Utils {
         return dictionary;
     }
 
-    static boolean createTrainingFile(String trainingData) throws IOException {
+    static boolean
+    createTrainingFile(String trainingData) throws IOException {
         allSentences = new ArrayList<>();
         Path path = Paths.get("src/main/java/com/gemini/training_data_custom.txt");
 
@@ -465,9 +473,14 @@ public class Utils {
                     fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
                             + File.separator + "java" + File.separator + "com" + File.separator + "gemini" + File.separator + "gpog" + File.separator + "pageobjectgenerator" + File.separator + file.name() + ".java";
                 } else {
-                    sourceDirectory = new File(System.getProperty("user.dir") + "\\" + Testcase.getFeatureName() + ".feature");
-                    fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
-                            + File.separator + "resources" + File.separator + "features" + File.separator + Testcase.getFeatureName() + ".feature";
+                    for (String featureName: featureFileNames
+                         ) {
+                        sourceDirectory = new File(System.getProperty("user.dir") + "\\" + featureName + ".feature");
+                        fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
+                                + File.separator + "resources" + File.separator + "features" + File.separator + featureName + ".feature";
+                        File destinationDirectory = new File(fileNameToCreate);
+                        FileUtils.copyFile(sourceDirectory, destinationDirectory);
+                    }
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -532,5 +545,65 @@ public class Utils {
         fileWriter.write(configContent);
 
         fileWriter.close();
+    }
+
+    public static String replaceStringsInDoubleQuotes(String input) {
+        // Regular expression to match strings within double quotes
+        String regex = "\"([^\"]*)\"";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        // Replace strings within double quotes with (.*?)
+        StringBuffer result = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(result, "\\\"(.*?)\\\"");
+        }
+        matcher.appendTail(result);
+
+        return result.toString().replace("\"", "\\\"");
+    }
+
+    public static void executeMethod(org.eclipse.jdt.core.dom.MethodDeclaration node, List<String> values) throws Exception {
+
+        String methodBody = node.getBody().toString();
+        String className = node.resolveBinding().getDeclaringClass().getQualifiedName();
+        String fileName = className.replaceAll("\\.", "\\\\");
+        String methodName = node.getName().getFullyQualifiedName();
+        Class<?> clazz;
+        try {
+            clazz = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            String fileNameToCreate = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+                    + File.separator + "java" + File.separator + fileName;
+            String tarDir = System.getProperty("user.dir") + File.separator + "target" + File.separator + "classes"
+                    + File.separator + fileName + ".class";
+
+            compileJavaFile(fileNameToCreate + ".java");
+            shiftClassFileToTarget(fileNameToCreate, tarDir);
+            deleteClassFiles(fileNameToCreate);
+            clazz = Class.forName(className);
+        }
+        Object instance = clazz.getDeclaredConstructor().newInstance();
+
+        Class<?>[] parameterTypes = new Class<?>[values.size()];
+        for (int i = 0; i < values.size(); i++) {
+            parameterTypes[i] = values.get(i).getClass();
+        }
+
+        Method method = clazz.getMethod(methodName, parameterTypes);
+
+        if (values.size() == 6) {
+            method.invoke(instance, values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5));
+        } else if (values.size() == 5) {
+            method.invoke(instance, values.get(0), values.get(1), values.get(2), values.get(3), values.get(4));
+        } else if (values.size() == 4) {
+            method.invoke(instance, values.get(0), values.get(1), values.get(2), values.get(3));
+        } else if (values.size() == 3) {
+            method.invoke(instance, values.get(0), values.get(1), values.get(2));
+        } else if (values.size() == 2) {
+            method.invoke(instance, values.get(0), values.get(1));
+        } else if (values.size() == 1) {
+            method.invoke(instance, values.get(0));
+        } else method.invoke(instance);
     }
 }

@@ -5,14 +5,22 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.locators.RelativeLocator;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Healer {
     static List<NodeInfo> searchNodes = new ArrayList<>();
+    static List<NodePath> nodePathList = new ArrayList<>();
+
+    static NodePath lastNodePath;
     static WebDriver driver;
     private List<Set<ComponentScanner>> selectorDetailLevels;
+
+    static List<WebElement> elements = new ArrayList<>();
+
+    static NodeInfo prevNode;
     private static final List<Set<ComponentScanner>> TEMP = new ArrayList<Set<ComponentScanner>>() {
         {
             this.add(EnumSet.of(ComponentScanner.TAG, ComponentScanner.ID));
@@ -24,46 +32,146 @@ public class Healer {
         }
     };
 
+//    public WebElement findNewLocations(String identity, List<NodeInfo> paths, NodeInfo destination, WebDriver driver) {
+//        // Create a PathLocator instance with LCSNodePathDistance and LongestNodeDistance
+//        PathLocator pathLocator = new PathLocator(new LCSNodePathDistance(), new LongestNodeDistance());
+//
+//        // Find scores to nodes using the PathLocator
+//        AbstractMap.SimpleImmutableEntry<Integer, Map<Double, List<AbstractMap.SimpleImmutableEntry<NodeInfo, Integer>>>> scoresToNodes = pathLocator.findScoresToNodes(new NodePath((NodeInfo[]) paths.toArray(new NodeInfo[0])), destination);
+//
+//        // Get sorted nodes based on scores and criteria
+//        List<ScoreGenerator<NodeInfo>> scoreGenerators = pathLocator.getSortedNodes((Map) scoresToNodes.getValue(), 2, 0.6);
+//        List<HealedElement> healedElements;
+//        int flag = 0;
+//        for (int i = 0; i < scoreGenerators.size(); i++) {
+//            if(scoreGenerators.get(i).toString().contains(identity)){
+//                flag = 1;
+//            }
+//        }
+//        if(flag == 1) {
+//            healedElements = scoreGenerators.stream()
+//                    .filter(node -> node.toString().contains(identity))
+//                    .map(node -> this.toLocator(node, driver))
+//                    .filter(Objects::nonNull)
+//                    .collect(Collectors.toList());
+//        } else {
+//            healedElements = scoreGenerators.stream()
+//                    .map(node -> this.toLocator(node, driver))
+//                    .filter(Objects::nonNull)
+//                    .collect(Collectors.toList());
+//        }
+//
+////        GemHealGlobalVariables.score= scoreGenerators.get(0).getScore();
+////
+////        List<HealedElement> healedElements = scoreGenerators.stream()
+////                .map(node -> this.toLocator(node, driver))
+////                .filter(Objects::nonNull)
+////                .collect(Collectors.toList());
+//        return healedElements.get(0).getElement();
+//
+//    }
+
     public By findNewLocations(String identity, List<NodeInfo> paths, NodeInfo destination, WebDriver driver, String action) {
         this.driver = driver;
         int n = 0;
         PathLocator pathLocator = new PathLocator(new LCSNodePathDistance(), new LongestNodeDistance());
-        AbstractMap.SimpleImmutableEntry<Integer, Map<Double, List<AbstractMap.SimpleImmutableEntry<NodeInfo, Integer>>>> scoresToNodes = pathLocator.findScoresToNodes(new NodePath((NodeInfo[]) paths.toArray(new NodeInfo[0])), destination);
+        AbstractMap.SimpleImmutableEntry<Integer, Map<Double, List<AbstractMap.SimpleImmutableEntry<NodeInfo, Integer>>>> scoresToNodesSimple = pathLocator.findSimpleScoresToNodes(new NodePath((NodeInfo[]) paths.toArray(new NodeInfo[0])), destination);
         List<NodePath> nodes = pathLocator.destinationLeaves;
         this.selectorDetailLevels = Collections.unmodifiableList(TEMP);
         List<Set<ComponentScanner>> detailLevels = this.selectorDetailLevels;
         List<NodeInfo> listNodes = findNodeWithText(nodes, identity);
-        for (NodeInfo nodeInfo : listNodes
+
+        if(listNodes.size() == 0) return null;
+
+        if (listNodes.size() > 1) for (NodeInfo nodeInfo : listNodes
         ) {
-            if (action.equals("input") || (action.equals("write"))) {
-                n = nodeInfo.getIndex();
-                break;
+            if (StringUtils.equalsIgnoreCase("click", action)) {
+                if (StringUtils.equalsIgnoreCase("input", nodeInfo.getTag()) || StringUtils.equalsIgnoreCase("button", nodeInfo.getTag())) {
+//                    int index = listNodes.indexOf(nodeInfo);
+                    listNodes.remove(nodeInfo);
+                    listNodes.add(0, nodeInfo);
+                    break;
+                }
+            } else if (StringUtils.equalsIgnoreCase("input", action)) {
+                if (StringUtils.equalsIgnoreCase("input", nodeInfo.getTag())) {
+                    listNodes.remove(nodeInfo);
+                    listNodes.add(0, nodeInfo);
+                    break;
+                }
             }
         }
+
+        // need to if we can rank into most usable nodes first.
+//        for (NodeInfo nodeInfo : listNodes
+//        ) {
+//            if (action.equals("input") || (action.equals("write"))) {
+//                if (!(identity.equalsIgnoreCase("Mobile number") || identity.equalsIgnoreCase("Emergency Contact")))
+//                    n = nodeInfo.getIndex();
+//                break;
+//            }
+//        }
         System.out.println(listNodes);
-        if (listNodes.size() == 0) {
-            By xpath = By.xpath("//*[contains(text(), '" + identity + "')]");
-            if (identity.equalsIgnoreCase("delete") || identity.equalsIgnoreCase("Bulk Approve") || identity.equalsIgnoreCase("close"))
-                return xpath;
-            if (driver.findElements(xpath).size() > 1) {
-                if (identity.equalsIgnoreCase("lunch")) {
-                    return By.xpath("//*[text()='" + identity + "']");
-                }
-                return By.xpath("//*[text()=' " + identity + "']");
-            } else
-                return By.xpath("//*[contains(text(), '" + identity + "')]");
-        }
+//        if (listNodes.size() == 0) {
+//            if (action.equalsIgnoreCase("select")) {
+//                By xpath = By.xpath("//*[contains(text(), '" + identity + "')]/following::select");
+//                if (identity.equalsIgnoreCase("Year"))
+//                    return xpath;
+//                if (driver.findElements(xpath).size() > 1) {
+//                    if (identity.equalsIgnoreCase("lunch") || identity.equalsIgnoreCase("LNSA") || identity.equalsIgnoreCase("Country") || identity.equalsIgnoreCase("State") || identity.equalsIgnoreCase("City") || identity.equalsIgnoreCase("Location") || identity.equalsIgnoreCase("Marital Status")) {
+//                        return By.xpath("//*[text()='" + identity + "']/following::select");
+//                    }
+//                    return By.xpath("//*[text()=' " + identity + "']/following::select");
+//                } else if (identity.equalsIgnoreCase("edit")) {
+//                    return By.xpath("//button[@id='btnUpdateProfile']/following::select");
+//                } else
+//                    return By.xpath("//*[contains(text(), '" + identity + "')]/following::select");
+//            } else {
+//                By xpath = By.xpath("//*[contains(text(), '" + identity + "')]");
+//                if (identity.equalsIgnoreCase("delete") || identity.equalsIgnoreCase("Bulk Approve") || identity.equalsIgnoreCase("close"))
+//                    return xpath;
+//                if (driver.findElements(xpath).size() > 1) {
+//                    if (identity.equalsIgnoreCase("lunch") || identity.equalsIgnoreCase("LNSA")) {
+//                        return By.xpath("//*[text()='" + identity + "']");
+//                    }
+//                    if(identity.equalsIgnoreCase("Edit")) {
+//                        return By.xpath("//*[@title='" + identity + "']");
+//                    }
+//                    if(identity.equalsIgnoreCase("Update")) {
+//                        return By.xpath("//*[contains(text(), '" + identity + "')]");
+//                    }
+//                    return By.xpath("//*[text()=' " + identity + "']");
+//                } else if (identity.equalsIgnoreCase("edit")) {
+//                    return By.xpath("//button[@id='btnUpdateProfile']");
+//                } else
+//                    return By.xpath("//*[contains(text(), '" + identity + "')]");
+//            }
+//        }
 //        Comparator<NodeInfo> customComparator = Comparator.comparing(node -> !node.toString().contains("Search"))
 //                .thenComparingInt(node -> node.);
 //        construct(listNodes.get(0));
         // Sort the listNodes based on the customComparator
 //        Collections.sort(listNodes, customComparator);
 
-
-        StringBuilder xpath = userFriendlyXpath(listNodes.get(n));
+        StringBuilder xpath = new StringBuilder();
+        if (listNodes.size() > 1) {
+//            Set<NodeInfo> nodeInfoSet = new LinkedHashSet<>(listNodes);
+//            listNodes.clear();
+//            listNodes.addAll(nodeInfoSet);
+            for (int i = 0; i < listNodes.size(); i++) {
+                xpath = userFriendlyXpath(listNodes.get(i));
+                if (xpath != null && driver.findElement(By.xpath(xpath.toString())).isDisplayed()) {
+                    break;
+                }
+            }
+        } else {
+            xpath = userFriendlyXpath(listNodes.get(n));
+        }
         By absolute = null;
-        if (StringUtils.equalsIgnoreCase("select", action)) {
-            Objects.requireNonNull(xpath).append("/following::select");
+        if (StringUtils.equalsIgnoreCase("select", action) && xpath != null) {
+            if (identity.equalsIgnoreCase("Task Type"))
+                Objects.requireNonNull(xpath).append("/following::select[2]");
+            else
+                Objects.requireNonNull(xpath).append("/following::select");
         }
         int flag = 1;
         if ((xpath == null) || (driver.findElements(By.xpath(xpath.toString())).size() == 0)) {
@@ -153,60 +261,96 @@ public class Healer {
         }).collect(Collectors.joining()));
     }
 
-    public static List<NodeInfo> findNodeWithText(List<NodePath> nodes, String searchText) {
-        searchNodes.clear();
-        if (searchText.equalsIgnoreCase("sign in")) {
-            for (NodePath node : nodes) {
-                try {
-                    if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equals(searchText))) {
-                        searchNodes.add(node.getLastNode());
-                    }
+    public static List<NodeInfo> findNodeWithTextTemp(List<NodePath> nodes, String searchText) {
+        for (int i = 0; i < nodes.size() - 1; i++) {
+            for (int j = 0; j < nodes.size(); j++) {
+                PathLocator pathLocator = new PathLocator(new LCSNodePathDistance(), new LongestNodeDistance());
 
-                } catch (NullPointerException e) {
-                    try {
-                        if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText)) || (node.getLastNode().getOtherAttributes().get("placeholder").equals(searchText))) {
-                            searchNodes.add(node.getLastNode());
-                        }
-                    } catch (NullPointerException e1) {
-                        if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText))) {
-                            searchNodes.add(node.getLastNode());
-                        }
-                    }
-                }
-//            if (node.getLastNode().getOtherAttributes().get("value") == null) {
-
-//            }
-//            else if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equalsIgnoreCase(searchText))) {
-//                searchNodes.add(node.getLastNode());
-//            }
-
+                pathLocator.calculateDistance(nodes.get(i), nodes.get(j));
             }
 
-        } else {
-            for (NodePath node : nodes) {
-                try {
-                    if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equalsIgnoreCase(searchText))) {
-                        searchNodes.add(node.getLastNode());
-                    }
 
-                } catch (NullPointerException e) {
-                    try {
-                        if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText)) || (node.getLastNode().getOtherAttributes().get("placeholder").equalsIgnoreCase(searchText))) {
-                            searchNodes.add(node.getLastNode());
-                        }
-                    } catch (NullPointerException e1) {
-                        if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText))) {
-                            searchNodes.add(node.getLastNode());
-                        }
+        }
+        return null;
+    }
+
+    public static List<NodeInfo> findNodeWithText(List<NodePath> nodes, String searchText) {
+        searchNodes.clear();
+        PathLocator pathLocator = new PathLocator(new LCSNodePathDistance(), new LongestNodeDistance());
+//        if (searchText.equalsIgnoreCase("sign in")) {
+//            for (NodePath node : nodes) {
+//                    try {
+//                        if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equals(searchText))) {
+//                            searchNodes.add(node.getLastNode());
+//                            nodePathList.add(node);
+//                        }
+//
+//                    } catch (NullPointerException e) {
+//                        try {
+//                            if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText)) || (node.getLastNode().getOtherAttributes().get("placeholder").equals(searchText))) {
+//                                searchNodes.add(node.getLastNode());
+//                                nodePathList.add(node);
+//                            }
+//                        } catch (NullPointerException e1) {
+//                            if (node.getLastNode().getInnerText().trim().equals(searchText) || (node.getLastNode().getId().trim().equals(searchText))) {
+//                                searchNodes.add(node.getLastNode());
+//                                nodePathList.add(node);
+//                            }
+//                        }
+//                    }
+//
+//            }
+//
+//        } else {
+        for (NodePath node : nodes) {
+            try {
+
+                if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equalsIgnoreCase(searchText))) {
+                    searchNodes.add(node.getLastNode());
+                    nodePathList.add(node);
+                }
+
+            } catch (NullPointerException e) {
+                try {
+                    if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText)) || (node.getLastNode().getOtherAttributes().get("placeholder").equalsIgnoreCase(searchText))) {
+                        searchNodes.add(node.getLastNode());
+                        nodePathList.add(node);
+                    }
+                } catch (NullPointerException e1) {
+                    if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText))) {
+                        searchNodes.add(node.getLastNode());
+                        nodePathList.add(node);
                     }
                 }
-//            if (node.getLastNode().getOtherAttributes().get("value") == null) {
+            }
+        }
 
-//            }
-//            else if (node.getLastNode().getInnerText().trim().equalsIgnoreCase(searchText) || (node.getLastNode().getId().trim().equalsIgnoreCase(searchText)) || (node.getLastNode().getOtherAttributes().get("value").equalsIgnoreCase(searchText))) {
-//                searchNodes.add(node.getLastNode());
-//            }
+//        }
 
+        if (searchNodes.size() == 0) {
+            for (NodePath node : nodes) {
+                Arrays.stream(node.getNodes()).forEach(nodeInfo -> {
+                    try {
+
+                        if (nodeInfo.getInnerText().trim().equalsIgnoreCase(searchText) || (nodeInfo.getId().trim().equalsIgnoreCase(searchText)) || (nodeInfo.getOtherAttributes().get("value").equalsIgnoreCase(searchText))) {
+                            searchNodes.add(nodeInfo);
+                            nodePathList.add(node);
+                        }
+
+                    } catch (NullPointerException e) {
+                        try {
+                            if (nodeInfo.getInnerText().trim().equalsIgnoreCase(searchText) || (nodeInfo.getId().trim().equalsIgnoreCase(searchText)) || (nodeInfo.getOtherAttributes().get("placeholder").equalsIgnoreCase(searchText))) {
+                                searchNodes.add(nodeInfo);
+                                nodePathList.add(node);
+                            }
+                        } catch (NullPointerException e1) {
+                            if (nodeInfo.getInnerText().trim().equalsIgnoreCase(searchText) || (nodeInfo.getId().trim().equalsIgnoreCase(searchText))) {
+                                searchNodes.add(nodeInfo);
+                                nodePathList.add(node);
+                            }
+                        }
+                    }
+                });
             }
         }
         return searchNodes;

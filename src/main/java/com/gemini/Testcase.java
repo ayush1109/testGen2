@@ -7,7 +7,6 @@ public class Testcase {
     String sno;
     String scenarioName;
     List<String> steps;
-    static String featureName;
 
     public String getSno() {
         return sno;
@@ -33,19 +32,12 @@ public class Testcase {
         this.steps = steps;
     }
 
-    public static String getFeatureName() {
-        return featureName;
-    }
 
-    public void setFeatureName(String featureName) {
-        Testcase.featureName = featureName;
-    }
 
     public void clear() {
         setSno(null);
         setSteps(null);
         setScenarioName(null);
-        setFeatureName(null);
     }
 
     @Override
@@ -54,7 +46,6 @@ public class Testcase {
                 "sno='" + sno + '\'' +
                 ", scenarioName='" + scenarioName + '\'' +
                 ", steps=" + steps +
-                ", featureName='" + featureName + '\'' +
                 '}';
     }
 }

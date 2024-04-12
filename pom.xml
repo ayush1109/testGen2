@@ -170,12 +170,14 @@
             <scope>main</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/de.defmacro/eclipse-astparser -->
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jdt/org.eclipse.jdt.core -->
         <dependency>
-            <groupId>de.defmacro</groupId>
-            <artifactId>eclipse-astparser</artifactId>
-            <version>8.1</version>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.core</artifactId>
+            <version>3.37.0</version>
         </dependency>
+
+
 
 
 

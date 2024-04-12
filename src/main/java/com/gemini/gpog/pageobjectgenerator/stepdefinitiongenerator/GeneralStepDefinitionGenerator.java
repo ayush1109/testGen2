@@ -183,6 +183,7 @@ public class GeneralStepDefinitionGenerator implements GenerateStepDefinitions {
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionChangeFocus(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
                         }
                         if (StringUtils.equalsIgnoreCase(locatorType, "dropdown")) {
+                            UtilsStepDefinitionCodeGenerator.generateElementBasicFunctions(c, field, locatorType, aClass.getSimpleName(), iLoggerUtils, locator);// Radio and CheckBox and Normal Click Operation
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenClickable(c, field, aClass.getSimpleName(), iLoggerUtils, locator);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionMethodThenEnabled(c, field, aClass.getSimpleName(), iLoggerUtils, locator, locatorType);
                             UtilsStepDefinitionCodeGenerator.setLinkStepDefinitionTextGetter(c, field, aClass.getSimpleName(), iLoggerUtils, locator);

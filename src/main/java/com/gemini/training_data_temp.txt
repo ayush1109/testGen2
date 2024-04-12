@@ -34,6 +34,9 @@ click_A scenario_AIN modal_AIN tab_AIK
 click_A modern_AIN perl_AIN tab_AIK
 click_A success_AIN message_AIN tab_AIK
 click_A update_AIN email_AIN tab_AIK
+click_A Update_AIN Address_AIN option_AIK
+click_A Update_AIN Address_AIN button_AIK
+click_A Update_AIN Address_AIN tab_AIK
 
 select_A leave_AIN management_AIN option_AIK
 select_A My_AIN reimbursement_AIN button_AIK
@@ -521,3 +524,34 @@ select_A your_AIN apply_AIN lunch_AIN option_AIK
 select_A your_AIN appraisal_AIN management_AIN option_AIK
 select_A your_AIN organisationA_IN structure_AIN option_AIK
 select_A your_AIN Employee_AIN Directory_AIN option_AIK
+
+
+Select_A QA_DATA from_MISC Task_AIN Type_AIN dropdown_AIK
+Select_A Gemini_DATA from_MISC Task_AIN Type_AIN dropdown_AIK
+Select_A TSC_DATA from_MISC Task_AIN Type_AIN dropdown_AIK
+Select_A FES_DATA from_MISC Task_AIN Type_AIN dropdown_AIK
+Select_A Infrastracture_DATA from_MISC Task_AIN Type_AIN dropdown_AIK
+
+Select_A QA_DATA from_MISC Team_AIN Name_AIN dropdown_AIK
+Select_A Gemini_DATA from_MISC Team_AIN Name_AIN dropdown_AIK
+Select_A TSC_DATA from_MISC Team_AIN Name_AIN dropdown_AIK
+Select_A FES_DATA from_MISC Team_AIN Name_AIN dropdown_AIK
+Select_A Infrastracture_DATA from_MISC Team_AIN Name_AIN dropdown_AIK
+
+Select_A QA_DATA from_MISC Task_AIN Type_AIN dropdown_AIK
+Select_A Gemini_DATA from_MISC Task_AIN Type_AIN dropdown_AIK
+Select_A TSC_DATA from_MISC Task_AIN Type_AIN dropdown_AIK
+Select_A FES_DATA from_MISC Task_AIN Type_AIN dropdown_AIK
+Select_A Infrastracture_DATA from_MISC Task_AIN Type_AIN dropdown_AIK
+
+Select_A January_DATA 24_DATA from_MISC My_AIN Attendance_AIN dropdown_AIK
+Select_A February_DATA 1_DATA from_MISC My_AIN Attendance_AIN dropdown_AIK
+Select_A March_DATA 01_DATA from_MISC My_AIN Attendance_AIN dropdown_AIK
+Select_A April_DATA 01_DATA from_MISC My_AIN Attendance_AIN dropdown_AIK
+Select_A May_DATA 01_DATA from_MISC My_AIN Attendance_AIN dropdown_AIK
+
+Select_A January_DATA 24_DATA from_MISC My_AIN Attendance_AIN dropdown_AIK
+Select_A February_DATA 1_DATA from_MISC My_AIN Attendance_AIN dropdown_AIK
+Select_A March_DATA 01_DATA from_MISC My_AIN Attendance_AIN dropdown_AIK
+Select_A April_DATA 01_DATA from_MISC My_AIN Attendance_AIN dropdown_AIK
+Select_A May_DATA 01_DATA from_MISC My_AIN Attendance_AIN dropdown_AIK

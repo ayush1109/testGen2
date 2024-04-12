@@ -82,7 +82,7 @@ public class SerenityMethodCodeGenerator implements Framework {
         BlockStmt block = new BlockStmt();
         method.setBody(block);
         ASTHelper.addStmt(block, new NameExpr("//The below function is for web element @FindBy(" + locator + "." + field.getName() + ")"));
-        ASTHelper.addStmt(block, new NameExpr("try{\n\t\t\twaitABit(8000);\n\t\t\tassertTrue(\"" + meaningFulName + " is not visible\", "+ "$(" + locator + "." + field.getName() + ")." + "isDisplayed" + "(" + "))"));
+        ASTHelper.addStmt(block, new NameExpr("try{\n\t\t\twaitABit(3000);\n\t\t\tassertTrue(\"" + meaningFulName + " is not visible\", "+ "$(" + locator + "." + field.getName() + ")." + "isDisplayed" + "(" + "))"));
         ASTHelper.addStmt(block, new NameExpr("\tloggerUtils.log(LogLevel.INFO, \"" + meaningFulName + " is visible\")"));
         ASTHelper.addStmt(block, new NameExpr("}" + "\n\t\tcatch(" + "Exception e" + "){\n\t\t\t" + "loggerUtils.log(LogLevel.INFO, " + "\"User gets an exception: \"" + "+" + "e" + ")"));
         ASTHelper.addStmt(block, new NameExpr("}"));
