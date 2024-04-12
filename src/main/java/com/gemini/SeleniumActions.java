@@ -1,7 +1,5 @@
 package com.gemini;
 
-import com.gemini.gpog.framework.HelperFunctions;
-import com.gemini.locator.Timesheet_managetasktemplates;
 import fetcher.DOMFetcher;
 import fetcher.Healer;
 import fetcher.NodeInfo;
