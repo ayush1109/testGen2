@@ -70,7 +70,17 @@ public class SeleniumActions extends PageObject {
             ArrayList<HashMap<String, String>> scenarioUpdatedLocators = new ArrayList<>();
             HashMap<String, String> locatorMap = new HashMap<>();
             String previousUrl = getFeatureNameFromUrl();
+
             By xpath = findXpath(driver, elementName, action);
+
+            for (int i = 1; i < 5; i++) {
+                if(xpath == null) {
+                    Thread.sleep(5000);
+                    xpath = findXpath(driver, elementName, action);
+                } else {
+                    break;
+                }
+            }
 
             if(Utils.readProperties("userInterventionNeeded").equalsIgnoreCase("true"))
              if(xpath == null) {
@@ -80,12 +90,12 @@ public class SeleniumActions extends PageObject {
                  System.out.println("Updated xpath for " + elementName + " is " + xpath);
              }
             Thread.sleep(2000);
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
             WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(xpath));
 
             switch (action) {
                 case "select" -> {
-                    new Select(element).selectByVisibleText(data);
+                    new Select(element).selectByVisibleText(data.trim());
                     String newUrl = getFeatureNameFromUrl();
                     locatorMap.put(elementName.replace(" ", "_") + "-DROPDOWN", xpath.toString());
                     int flag = 0;
@@ -150,7 +160,7 @@ public class SeleniumActions extends PageObject {
                     }
                 }
                 case "input", "write" -> {
-                    element.sendKeys(data);
+                    element.sendKeys(data.trim());
                     String newUrl = getFeatureNameFromUrl();
                     if (!StringUtils.equalsIgnoreCase(previousUrl, newUrl)) {
                         scenarioLocators = new ArrayList<>();

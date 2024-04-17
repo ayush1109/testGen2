@@ -56,8 +56,12 @@ public class GenerateStep {
                                     step = step.replace("<information>", "input");
                                     step = step.replace("<data>", tokenMap.get("DATA"));
                                 }
-                                case "dropdown", "radio button", "checkbox" ->
-                                        step = step.replace("<action>", "selects");
+                                case "dropdown", "radio button", "checkbox" -> {
+                                    step = keyword + " for the <page> page, user <action> \"<data>\" from <element> <information>";
+                                    step = step.replace("<page>", url);
+                                    step = step.replace("<action>", "selects");
+                                    step = step.replace("<information>", "dropdown");
+                                    step = step.replace("<data>", tokenMap.get("DATA"));                                }
                             }
                             step = step.replace("<information>", entry.getValue());
                         }

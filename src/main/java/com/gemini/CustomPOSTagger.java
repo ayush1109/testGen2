@@ -4,6 +4,7 @@ package com.gemini;//package org.example;//package org.example;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.stream.Stream;
 
@@ -174,9 +175,10 @@ public class CustomPOSTagger {
                                                                 a.add(stepNew.split("\"")[1].split("\"")[0]);
                                                                 stepNew = stepNew.replaceFirst("\"", "").replaceFirst("\"", "");
                                                             }
-
                                                             Utils.executeMethod(node, a);
                                                         } catch (Exception e) {
+                                                            e.getCause();
+                                                            e.printStackTrace();
                                                             throw new RuntimeException(e);
                                                         }
                                                     }

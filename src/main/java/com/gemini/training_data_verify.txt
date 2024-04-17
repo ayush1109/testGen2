@@ -63,3 +63,10 @@ verify_MISC leave_AIN is_MISC present_SA
 verify_MISC appraisal_AIN is_MISC present_SA
 verify_MISC Organization_AIN is_MISC present_SA
 verify_MISC Accounts_AIN is_MISC present_SA
+
+verify_MISC The_AIN username_AIN or_AIN password_AIN you_AIN entered_AIN is_AIN not_AIN valid._AIN 4_AIN attempts_AIN left._AIN is present
+verify_MISC The_AIN username_AIN or_AIN password_AIN you_AIN entered_AIN is_AIN not_AIN valid._AIN 4_AIN attempts_AIN left._AIN is present
+verify_MISC The_AIN username_AIN or_AIN password_AIN you_AIN entered_AIN is_AIN not_AIN valid._AIN 4_AIN attempts_AIN left._AIN is present
+verify_MISC The_AIN username_AIN or_AIN password_AIN you_AIN entered_AIN is_AIN not_AIN valid._AIN 4_AIN attempts_AIN left._AIN is present
+verify_MISC The_AIN username_AIN or_AIN password_AIN you_AIN entered_AIN is_AIN not_AIN valid._AIN 4_AIN attempts_AIN left._AIN is present
+verify_MISC The_AIN username_AIN or_AIN password_AIN you_AIN entered_AIN is_AIN not_AIN valid._AIN 4_AIN attempts_AIN left._AIN is present

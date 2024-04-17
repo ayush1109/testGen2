@@ -90,8 +90,9 @@ public class UtilsStepDefinitionCodeGenerator {
         String nameOfFile = firstLetter + locator.substring(1);
         v.setId(new VariableDeclaratorId(nameOfFile));
         v.setInit(new ObjectCreationExpr(null, new ClassOrInterfaceType(null, classname), null));
+
         FieldDeclaration f = ASTHelper.createFieldDeclaration(ModifierSet.PUBLIC,
-                ASTHelper.createReferenceType(classname, 0), nameOfFile);
+                ASTHelper.createReferenceType(classname, 0), v);
 
         ASTHelper.addMember(c.getTypes().get(0), f);
     }

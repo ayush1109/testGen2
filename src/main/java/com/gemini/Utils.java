@@ -28,7 +28,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -114,7 +117,7 @@ public class Utils {
         String locatorValue = refactorValue(value);
         String annotationValue = "";
         if(locatorName.contains("-"))
-        annotationValue = "\"" + locatorName.split("-")[1] + "\"";
+        annotationValue = "\"" + locatorName.split("-")[locatorName.split("-").length - 1] + "\"";
         String annotationType = "LocatorType";
         NormalAnnotationExpr na = new NormalAnnotationExpr();
         na.setName(new NameExpr(annotationType));
@@ -564,7 +567,6 @@ public class Utils {
     }
 
     public static void executeMethod(org.eclipse.jdt.core.dom.MethodDeclaration node, List<String> values) throws Exception {
-
         String methodBody = node.getBody().toString();
         String className = node.resolveBinding().getDeclaringClass().getQualifiedName();
         String fileName = className.replaceAll("\\.", "\\\\");
@@ -591,19 +593,24 @@ public class Utils {
         }
 
         Method method = clazz.getMethod(methodName, parameterTypes);
+        try {
 
-        if (values.size() == 6) {
-            method.invoke(instance, values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5));
-        } else if (values.size() == 5) {
-            method.invoke(instance, values.get(0), values.get(1), values.get(2), values.get(3), values.get(4));
-        } else if (values.size() == 4) {
-            method.invoke(instance, values.get(0), values.get(1), values.get(2), values.get(3));
-        } else if (values.size() == 3) {
-            method.invoke(instance, values.get(0), values.get(1), values.get(2));
-        } else if (values.size() == 2) {
-            method.invoke(instance, values.get(0), values.get(1));
-        } else if (values.size() == 1) {
-            method.invoke(instance, values.get(0));
-        } else method.invoke(instance);
+            if (values.size() == 6) {
+                method.invoke(instance, values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5));
+            } else if (values.size() == 5) {
+                method.invoke(instance, values.get(0), values.get(1), values.get(2), values.get(3), values.get(4));
+            } else if (values.size() == 4) {
+                method.invoke(instance, values.get(0), values.get(1), values.get(2), values.get(3));
+            } else if (values.size() == 3) {
+                method.invoke(instance, values.get(0), values.get(1), values.get(2));
+            } else if (values.size() == 2) {
+                method.invoke(instance, values.get(0), values.get(1));
+            } else if (values.size() == 1) {
+                method.invoke(instance, values.get(0));
+            } else method.invoke(instance);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

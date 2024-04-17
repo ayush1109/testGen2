@@ -13,14 +13,9 @@ import java.util.stream.Collectors;
 public class Healer {
     static List<NodeInfo> searchNodes = new ArrayList<>();
     static List<NodePath> nodePathList = new ArrayList<>();
-
-    static NodePath lastNodePath;
     static WebDriver driver;
     private List<Set<ComponentScanner>> selectorDetailLevels;
 
-    static List<WebElement> elements = new ArrayList<>();
-
-    static NodeInfo prevNode;
     private static final List<Set<ComponentScanner>> TEMP = new ArrayList<Set<ComponentScanner>>() {
         {
             this.add(EnumSet.of(ComponentScanner.TAG, ComponentScanner.ID));
@@ -93,7 +88,7 @@ public class Healer {
                     break;
                 }
             } else if (StringUtils.equalsIgnoreCase("input", action)) {
-                if (StringUtils.equalsIgnoreCase("input", nodeInfo.getTag())) {
+                if (StringUtils.equalsIgnoreCase("input", nodeInfo.getTag()) || StringUtils.equalsIgnoreCase("textarea", nodeInfo.getTag())) {
                     listNodes.remove(nodeInfo);
                     listNodes.add(0, nodeInfo);
                     break;
@@ -168,9 +163,6 @@ public class Healer {
         }
         By absolute = null;
         if (StringUtils.equalsIgnoreCase("select", action) && xpath != null) {
-            if (identity.equalsIgnoreCase("Task Type"))
-                Objects.requireNonNull(xpath).append("/following::select[2]");
-            else
                 Objects.requireNonNull(xpath).append("/following::select");
         }
         int flag = 1;
@@ -332,7 +324,7 @@ public class Healer {
                 Arrays.stream(node.getNodes()).forEach(nodeInfo -> {
                     try {
 
-                        if (nodeInfo.getInnerText().trim().equalsIgnoreCase(searchText) || (nodeInfo.getId().trim().equalsIgnoreCase(searchText)) || (nodeInfo.getOtherAttributes().get("value").equalsIgnoreCase(searchText))) {
+                            if (nodeInfo.getInnerText().trim().equalsIgnoreCase(searchText) || (nodeInfo.getId().trim().equalsIgnoreCase(searchText)) || (nodeInfo.getOtherAttributes().get("value").equalsIgnoreCase(searchText))) {
                             searchNodes.add(nodeInfo);
                             nodePathList.add(node);
                         }
