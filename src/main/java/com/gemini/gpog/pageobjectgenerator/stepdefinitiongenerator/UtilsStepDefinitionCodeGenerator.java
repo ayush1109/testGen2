@@ -1,5 +1,6 @@
 package com.gemini.gpog.pageobjectgenerator.stepdefinitiongenerator;
 
+import com.gemini.Utils;
 import com.gemini.gpog.logger.LoggerUtils;
 import com.gemini.gpog.pageobjectgenerator.Settings;
 import com.gemini.gpog.pageobjectgenerator.featuregenerator.FeatureCodeGenerator;
@@ -1765,7 +1766,7 @@ public class UtilsStepDefinitionCodeGenerator {
                                                    boolean stepGeneration) throws IOException {
 
         String data = "";
-        String fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
+        String fileNameToCreate = Utils.readProperties("projectPath") + File.separator + "src" + File.separator + "test"
                 + File.separator + "java/com/gemini" + File.separator + directoryName + className;
         // String fileNameToCreate = System.getProperty("user.dir") +poName;
         File f = new File(fileNameToCreate + ".java");

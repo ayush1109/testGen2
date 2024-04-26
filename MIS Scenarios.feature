@@ -32,25 +32,24 @@ Feature: MIS Scenarios
   Scenario: Empy Submit LNSA
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on LNSA button
-    When for the Account_login page, user clicks on Apply_LNSA button
-    When for the Account_login page, user clicks on Submit button
-    Then for the Account_login page, user verifies Warning div is visible
+    When for the Dashboard_index page, user clicks on Apply_LNSA button
+    When for the Lnsa_apply page, user clicks on Submit button
+    Then for the Lnsa_apply page, user verifies Warning div is visible
 
   Scenario: Configure Timesheet
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Configure_Timesheet button
-    When for the Account_login page, user clicks on Assigned_Projects button
-    When for the Account_login page, user clicks on Save button
-    Then for the Account_login page, user verifies Success div is visible
+    When for the Dashboard_index page, user clicks on Configure_Timesheet button
+    When for the Timesheet_configuretimesheet page, user clicks on Save button
+    Then for the Timesheet_configuretimesheet page, user verifies Success div is visible
 
   Scenario: MIS_dashboard_editprofileCard_updateValid_phoneNumber
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on btnUpdateProfile button
-    When for the Account_login page, user enters "7290928675 " as input for Mobile_number
-    When for the Account_login page, user enters "123 Contact " as input for Emergency
-    When for the Account_login page, user clicks on Update button
-    Then for the Account_login page, user verifies Warning div is visible
+    When for the Dashboard_index page, user enters "7290928675 " as input for Mobile_number
+    When for the Dashboard_index page, user enters "123 Contact " as input for Emergency
+    When for the Dashboard_index page, user clicks on Update button
+    Then for the Dashboard_index page, user verifies Warning div is visible
 
   Scenario: view document
     When for the Account_login page, user enters "ayush.garg@geminisolutions.com " as input for Username
@@ -66,10 +65,10 @@ Feature: MIS Scenarios
     When for the Account_login page, user clicks on Sign_in button
     When for the Dashboard_index page, user clicks on Feedback button
     When for the Dashboard_index page, user clicks on Submit_Feedback button
-    When for the Dashboard_index page, user clicks on Provide_Feedback button
-    When for the Dashboard_index page, user enters "test " as input for feedback
-    When for the Dashboard_index page, user clicks on Submit button
-    Then for the Dashboard_index page, user verifies test div is visible
+    When for the Feedback_submitfeedback page, user clicks on Provide_Feedback button
+    When for the Feedback_submitfeedback page, user enters "test " as input for feedback
+    When for the Feedback_submitfeedback page, user clicks on Submit button
+    Then for the Feedback_submitfeedback page, user verifies test div is visible
 
   Scenario: forgot password while login
     When for the Account_login page, user clicks on forgot_password button
@@ -80,10 +79,10 @@ Feature: MIS Scenarios
     When for the Account_login page, user enters "ayush.garg@geminisolutions.com " as input for Username
     When for the Account_login page, user enters "Gemini@123 " as input for Password
     When for the Account_login page, user clicks on Sign_in button
-    When for the Home_index page, user clicks on Leave_Management button
+    When for the Dashboard_index page, user clicks on Leave_Management button
     When for the Dashboard_index page, user clicks on Review_Request button
-    When for the Dashboard_index page, user clicks on Delegate button
-    Then for the Dashboard_index page, user verifies Service_Unavailable div is visible
+    When for the Leavemanagement_reviewrequest page, user clicks on Delegate button
+    Then for the Leavemanagement_reviewrequest page, user verifies Service_Unavailable div is visible
 
   Scenario: new request for reimbursement
     When for the Account_login page, user enters "ayush.garg@geminisolutions.com " as input for Username
@@ -91,9 +90,9 @@ Feature: MIS Scenarios
     When for the Account_login page, user clicks on Sign_in button
     When for the Dashboard_index page, user clicks on Reimbursement button
     When for the Dashboard_index page, user clicks on MyReimbursement button
-    Then for the Dashboard_index page, user verifies Reimbursement_Request div is visible
-    When for the Dashboard_index page, user clicks on New_Request button
-    Then for the Dashboard_index page, user verifies Reimbursement_Form div is visible
+    Then for the Reimbursement_myreimbursement page, user verifies Reimbursement_Request div is visible
+    When for the Reimbursement_myreimbursement page, user clicks on New_Request button
+    Then for the Reimbursement_myreimbursement page, user verifies Reimbursement_Form div is visible
 
   Scenario: update holidays
     When for the Account_login page, user enters "ayush.garg@geminisolutions.com " as input for Username
@@ -157,7 +156,7 @@ Feature: MIS Scenarios
     When for the Policy_viewpolicy page, user enters "Access " as input for Search
     Then for the Policy_viewpolicy page, user verifies Access_Policy div is visible
 
-  Scenario: search lunch
+  Scenario: search lunch`
     When for the Account_login page, user enters "ayush.garg@geminisolutions.com " as input for Username
     When for the Account_login page, user enters "Gemini@123 " as input for Password
     When for the Account_login page, user clicks on Sign_in button
@@ -170,8 +169,8 @@ Feature: MIS Scenarios
     When for the Account_login page, user enters "ayush.garg@geminisolutions.com " as input for Username
     When for the Account_login page, user enters "Gemini@123 " as input for Password
     When for the Account_login page, user clicks on Sign_in button
-    When for the Dashboard_index page, user clicks on timesheet button
-    When for the Dashboard_index page, user clicks on configure_timesheet button
+    When for the Dashboard_index page, user clicks on TimeSheet button
+    When for the Dashboard_index page, user clicks on Configure_Timesheet button
     When for the Timesheet_configuretimesheet page, user clicks on Save button
     Then for the Timesheet_configuretimesheet page, user verifies Success div is visible
 
@@ -186,56 +185,33 @@ Feature: MIS Scenarios
   Scenario: Checking for Pagination in Policies
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on Policy element
-    When for the Account_login page, user clicks on View_Policies button
-    When for the Account_login page, user clicks on Next button
+    When for the Dashboard_index page, user clicks on View_Policies button
+    When for the Policy_viewpolicy page, user clicks on Next button
 
   Scenario: Copy Timesheet
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Create_Timesheet button
-    When for the Account_login page, user clicks on Ok button
-    When for the Account_login page, user clicks on Copy_From button
-    Then for the Account_login page, user verifies Copy_timesheet div is visible
-    When for the Account_login page, user selects "2024 " from Year dropdown
-    When for the Account_login page, user clicks on Close button
-
-  Scenario: Add Task Template  with correct data
-    When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
-    When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Manage_Task_Template button
-    When for the Account_login page, user clicks on Add_New_Template button
-    When for the Account_login page, user enters "template1 " as input for Template_Name
-    When for the Account_login page, user enters "data " as input for Description
-    When for the Account_login page, user selects "QA " from Team_Name dropdown
-    When for the Account_login page, user selects "Debugging " from Task_Type dropdown
-    When for the Account_login page, user clicks on Save button
-
-  Scenario: Add Duplicate Task Template  with correct data
-    When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
-    When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Manage_Task_Template button
-    When for the Account_login page, user clicks on Add_New_Template button
-    When for the Account_login page, user enters "template1 " as input for Template_Name
-    When for the Account_login page, user enters "data " as input for Description
-    When for the Account_login page, user selects "QA " from Team_Name dropdown
-    When for the Account_login page, user selects "Debugging " from Task_Type dropdown
-    When for the Account_login page, user clicks on Save button
-    Then for the Account_login page, user verifies Warning div is visible
+    When for the Dashboard_index page, user clicks on Create_Timesheet button
+    When for the Timesheet_createtimesheet page, user clicks on Ok button
+    When for the Timesheet_createtimesheet page, user clicks on Copy_From button
+    Then for the Timesheet_createtimesheet page, user verifies Copy_timesheet div is visible
+    When for the Timesheet_createtimesheet page, user selects "2024 " from Year dropdown
+    When for the Timesheet_createtimesheet page, user clicks on Close button
 
   Scenario: Edit Task Template  with same data
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Manage_Task_Template button
-    When for the Account_login page, user clicks on Edit button
-    When for the Account_login page, user clicks on Update button
-    Then for the Account_login page, user verifies Warning div is visible
+    When for the Dashboard_index page, user clicks on Manage_Task_Template button
+    When for the Timesheet_managetasktemplates page, user clicks on Edit button
+    When for the Timesheet_managetasktemplates page, user clicks on Update button
+    Then for the Timesheet_managetasktemplates page, user verifies Warning div is visible
 
   Scenario: Wrong Search from Task Template  
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Manage_Task_Template button
-    When for the Account_login page, user enters "random " as input for Search
-    Then for the Account_login page, user verifies No_matching_records_found div is visible
+    When for the Dashboard_index page, user clicks on Manage_Task_Template button
+    When for the Timesheet_managetasktemplates page, user enters "random " as input for Search
+    Then for the Timesheet_managetasktemplates page, user verifies No_matching_records_found div is visible
 
   Scenario: Verify Date of partcular financial year is present
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
@@ -244,29 +220,29 @@ Feature: MIS Scenarios
   Scenario: change country in profile section
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on edit button
-    When for the Account_login page, user clicks on Update_Address button
-    When for the Account_login page, user selects "Hungary " from Country dropdown
-    When for the Account_login page, user selects "Bekes " from State dropdown
-    When for the Account_login page, user selects "Bekes " from City dropdown
+    When for the Dashboard_index page, user clicks on Update_Address button
+    When for the Dashboard_index page, user selects "Hungary " from Country dropdown
+    When for the Dashboard_index page, user selects "Bekes " from State dropdown
+    When for the Dashboard_index page, user selects "Bekes " from City dropdown
 
   Scenario: Customize your holidays
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on Customize_your_holidays button
-    When for the Account_login page, user clicks on Update button
-    When for the Account_login page, user clicks on Okay button
-    Then for the Account_login page, user verifies Location div is visible
+    When for the Dashboard_index page, user clicks on Update button
+    When for the Dashboard_index page, user clicks on Okay button
+    Then for the Dashboard_index page, user verifies Location div is visible
 
   Scenario: Check DC Hierarchy
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on EC_DC_Hierarchy button
-    When for the Account_login page, user clicks on Delivery_Council button
-    Then for the Account_login page, user verifies Accounts div is visible
+    When for the Dashboard_index page, user clicks on Delivery_Council button
+    Then for the Dashboard_index page, user verifies Accounts div is visible
 
   Scenario: Check Chair for Java EC
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on EC_DC_Hierarchy button
-    When for the Account_login page, user clicks on Engineering_Council button
-    Then for the Account_login page, user verifies Verify_Ritika_Jain_chair_Java div is <subaction>
+    When for the Dashboard_index page, user clicks on Engineering_Council button
+    Then for the Dashboard_index page, user verifies Verify_Ritika_Jain_chair_Java div is <subaction>
 
   Scenario: Click on Apply lunch
     When for the Account_login page, user enters "ayush.garg@geminisolutions.com " as input for Username
@@ -284,83 +260,83 @@ Feature: MIS Scenarios
   Scenario: MIS_Timesheet_Open_ConfigureTimeSheetTab
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Configure_Timesheet button
-    Then for the Account_login page, user verifies Assigned_Projects div is visible
+    When for the Dashboard_index page, user clicks on Configure_Timesheet button
+    Then for the Timesheet_configuretimesheet page, user verifies Assigned_Projects div is visible
 
   Scenario: MIS_Timesheet_ConfigTimeSheet_data consistensy_Validation
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Configure_Timesheet button
-    Then for the Account_login page, user verifies No_data_available_in_Table div is visible
+    When for the Dashboard_index page, user clicks on Configure_Timesheet button
+    Then for the Timesheet_configuretimesheet page, user verifies No_data_available_in_Table div is visible
 
   Scenario: MIS_Timesheet_ConfigTimeSheet_SearchFIlter_Validation
 
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Configure_Timesheet button
-    When for the Account_login page, user enters "mis " as input for Search
-    Then for the Account_login page, user verifies No_data_available_in_Table div is visible
+    When for the Dashboard_index page, user clicks on Configure_Timesheet button
+    When for the Timesheet_configuretimesheet page, user enters "mis " as input for Search
+    Then for the Timesheet_configuretimesheet page, user verifies No_data_available_in_Table div is visible
 
   Scenario: MIS_Timesheet_ConfigTimeSheet_popup_Validation
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Configure_Timesheet button
-    When for the Account_login page, user clicks on Save button
-    Then for the Account_login page, user verifies Success div is visible
+    When for the Dashboard_index page, user clicks on Configure_Timesheet button
+    When for the Timesheet_configuretimesheet page, user clicks on Save button
+    Then for the Timesheet_configuretimesheet page, user verifies Success div is visible
 
   Scenario: MIS_Timesheet_Open_CreateTimeSheetTab
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Create_Timesheet button
-    Then for the Account_login page, user verifies Please_note div is visible
+    When for the Dashboard_index page, user clicks on Create_Timesheet button
+    Then for the Timesheet_createtimesheet page, user verifies Please_note div is visible
 
   Scenario: MIS_Timesheet_CreateTimesheet_PleaseNotePopup_Validation
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Create_Timesheet button
-    When for the Account_login page, user clicks on OK button
-    Then for the Account_login page, user verifies Create_TimeSheet div is visible
+    When for the Dashboard_index page, user clicks on Create_Timesheet button
+    When for the Timesheet_createtimesheet page, user clicks on Ok button
+    Then for the Timesheet_createtimesheet page, user verifies Create_TimeSheet div is visible
 
   Scenario: TimeSheet_ClickonNextButtonWeek
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Create_Timesheet button
-    When for the Account_login page, user clicks on OK button
-    When for the Account_login page, user clicks on btnNextWeek button
-    Then for the Account_login page, user verifies Warning div is visible
+    When for the Dashboard_index page, user clicks on Create_Timesheet button
+    When for the Timesheet_createtimesheet page, user clicks on OK button
+    When for the Timesheet_createtimesheet page, user clicks on btnNextWeek button
+    Then for the Timesheet_createtimesheet page, user verifies Warning div is visible
 
   Scenario: TimeSheet_ClickonPreviousButtonWeek
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on TimeSheet button
-    When for the Account_login page, user clicks on Create_Timesheet button
-    When for the Account_login page, user clicks on OK button
-    When for the Account_login page, user clicks on btnPreviousWeek button
-    Then for the Account_login page, user verifies Week_14 div is visible
+    When for the Dashboard_index page, user clicks on Create_Timesheet button
+    When for the Timesheet_createtimesheet page, user clicks on OK button
+    When for the Timesheet_createtimesheet page, user clicks on btnPreviousWeek button
+    Then for the Timesheet_createtimesheet page, user verifies Week_14 div is visible
 
   Scenario: MIS_LeaveManagment_ViewRequestStatus_DateRange
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on Leave_Management button
-    When for the Account_login page, user clicks on View_Request_Status button
-    Then for the Account_login page, user verifies select2-financialYearScroll-container div is visible
+    When for the Dashboard_index page, user clicks on View_Request_Status button
+    Then for the Leavemanagement_leaverequeststatus page, user verifies select2-financialYearScroll-container div is visible
 
   Scenario: MIS_LeaveManagment_ViewRequestStatus_Export
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on Leave_Management button
-    When for the Account_login page, user clicks on View_Request_Status button
-    When for the Account_login page, user clicks on Export button
+    When for the Dashboard_index page, user clicks on View_Request_Status button
+    When for the Leavemanagement_leaverequeststatus page, user clicks on Export button
 
   Scenario: MIS_LeaveManagment_ViewRequestStatus_Search
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on Leave_Management button
-    When for the Account_login page, user clicks on View_Request_Status button
-    When for the Account_login page, user enters "mis " as input for Search
-    Then for the Account_login page, user verifies No_data_available_in_table div is visible
+    When for the Dashboard_index page, user clicks on View_Request_Status button
+    When for the Leavemanagement_leaverequeststatus page, user enters "mis " as input for Search
+    Then for the Leavemanagement_leaverequeststatus page, user verifies No_data_available_in_table div is visible
 
   Scenario: MIS_LNSA_ApplyLNSA_PreviousDates
     When I login with "ayush.garg@geminisolutions.com" username and "Gemini@123" password
     When for the Account_login page, user clicks on LNSA button
-    When for the Account_login page, user clicks on Apply_LNSA button
-    When for the Account_login page, user clicks on btnPreviousMonth button
+    When for the Dashboard_index page, user clicks on Apply_LNSA button
+    When for the Lnsa_apply page, user clicks on btnPreviousMonth button
 
   Scenario: apply lnsa
     When for the Account_login page, user enters "ayush.garg@geminisolutions.com " as input for Username

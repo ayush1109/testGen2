@@ -2,6 +2,9 @@ package com.gemini;
 
 import com.gemini.gpog.RequiredDirectories;
 import com.gemini.gpog.RequiredFiles;
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ResourceList;
+import io.github.classgraph.ScanResult;
 import japa.parser.ASTHelper;
 import japa.parser.ast.CompilationUnit;
 import japa.parser.ast.ImportDeclaration;
@@ -16,6 +19,7 @@ import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -48,11 +52,36 @@ public class Utils {
     public static List<String> featureFileNames = new ArrayList<>();
 
 
-    public static String readProperties(String property) throws IOException { // Function to read Data from Properties File
-        FileReader read = new FileReader(System.getProperty("user.dir") + "\\src\\main\\resources\\config.properties");
-        Properties credential = new Properties();
-        credential.load(read);
-        return credential.getProperty(property);
+    public static String readProperties(String property) throws IOException {
+        ClassLoader classLoader = Utils.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream("config.properties");
+        String propertyValue = null;
+        if (inputStream != null) {
+            try {
+                Properties properties = new Properties();
+                properties.load(inputStream);
+                propertyValue = properties.getProperty(property);
+            } catch (Exception var13) {
+                var13.printStackTrace();
+            } finally {
+                try {
+                    inputStream.close();
+                } catch (Exception var12) {
+                    var12.printStackTrace();
+                }
+
+            }
+        } else {
+            System.err.println("config.properties not found!");
+        }
+        return propertyValue;
+    }
+
+    public static Map<String, ResourceList> getFilesWithExtensionMap(String extension) {
+        ClassGraph jarcg = new ClassGraph();
+        ScanResult sr = jarcg.disableModuleScanning().scan(5);
+        ResourceList rl = sr.getResourcesWithExtension(extension);
+        return rl.asMap();
     }
 
     public static CompilationUnit createEnhancedCompilationUnit(String name) throws IOException {
@@ -416,8 +445,8 @@ public class Utils {
 
     static List<TokenWithTag> testModel(String testSentence, String modelFile) throws IOException {
         List<TokenWithTag> result = new ArrayList<>();
-        try (InputStream tokenModelIn = new FileInputStream("src/main/resources/trainingmodels/en-token.bin");
-             InputStream posModelIn = new FileInputStream("src/main/resources/models/" + modelFile)) {
+        try (InputStream tokenModelIn = Utils.class.getResourceAsStream("/trainingmodels/en-token.bin");
+             InputStream posModelIn = Utils.class.getResourceAsStream("/models/" + modelFile)) {
 
             TokenizerModel tokenModel = new TokenizerModel(tokenModelIn);
             Tokenizer tokenizer = new TokenizerME(tokenModel);
@@ -446,20 +475,29 @@ public class Utils {
             String fileNameToCreate = null;
             try {
                 if (directory.getFolder().equals("gpog")) {
-                    sourceDirectory = new File(System.getProperty("user.dir") + "\\src\\main\\java\\com\\gemini\\gpog\\" + directory.name());
+
+                    InputStream dataStream = Utils.class.getResourceAsStream("/gpog/" + directory.name().replace("_", "/") + ".java");
+
+                    String data = IOUtils.toString(dataStream, StandardCharsets.UTF_8);
+
+                    new File(readProperties("projectPath") + File.separator + "src" + File.separator + "test"
+                            + File.separator + "java" + File.separator + "com" + File.separator + "gemini" + File.separator + "gpog" + File.separator + directory.name().split("_")[0]).mkdirs();
+
                     fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
-                            + File.separator + "java" + File.separator + "com" + File.separator + "gemini" + File.separator + "gpog" + File.separator + directory.name();
+                            + File.separator + "java" + File.separator + "com" + File.separator + "gemini" + File.separator + "gpog" + File.separator + directory.name().replace("_", "/") + ".java";
+
+                    File srcDir = new File(fileNameToCreate);
+
+                    FileWriter writer = new FileWriter(srcDir);
+                    writer.write(data);
+                    writer.close();
                 } else {
                     sourceDirectory = new File(System.getProperty("user.dir") + "\\src\\main\\java\\com\\gemini\\" + directory.name());
                     fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
                             + File.separator + "java" + File.separator + "com" + File.separator + "gemini" + File.separator + directory.name();
+                    File destinationDirectory = new File(fileNameToCreate);
+                    FileUtils.copyDirectory(sourceDirectory, destinationDirectory);
                 }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            File destinationDirectory = new File(fileNameToCreate);
-            try {
-                FileUtils.copyDirectory(sourceDirectory, destinationDirectory);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -472,9 +510,21 @@ public class Utils {
             String fileNameToCreate = null;
             try {
                 if (file.getFolder().equals("gpog")) {
-                    sourceDirectory = new File(System.getProperty("user.dir") + "\\src\\main\\java\\com\\gemini\\gpog\\pageobjectgenerator\\" + file.name() + ".java");
+                    InputStream dataStream = Utils.class.getResourceAsStream("/gpog/pageobjectgenerator/" + file.name() + ".java");
+
+                    String data = IOUtils.toString(dataStream, StandardCharsets.UTF_8);
+
+                    new File(readProperties("projectPath") + File.separator + "src" + File.separator + "test"
+                            + File.separator + "java" + File.separator + "com" + File.separator + "gemini" + File.separator + "gpog" + File.separator + "pageobjectgenerator").mkdirs();
+
                     fileNameToCreate = readProperties("projectPath") + File.separator + "src" + File.separator + "test"
                             + File.separator + "java" + File.separator + "com" + File.separator + "gemini" + File.separator + "gpog" + File.separator + "pageobjectgenerator" + File.separator + file.name() + ".java";
+
+                    File srcDir = new File(fileNameToCreate);
+
+                    FileWriter writer = new FileWriter(srcDir);
+                    writer.write(data);
+                    writer.close();
                 } else {
                     for (String featureName: featureFileNames
                          ) {
@@ -488,19 +538,13 @@ public class Utils {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            File destinationDirectory = new File(fileNameToCreate);
-            try {
-                FileUtils.copyFile(sourceDirectory, destinationDirectory);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         });
     }
 
     public static void writePOMFile() throws IOException {
         File pomFile = new File(readProperties("projectPath") + "\\" + "pom.xml");
 
-        String POMContent = FileUtils.readFileToString(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\POMContent.txt"));
+        String POMContent = IOUtils.toString(Utils.class.getResourceAsStream("/POMContent.txt"), StandardCharsets.UTF_8);
 
         POMContent = POMContent.replace("${project-name}", readProperties("projectPath").split("/")[1]);
 
@@ -515,7 +559,7 @@ public class Utils {
     public static void createRunnerFile() throws IOException {
         File runnerFile = new File(readProperties("projectPath") + "/src/test/java/com/gemini/Runner.java");
 
-        String runnerContent = FileUtils.readFileToString(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\RunnerContent.txt"));
+        String runnerContent = IOUtils.toString(Utils.class.getResourceAsStream("/RunnerContent.txt"), StandardCharsets.UTF_8);
 
         FileWriter fileWriter = new FileWriter(runnerFile);
 
@@ -527,7 +571,7 @@ public class Utils {
     public static void createSerenityFile() throws IOException {
         File serenityFile = new File(readProperties("projectPath") + "/src/test/resources/serenity.conf");
 
-        String serenityContent = FileUtils.readFileToString(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\serenityContent.txt"));
+        String serenityContent = IOUtils.toString(Utils.class.getResourceAsStream("/serenityContent.txt"), StandardCharsets.UTF_8);
 
         serenityContent = serenityContent.replace("${base-url}", "\"" + readProperties("url") + "\"");
 
@@ -541,7 +585,7 @@ public class Utils {
     public static void createConfigFile() throws IOException {
         File configFile = new File(readProperties("projectPath") + "/src/test/resources/config.properties");
 
-        String configContent = FileUtils.readFileToString(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\configContent.txt"));
+        String configContent = IOUtils.toString(Utils.class.getResourceAsStream("/configContent.txt"), StandardCharsets.UTF_8);
 
         FileWriter fileWriter = new FileWriter(configFile);
 
@@ -612,5 +656,86 @@ public class Utils {
             throw new RuntimeException(e);
         }
 
+    }
+
+
+    public static String fetchValueInBrackets(String input) {
+        // Find the index of the opening bracket
+        int openingIndex = input.indexOf('{');
+
+        // Check if an opening bracket exists
+        if (openingIndex == -1) {
+            // If no opening bracket '(', try with square bracket '['
+            openingIndex = input.indexOf('[');
+        }
+
+        // Check if an opening bracket exists
+        if (openingIndex != -1) {
+            // Determine the corresponding closing bracket
+            char closingBracket;
+            if (input.charAt(openingIndex) == '{') {
+                closingBracket = '}';
+            } else {
+                closingBracket = ']';
+            }
+
+            // Find the index of the closing bracket starting from the opening bracket
+            int closingIndex = input.indexOf(closingBracket, openingIndex);
+
+            // Check if a closing bracket exists
+            if (closingIndex != -1) {
+                // Extract the substring between the brackets
+                String valueWithinBrackets = input.substring(openingIndex + 1, closingIndex);
+
+                // Return the value
+                return valueWithinBrackets;
+            }
+        }
+
+        // If no brackets are found, return null
+        return null;
+    }
+
+    public static String removeBrackets(String input) {
+        // Find the index of the opening bracket
+        int openingIndex = input.indexOf('{');
+
+        // Check if an opening bracket exists
+        if (openingIndex == -1) {
+            // If no opening bracket '(', try with square bracket '['
+            openingIndex = input.indexOf('[');
+        }
+
+        // Check if an opening bracket exists
+        if (openingIndex != -1) {
+            // Determine the corresponding closing bracket
+            char closingBracket;
+            if (input.charAt(openingIndex) == '{') {
+                closingBracket = '}';
+            } else {
+                closingBracket = ']';
+            }
+
+            // Find the index of the closing bracket starting from the opening bracket
+            int closingIndex = input.indexOf(closingBracket, openingIndex);
+
+            // Check if a closing bracket exists
+            if (closingIndex != -1) {
+                // Remove the brackets and the value from the input string
+                String result = input.substring(0, openingIndex) + input.substring(closingIndex + 1);
+
+                // Return the result
+                return result;
+            }
+        }
+
+        // If no brackets are found, return the original input string
+        return input;
+    }
+
+    public static String transformString(String original, String insert) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("(").append(original).append(")[").append(insert).append("]");
+        return sb.toString();
     }
 }

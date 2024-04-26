@@ -66,7 +66,7 @@ public class GenerateStep {
                             step = step.replace("<information>", entry.getValue());
                         }
                         case "AIN" -> {
-                            step = step.replace("<element>", entry.getValue().trim().replace(" .", "").replace(" ?", "").replace(" ", "_"));
+                            step = step.replace("<element>", StringUtils.capitalize(entry.getValue().trim().replace(" .", "").replace(" ?", "").replace(" ", "_")));
                         }
                         default -> step = step.replace("<information>", "element");
                     }
@@ -101,7 +101,7 @@ public class GenerateStep {
 //                            step = step.replace("<information>", entry.getValue());
                             }
                             case "AIN" -> {
-                                step = step.replace("<element>", tokenMap.get("AIN").trim().replace(" ", "_"));
+                                step = step.replace("<element>", StringUtils.capitalize(tokenMap.get("AIN").trim().replace(" ", "_")));
                                 break;
                             }
                             case "DATA" -> {
@@ -128,7 +128,7 @@ public class GenerateStep {
 //                            step = step.replace("<information>", entry.getValue());
                             }
                             case "AIN" -> {
-                                step = step.replace("<element>", entry.getValue().trim().replace(" .", "").replace(" ?", "").replace(" ", "_"));
+                                step = step.replace("<element>", StringUtils.capitalize(entry.getValue().trim().replace(" .", "").replace(" ?", "").replace(" ", "_")));
                             }
                             case "SA" -> {
                                 step = step.replace("<subaction>", tokenMap.get("SA"));

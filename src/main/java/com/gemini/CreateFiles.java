@@ -64,8 +64,17 @@ public class CreateFiles {
                     for (HashMap<String, String> locators : entry.getValue()
                     ) {
                         for (Map.Entry<String, String> locator : locators.entrySet()) {
-                            if(locatorsMap.get(locator.getKey().replace(".", "").replace("?", "")) == null)
-                            Utils.setStepDefinitionVariable(c, locator.getValue(), locator.getKey());
+                            int i=1;
+                                if(locatorsMap.get(locator.getKey().replace(".", "").replace("?", "")) == null) {
+                                    Utils.setStepDefinitionVariable(c, locator.getValue().replace(": (", "(\""), locator.getKey());
+                                } else {
+                                    if (!locatorsMap.get(locator.getKey().replace(".", "").replace("?", "")).equals(locator.getValue().replace(": (", "(\"").replace(": ", "(\""))){
+                                        while(locatorsMap.get(locator.getKey().replace("-", i+"-").replace(".", "").replace("?", "")) != null){
+                                            ++i;
+                                        }
+                                        Utils.setStepDefinitionVariable(c, locator.getValue().replace(": (", "(\""), locator.getKey().replace("-", i+"-"));
+                                    }
+                                }
                         }
                     }
 
@@ -83,7 +92,7 @@ public class CreateFiles {
                     for (HashMap<String, String> locators : entry.getValue()
                     ) {
                         for (Map.Entry<String, String> locator : locators.entrySet())
-                            Utils.setStepDefinitionVariable(c, locator.getValue(), locator.getKey());
+                            Utils.setStepDefinitionVariable(c, locator.getValue().replace(": (", "(\""), locator.getKey());
                     }
                     new Utils().savePageObjectsOnFileSystem("com" + File.separator + "gemini" +
                                     File.separator + "locator" +
@@ -99,7 +108,7 @@ public class CreateFiles {
                 for (HashMap<String, String> locators : entry.getValue()
                 ) {
                     for (Map.Entry<String, String> locator : locators.entrySet())
-                        Utils.setStepDefinitionVariable(c, locator.getValue(), locator.getKey());
+                        Utils.setStepDefinitionVariable(c, locator.getValue().replace(": (", "(\""), locator.getKey());
                 }
                 new Utils().savePageObjectsOnFileSystem("com" + File.separator + "gemini" +
                                 File.separator + "locator" +

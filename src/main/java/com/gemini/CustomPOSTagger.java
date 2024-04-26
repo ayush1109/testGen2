@@ -6,7 +6,9 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
+import java.util.regex.*;
 
 import com.gemini.gpog.pageobjectgenerator.CodeGeneratorRunner;
 import org.apache.commons.io.FileUtils;
@@ -69,6 +71,12 @@ public class CustomPOSTagger {
                     ) {
                         boolean isComposite = false;
                         String keyword = sampleString.split("----")[1];
+                        String xpathValue = null;
+
+                        String regex = "\\[(\\w+)\\]|\\((\\d+)\\)";
+
+                        Pattern pattern = Pattern.compile(regex);
+                        Matcher matcher = pattern.matcher(sampleString);
 
                         if (StringUtils.containsIgnoreCase(sampleString, "\"")) {
                             isComposite = true;
@@ -191,6 +199,11 @@ public class CustomPOSTagger {
                                         }
                                     });
                         } else {
+
+                            if(matcher.find()) {
+                                xpathValue = Utils.fetchValueInBrackets(sampleString);
+                                sampleString = Utils.removeBrackets(sampleString);
+                            }
 //                    if (customFailed) {
                             if ((sampleString.contains("verifies") || sampleString.contains("verify") || sampleString.contains("should")) && (keyword.equals("Then"))) {
                                 modelFile = "custom-pos-model-temp-verify.bin";
@@ -269,13 +282,20 @@ public class CustomPOSTagger {
                                         inputData = tokenToKeys.get("DATA");
                                     } catch (NullPointerException ignored) {
                                     }
-                                SeleniumActions.performAction(tokenToKeys.get("AIN").trim().replace(" .", ".").replace(" ?", "?"), action, inputData, testcase.getScenarioName());
+                                if(xpathValue == null)
+                                SeleniumActions.performAction(tokenToKeys.get("AIN").trim().replace(" .", ".").replace(" ?", "?"), action, inputData, testcase.getScenarioName(), null);
+                                else
+                                    SeleniumActions.performAction(tokenToKeys.get("AIN").trim().replace(" .", ".").replace(" ?", "?"), action, inputData, testcase.getScenarioName(), xpathValue);
+
                             } else {
                                 try {
                                     inputData = tokenToKeys.get("DATA");
                                 } catch (NullPointerException ignored) {
                                 }
-                                SeleniumActions.performAction(tokenToKeys.get("AIN").trim().replace(" .", ".").replace(" ?", "?"), "verify", inputData, testcase.getScenarioName());
+                                if(xpathValue == null)
+                                    SeleniumActions.performAction(tokenToKeys.get("AIN").trim().replace(" .", ".").replace(" ?", "?"), "verify", inputData, testcase.getScenarioName(), null);
+                                else
+                                    SeleniumActions.performAction(tokenToKeys.get("AIN").trim().replace(" .", ".").replace(" ?", "?"), "verify", inputData, testcase.getScenarioName(), xpathValue);
                             }
                         }
 
@@ -287,11 +307,8 @@ public class CustomPOSTagger {
                     CreateFiles.createLocatorFile();
                 }
             }
-
-            System.out.println(LocatorPOJO.getFeatures());
             CreateFiles.createFailedList();
-            CodeGeneratorRunner.run();
-            System.exit(0);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -299,6 +316,9 @@ public class CustomPOSTagger {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            CodeGeneratorRunner.run();
+            System.exit(0);
         }
     }
 }

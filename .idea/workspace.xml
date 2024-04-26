@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="12e40e70-96e7-4447-adc5-4141aec13993" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIS Scenarios.feature" beforeDir="false" afterPath="$PROJECT_DIR$/MIS Scenarios.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/CreateFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/CreateFiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/CustomPOSTagger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/CustomPOSTagger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/GenerateStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/GenerateStep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/SeleniumActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/SeleniumActions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/gpog/RequiredDirectories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/gpog/RequiredDirectories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/gpog/pageobjectgenerator/stepdefinitiongenerator/UtilsStepDefinitionCodeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/gpog/pageobjectgenerator/stepdefinitiongenerator/UtilsStepDefinitionCodeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/implementation/Account_loginImplementation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/implementation/Dashboard_indexImplementation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/implementation/Feedback_submitfeedbackImplementation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/implementation/Leavemanagement_reviewrequestImplementation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/implementation/Lnsa_applyImplementation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/implementation/Policy_viewpolicyImplementation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/implementation/Timesheet_configuretimesheetImplementation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/implementation/UtilsImplementation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/locator/Account_login.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/locator/Dashboard_index.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/locator/Directory_employeedirectory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/locator/Feedback_submitfeedback.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/locator/Leavemanagement_reviewrequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/locator/Lnsa_apply.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/locator/Organization_organizationstructure.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/locator/Policy_viewpolicy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/locator/Timesheet_configuretimesheet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/locator/Timesheet_createtimesheet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/locator/Timesheet_managetasktemplates.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/stepdefinition/Account_loginStepDefinition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/stepdefinition/Dashboard_indexStepDefinition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/stepdefinition/Feedback_submitfeedbackStepDefinition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/stepdefinition/Leavemanagement_reviewrequestStepDefinition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/stepdefinition/Lnsa_applyStepDefinition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/stepdefinition/Login_CompositeStepDefs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/stepdefinition/Policy_viewpolicyStepDefinition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/stepdefinition/Timesheet_configuretimesheetStepDefinition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/stepdefinition/UtilsStepDefinition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2fdK7ZZGsy0tXFVnYKcDwW59zXi" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/ayush.garg/Downloads/Demo3/Demo"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ayush.garg\Downloads\Demo 3\Demo\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="CustomPOSTagger" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.gemini.CustomPOSTagger" />
+      <module name="Demo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gemini.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CustomPOSTagger" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="12e40e70-96e7-4447-adc5-4141aec13993" name="Changes" comment="" />
+      <created>1714125348507</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714125348507</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:io.cucumber:cucumber-java" />
+    <option featureType="dependencySupport" implementationName="java:com.google.protobuf:protobuf-java" />
+    <option featureType="dependencySupport" implementationName="java:org.seleniumhq.selenium:selenium-java" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/gemini/CreateFiles.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

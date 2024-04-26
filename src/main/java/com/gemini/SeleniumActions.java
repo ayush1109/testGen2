@@ -65,22 +65,32 @@ public class SeleniumActions extends PageObject {
         return healer.findNewLocations(element, objectList, destination, driver, action);
     }
 
-    public static void performAction(String elementName, String action, String data, String scenarioName) {
+    public static void performAction(String elementName, String action, String data, String scenarioName, String xpathValue) {
         try {
             ArrayList<HashMap<String, String>> scenarioUpdatedLocators = new ArrayList<>();
             HashMap<String, String> locatorMap = new HashMap<>();
             String previousUrl = getFeatureNameFromUrl();
 
-            By xpath = findXpath(driver, elementName, action);
+            By xpath;
 
-            for (int i = 1; i < 5; i++) {
-                if(xpath == null) {
-                    Thread.sleep(5000);
-                    xpath = findXpath(driver, elementName, action);
-                } else {
-                    break;
+            if(xpathValue == null) {
+
+                xpath = findXpath(driver, elementName, action);
+
+                for (int i = 1; i < 5; i++) {
+                    if (xpath == null) {
+                        Thread.sleep(5000);
+                        xpath = findXpath(driver, elementName, action);
+                    } else {
+                        break;
+                    }
                 }
             }
+
+            else {
+                xpath = By.xpath(xpathValue);
+            }
+
 
             if(Utils.readProperties("userInterventionNeeded").equalsIgnoreCase("true"))
              if(xpath == null) {
